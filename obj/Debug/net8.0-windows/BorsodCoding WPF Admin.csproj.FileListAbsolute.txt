@@ -1,0 +1,21 @@
+D:\Munka\Iskola\C#\Hazi_feladatok\BorsodCoding WPF Admin\bin\Debug\net8.0-windows\BorsodCoding WPF Admin.exe
+D:\Munka\Iskola\C#\Hazi_feladatok\BorsodCoding WPF Admin\bin\Debug\net8.0-windows\BorsodCoding WPF Admin.deps.json
+D:\Munka\Iskola\C#\Hazi_feladatok\BorsodCoding WPF Admin\bin\Debug\net8.0-windows\BorsodCoding WPF Admin.runtimeconfig.json
+D:\Munka\Iskola\C#\Hazi_feladatok\BorsodCoding WPF Admin\bin\Debug\net8.0-windows\BorsodCoding WPF Admin.dll
+D:\Munka\Iskola\C#\Hazi_feladatok\BorsodCoding WPF Admin\bin\Debug\net8.0-windows\BorsodCoding WPF Admin.pdb
+D:\Munka\Iskola\C#\Hazi_feladatok\BorsodCoding WPF Admin\obj\Debug\net8.0-windows\MainWindow.g.cs
+D:\Munka\Iskola\C#\Hazi_feladatok\BorsodCoding WPF Admin\obj\Debug\net8.0-windows\App.g.cs
+D:\Munka\Iskola\C#\Hazi_feladatok\BorsodCoding WPF Admin\obj\Debug\net8.0-windows\BorsodCoding WPF Admin_MarkupCompile.cache
+D:\Munka\Iskola\C#\Hazi_feladatok\BorsodCoding WPF Admin\obj\Debug\net8.0-windows\BorsodCoding WPF Admin_MarkupCompile.lref
+D:\Munka\Iskola\C#\Hazi_feladatok\BorsodCoding WPF Admin\obj\Debug\net8.0-windows\MainWindow.baml
+D:\Munka\Iskola\C#\Hazi_feladatok\BorsodCoding WPF Admin\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.g.resources
+D:\Munka\Iskola\C#\Hazi_feladatok\BorsodCoding WPF Admin\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.GeneratedMSBuildEditorConfig.editorconfig
+D:\Munka\Iskola\C#\Hazi_feladatok\BorsodCoding WPF Admin\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.AssemblyInfoInputs.cache
+D:\Munka\Iskola\C#\Hazi_feladatok\BorsodCoding WPF Admin\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.AssemblyInfo.cs
+D:\Munka\Iskola\C#\Hazi_feladatok\BorsodCoding WPF Admin\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.csproj.CoreCompileInputs.cache
+D:\Munka\Iskola\C#\Hazi_feladatok\BorsodCoding WPF Admin\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.sourcelink.json
+D:\Munka\Iskola\C#\Hazi_feladatok\BorsodCoding WPF Admin\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.dll
+D:\Munka\Iskola\C#\Hazi_feladatok\BorsodCoding WPF Admin\obj\Debug\net8.0-windows\refint\BorsodCoding WPF Admin.dll
+D:\Munka\Iskola\C#\Hazi_feladatok\BorsodCoding WPF Admin\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.pdb
+D:\Munka\Iskola\C#\Hazi_feladatok\BorsodCoding WPF Admin\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.genruntimeconfig.cache
+D:\Munka\Iskola\C#\Hazi_feladatok\BorsodCoding WPF Admin\obj\Debug\net8.0-windows\ref\BorsodCoding WPF Admin.dll
