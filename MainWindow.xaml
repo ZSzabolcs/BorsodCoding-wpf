@@ -7,8 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <TextBox x:Name="UserName" HorizontalAlignment="Center" Margin="0,163,0,0"  Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="Password" HorizontalAlignment="Center" Margin="0,217,0,0" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="UserName" HorizontalAlignment="Center" Margin="0,199,0,0"  Text="Username" VerticalAlignment="Top" Width="120" Height="20"/>
+        <TextBox x:Name="Password" HorizontalAlignment="Center" Margin="0,238,0,0" Text="Password" VerticalAlignment="Top" Width="120" Height="20"/>
+        <TextBox x:Name="Address" HorizontalAlignment="Center" Margin="0,159,0,0" TextWrapping="Wrap" Text="Address" VerticalAlignment="Top" Width="120" Height="20"/>
+        <Label Content="Borsod Coding Admin App" HorizontalAlignment="Center" Margin="0,27,0,0" VerticalAlignment="Top" Width="643" FontSize="48" FontWeight="Bold" HorizontalContentAlignment="Center"/>
 
     </Grid>
 </Window>
