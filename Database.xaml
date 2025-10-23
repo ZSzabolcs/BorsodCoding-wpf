@@ -7,7 +7,10 @@
         mc:Ignorable="d"
         Title="Database" Height="450" Width="800">
     <Grid>
-        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,50,647,0"/>
+        <ListBox x:Name="tablak" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,37,647,0"/>
+        <Label Content="Táblák" HorizontalAlignment="Left" Margin="0,3,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="153,0,153,0"/>
+        <Label Content="Végzések" HorizontalAlignment="Left" Margin="685,13,0,0" VerticalAlignment="Top" FontSize="18"/>
 
     </Grid>
 </Window>

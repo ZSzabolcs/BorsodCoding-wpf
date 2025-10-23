@@ -22,6 +22,8 @@ namespace BorsodCoding_WPF_Admin
         public Database()
         {
             InitializeComponent();
+            tablak.ItemsSource = new string[] { "user", "save" };
+
         }
     }
 }
