@@ -5,12 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BorsodCoding_WPF_Admin"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Borsod Coding Admin App" Height="450" Width="800">
     <Grid>
-        <TextBox x:Name="UserName" HorizontalAlignment="Center" Margin="0,199,0,0"  Text="Username" VerticalAlignment="Top" Width="120" Height="20"/>
-        <TextBox x:Name="Password" HorizontalAlignment="Center" Margin="0,238,0,0" Text="Password" VerticalAlignment="Top" Width="120" Height="20"/>
-        <TextBox x:Name="Address" HorizontalAlignment="Center" Margin="0,159,0,0" TextWrapping="Wrap" Text="Address" VerticalAlignment="Top" Width="120" Height="20"/>
+        <TextBox x:Name="Address" HorizontalAlignment="Left" Margin="430,139,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Height="25"/>
+        <TextBox x:Name="UserName" HorizontalAlignment="Left" Margin="430,192,0,0"  VerticalAlignment="Top" Width="120" Height="25"/>
+        <PasswordBox x:Name="Password" HorizontalAlignment="Left" Margin="430,243,0,0" VerticalAlignment="Top" Width="120" Height="25"/>
+
         <Label Content="Borsod Coding Admin App" HorizontalAlignment="Center" Margin="0,27,0,0" VerticalAlignment="Top" Width="643" FontSize="48" FontWeight="Bold" HorizontalContentAlignment="Center"/>
+        <Button Content="Bejelentkezés" HorizontalAlignment="Center" Margin="0,355,0,0" VerticalAlignment="Top" Width="120" FontSize="18" Height="33"/>
+        <Label Content="Server name:" HorizontalAlignment="Left" Margin="313,135,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Label Content="User name:" HorizontalAlignment="Left" Margin="326,188,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Label Content="Password:" HorizontalAlignment="Left" Margin="337,239,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Label Content="Database name:" HorizontalAlignment="Left" Margin="288,290,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <TextBox x:Name="UserName_Copy" HorizontalAlignment="Left" Margin="430,294,0,0"  VerticalAlignment="Top" Width="120" Height="25"/>
 
     </Grid>
 </Window>
