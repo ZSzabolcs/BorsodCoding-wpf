@@ -8,6 +8,11 @@ namespace BorsodCoding_WPF_Admin
 {
     class UserTabla : Tabla
     {
+        public UserTabla()
+        {
+            tablaNev = "user";
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string Password { get; set; }

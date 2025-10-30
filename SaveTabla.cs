@@ -8,6 +8,11 @@ namespace BorsodCoding_WPF_Admin
 {
     class SaveTabla : Tabla
     {
+        public SaveTabla()
+        {
+            tablaNev = "save";
+        }
+
         public int Id { get; set; }
         public int Points { get; set; }
         public int Level { get; set; }
