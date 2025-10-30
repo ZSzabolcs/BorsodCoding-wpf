@@ -19,10 +19,38 @@ namespace BorsodCoding_WPF_Admin
     /// </summary>
     public partial class Database : Window
     {
+        Dictionary<string, Tabla> tablaKollekcio = new Dictionary<string, Tabla>();
+        string kivalasztottTabla = "";
         public Database()
         {
             InitializeComponent();
+            tablaKollekcio.Add("user", new UserTabla());
+            tablaKollekcio.Add("save", new SaveTabla());
             tablak.ItemsSource = new string[] { "user", "save" };
+
+        }
+
+        private void tablak_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            kivalasztottTabla = tablak.SelectedValue.ToString();
+            LoadData();
+            
+        }
+
+        private async void LoadData()
+        {
+            if (tablaKollekcio[kivalasztottTabla] is UserTabla)
+            {
+                var adatok = await (tablaKollekcio[kivalasztottTabla] as UserTabla).GetDataFromApi();
+                tabla.ItemsSource = adatok;
+            }
+            else
+            {
+                var adatok = await (tablaKollekcio[kivalasztottTabla] as SaveTabla).GetDataFromApi();
+                tabla.ItemsSource = adatok;
+            }
+
+
 
         }
     }

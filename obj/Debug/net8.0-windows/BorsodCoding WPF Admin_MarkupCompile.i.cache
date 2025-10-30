@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-D:\Munka\Iskola\vegso_projekt\wpf-admin\obj\Debug\net8.0-windows\
+D:\Munka\Iskola\vegso_projekt\wpf\obj\Debug\net8.0-windows\
 BorsodCoding_WPF_Admin
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
-D:\Munka\Iskola\vegso_projekt\wpf-admin\App.xaml
+D:\Munka\Iskola\vegso_projekt\wpf\App.xaml
 2929987154
 
-101258553550
-198-192518753
+12381618577
+198-1127337667
 Database.xaml;MainWindow.xaml;
 
 False
