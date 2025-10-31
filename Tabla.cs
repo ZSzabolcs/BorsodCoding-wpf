@@ -14,7 +14,6 @@ namespace BorsodCoding_WPF_Admin
         
         }
 
-        public abstract void GetAllData();
 
         public abstract void DeleteAData();
 

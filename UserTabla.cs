@@ -13,14 +13,10 @@ namespace BorsodCoding_WPF_Admin
     {
         public UserTabla()
         {
-
+            tablaNev = "user";
         }
 
 
-        public override void GetAllData()
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task<List<UserMezoi>> GetDataFromApi()
         {

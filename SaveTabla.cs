@@ -12,14 +12,10 @@ namespace BorsodCoding_WPF_Admin
     {
         public SaveTabla()
         {
+            tablaNev = "save";
         }
 
 
-
-        public override void GetAllData()
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task<List<SaveMezoi>> GetDataFromApi()
         {
