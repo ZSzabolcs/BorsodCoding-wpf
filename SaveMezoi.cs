@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BorsodCoding_WPF_Admin
 {
-    internal class SaveMezoi
+    internal class SaveMezoi : Mezo
     {
         public SaveMezoi() { }
         public int Points { get; set; }

@@ -47,17 +47,30 @@ namespace BorsodCoding_WPF_Admin
         {
             ConnectToDatabase.connection.Open();
             var data = new MySqlCommand($"SELECT * FROM {kivalasztottTabla}", ConnectToDatabase.connection).ExecuteReader();
-            if (kivalasztottTabla == "user")
+            if (kivalasztottTabla == "save")
             {
-                List<UserMezoi> userTabla = (tablaKollekcio[kivalasztottTabla] as UserTabla).GetDataBySQL(data);
-                tabla.ItemsSource = userTabla;
+                List<SaveMezoi> save = tablaKollekcio[kivalasztottTabla].GetDataBySQLSelect<SaveMezoi>(data);
+                tabla.ItemsSource = save;
             }
-            else if (kivalasztottTabla == "save")
+            else if (kivalasztottTabla == "user")
             {
-                List<SaveMezoi> saveTabla = (tablaKollekcio[kivalasztottTabla] as SaveTabla).GetDataBySQL(data);
-                tabla.ItemsSource = saveTabla;
+                List<UserMezoi> user = tablaKollekcio[kivalasztottTabla].GetDataBySQLSelect<UserMezoi>(data);
+                tabla.ItemsSource = user;
             }
-            ConnectToDatabase.connection.Close();
+
+                /*
+                if (kivalasztottTabla == "user")
+                {
+                    List<UserMezoi> userTabla = (tablaKollekcio[kivalasztottTabla] as UserTabla).GetDataBySQL(data);
+                    tabla.ItemsSource = userTabla;
+                }
+                else if (kivalasztottTabla == "save")
+                {
+                    List<SaveMezoi> saveTabla = (tablaKollekcio[kivalasztottTabla] as SaveTabla).GetDataBySQL(data);
+                    tabla.ItemsSource = saveTabla;
+                }
+                */
+                ConnectToDatabase.connection.Close();
         }
 
         private async void LoadDataByGET()

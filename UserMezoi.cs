@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BorsodCoding_WPF_Admin
 {
-    internal class UserMezoi
+    internal class UserMezoi : Mezo
     {
         public UserMezoi() { }
         public int Id { get; set; }
