@@ -28,10 +28,9 @@ namespace BorsodCoding_WPF_Admin
 
             if (UserName.Text == "root" && Address.Text == "localhost" && GetPassword(Passw) == "" && DatabaseName.Text == "for_the_potatoe")
             {
-                Database database = new Database();
-
-                database.Show();
-
+                Database databaseWindow = new Database();
+                ConnectToDatabase d = new ConnectToDatabase(Address.Text, UserName.Text, "", DatabaseName.Text);
+                databaseWindow.Show();
                 this.Close();
 
             }

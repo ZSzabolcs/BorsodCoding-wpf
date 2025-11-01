@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -16,7 +17,21 @@ namespace BorsodCoding_WPF_Admin
             tablaNev = "user";
         }
 
-
+        public List<UserMezoi> GetDataBySQL(MySqlDataReader data)
+        {
+            List<UserMezoi> userAdatok = new List<UserMezoi>();
+            while (data.Read())
+            {
+                userAdatok.Add(new UserMezoi
+                {
+                    Id = data.GetInt32("Id"),
+                    Name = data.GetString("Name"),
+                    Password = data.GetString("Password"),
+                    Date = data.GetDateTime("Date")
+                });
+            }
+            return userAdatok;
+        }
 
         public async Task<List<UserMezoi>> GetDataFromApi()
         {

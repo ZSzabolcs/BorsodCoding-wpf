@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,20 +25,42 @@ namespace BorsodCoding_WPF_Admin
         public Database()
         {
             InitializeComponent();
-            tablaKollekcio.Add("user", new UserTabla());
-            tablaKollekcio.Add("save", new SaveTabla());
-            tablak.ItemsSource = new string[] { "user", "save" };
+            tablaKollekcio.Add(new UserTabla().tablaNev, new UserTabla());
+            tablaKollekcio.Add(new SaveTabla().tablaNev, new SaveTabla());
+            tablak.ItemsSource = new string[] { new UserTabla().tablaNev, new SaveTabla().tablaNev };
 
         }
 
         private void tablak_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             kivalasztottTabla = tablak.SelectedValue.ToString();
-            LoadData();
+            LoadDataBySQLSelect();
+            //LoadDataByGET();
             
         }
 
-        private async void LoadData()
+       
+        
+
+
+        private void LoadDataBySQLSelect()
+        {
+            ConnectToDatabase.connection.Open();
+            var data = new MySqlCommand($"SELECT * FROM {kivalasztottTabla}", ConnectToDatabase.connection).ExecuteReader();
+            if (kivalasztottTabla == "user")
+            {
+                List<UserMezoi> userTabla = (tablaKollekcio[kivalasztottTabla] as UserTabla).GetDataBySQL(data);
+                tabla.ItemsSource = userTabla;
+            }
+            else if (kivalasztottTabla == "save")
+            {
+                List<SaveMezoi> saveTabla = (tablaKollekcio[kivalasztottTabla] as SaveTabla).GetDataBySQL(data);
+                tabla.ItemsSource = saveTabla;
+            }
+            ConnectToDatabase.connection.Close();
+        }
+
+        private async void LoadDataByGET()
         {
             if (tablaKollekcio[kivalasztottTabla] is UserTabla)
             {

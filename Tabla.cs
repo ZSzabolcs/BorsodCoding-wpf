@@ -9,11 +9,7 @@ namespace BorsodCoding_WPF_Admin
     abstract class Tabla
     {
         public string tablaNev = "";
-        protected Tabla() 
-        {
-        
-        }
-
+        protected Tabla() { }
 
         public abstract void DeleteAData();
 

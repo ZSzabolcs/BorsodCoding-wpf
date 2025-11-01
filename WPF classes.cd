@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BorsodCoding_WPF_Admin.SaveMezoi" Collapsed="true">
+    <Position X="12" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAgAAAAAAAAAgAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>SaveMezoi.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BorsodCoding_WPF_Admin.SaveTabla">
+    <Position X="4.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAEAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAEAAAAA=</HashCode>
+      <FileName>SaveTabla.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BorsodCoding_WPF_Admin.Tabla">
+    <Position X="2.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAEAAgAA=</HashCode>
+      <FileName>Tabla.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BorsodCoding_WPF_Admin.UserMezoi" Collapsed="true">
+    <Position X="14.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAADAAAAAAAAAAA=</HashCode>
+      <FileName>UserMezoi.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BorsodCoding_WPF_Admin.UserTabla">
+    <Position X="0.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAEAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAEAAAAA=</HashCode>
+      <FileName>UserTabla.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
