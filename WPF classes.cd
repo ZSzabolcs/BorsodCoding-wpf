@@ -10,14 +10,14 @@
   <Class Name="BorsodCoding_WPF_Admin.SaveTabla">
     <Position X="4.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gAEAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAEAAAAA=</HashCode>
+      <HashCode>gAEAAAAQAAAAAAQAAAAAAAAAAAAAAAABAAAAAEAAAAA=</HashCode>
       <FileName>SaveTabla.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BorsodCoding_WPF_Admin.Tabla">
     <Position X="2.75" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAEAAgAA=</HashCode>
+      <HashCode>gAEAAAAQAAQAAAAAAAAAAAAAAAAAAAABAAAAAEAAgAA=</HashCode>
       <FileName>Tabla.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -31,8 +31,15 @@
   <Class Name="BorsodCoding_WPF_Admin.UserTabla">
     <Position X="0.75" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gAEAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAEAAAAA=</HashCode>
+      <HashCode>gAEAAAAQAAAAAAQAAAAAAAAAAAAAAAABAAAAAEAAAAA=</HashCode>
       <FileName>UserTabla.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BorsodCoding_WPF_Admin.Mezo" Collapsed="true">
+    <Position X="13.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Mezo.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
