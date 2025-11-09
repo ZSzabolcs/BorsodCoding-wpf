@@ -12,6 +12,7 @@ namespace BorsodCoding_WPF_Admin
 {
     class UserTabla : Tabla
     {
+        public readonly string apiUrl = "http://localhost:5233/api/UserRegistData";
         public UserTabla()
         {
             tablaNev = "user";
@@ -32,10 +33,10 @@ namespace BorsodCoding_WPF_Admin
             }
             return userAdatok;
         }
-
-        public async Task<List<UserMezoi>> GetDataFromApi()
+        /*
+        public static async Task<List<UserMezoi>> GetDataFromApi()
         {
-            const string apiUrl = "http://localhost:5233/api/UserRegistData";
+            
             using (HttpClient client = new HttpClient())
             {
                 try
@@ -59,7 +60,13 @@ namespace BorsodCoding_WPF_Admin
                 }
             }
         }
-
+        */
+        
+        public override Task<List<T>> GetDataFromApi<T>(string apiUrl)
+        {
+            return base.GetDataFromApi<T>(this.apiUrl);
+        }
+        
 
         public override void InsertAData()
         {

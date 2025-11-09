@@ -11,6 +11,7 @@ namespace BorsodCoding_WPF_Admin
 {
     class SaveTabla : Tabla
     {
+        public readonly string apiUrl = "http://localhost:5233/api/UserSaveData";
         public SaveTabla()
         {
             tablaNev = "save";
@@ -33,11 +34,16 @@ namespace BorsodCoding_WPF_Admin
             }
             return saveAdatok;
         }
-
-
+        
+        public override Task<List<T>> GetDataFromApi<T>(string apiUrl)
+        {
+            return base.GetDataFromApi<T>(this.apiUrl);
+        }
+        
+        /*
         public async Task<List<SaveMezoi>> GetDataFromApi()
         {
-            const string apiUrl = "http://localhost:5233/api/UserSaveData";
+            
             using (HttpClient client = new HttpClient())
             {
                 try
@@ -61,7 +67,7 @@ namespace BorsodCoding_WPF_Admin
                 }
             }
         }
-
+        */
         public override void InsertAData()
         {
             throw new NotImplementedException();
