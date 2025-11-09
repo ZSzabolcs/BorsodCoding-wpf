@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -34,8 +36,8 @@ namespace BorsodCoding_WPF_Admin
         private void tablak_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             kivalasztottTabla = tablak.SelectedValue.ToString();
-            LoadDataBySQLSelect();
-            //LoadDataByGET();
+            //LoadDataBySQLSelect();
+            LoadDataByGET();
             
         }
 
@@ -75,19 +77,39 @@ namespace BorsodCoding_WPF_Admin
 
         private async void LoadDataByGET()
         {
-            if (tablaKollekcio[kivalasztottTabla] is UserTabla)
+            if (kivalasztottTabla == "user")
             {
-                var adatok = await (tablaKollekcio[kivalasztottTabla] as UserTabla).GetDataFromApi();
+                var adatok = await BeginLoadAsync<UserMezoi>(tablaKollekcio[kivalasztottTabla]);
                 tabla.ItemsSource = adatok;
             }
             else
             {
-                var adatok = await (tablaKollekcio[kivalasztottTabla] as SaveTabla).GetDataFromApi();
+                var adatok = await BeginLoadAsync<SaveMezoi>(tablaKollekcio[kivalasztottTabla]);
                 tabla.ItemsSource = adatok;
             }
 
 
 
         }
+
+        private async Task<List<T>> BeginLoadAsync<T>(Tabla kivalasztottTabla) where T : Mezo, new()
+        {
+            T osztaly = new T();
+            if (osztaly is UserMezoi)
+            {
+                var data = await kivalasztottTabla.GetDataFromApi<T>(kivalasztottTabla.apiUrl);
+                return data;
+            }
+            else if (osztaly is SaveMezoi)
+            {
+                var data = await kivalasztottTabla.GetDataFromApi<T>(kivalasztottTabla.apiUrl);
+                return data;
+            }
+
+            return new List<T>();
+
+        }
+
+       
     }
 }
