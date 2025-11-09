@@ -2,13 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace BorsodCoding_WPF_Admin
 {
     abstract class Tabla
     {
+        public readonly string apiUrl = "";
         public string tablaNev = "";
         protected Tabla() { }
 
@@ -44,12 +47,54 @@ namespace BorsodCoding_WPF_Admin
                 }
             }
                 
-
-
-            
-
             return rekordok;
         }
+        /*
+        public async Task<List<T>> BeginLoadAsync<T>() where T : Mezo, new()
+        {
+            T osztaly = new T();
+            if (osztaly is UserMezoi)
+            {
+                var data = await GetDataFromApi<T>(new UserTabla().apiUrl);
+                return data;
+            }
+            else if (osztaly is SaveMezoi) 
+            {
+                var data = await GetDataFromApi<T>(new SaveTabla().apiUrl);
+                return data;
+            }
+
+            return new List<T>();
+
+        }
+        */
+
+        public virtual async Task<List<T>> GetDataFromApi<T>(string apiUrl) where T : Mezo, new()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    // GET kérés küldése
+                    HttpResponseMessage response = await client.GetAsync(apiUrl);
+                    response.EnsureSuccessStatusCode(); // Hiba esetén kivételt dob
+
+                    string responseBody = await response.Content.ReadAsStringAsync();
+
+                    // JSON válasz deserializálása List<AdatElem> típusú listává
+                    List<T> data = JsonSerializer.Deserialize<List<T>>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                    return data;
+                }
+                catch (HttpRequestException e)
+                {
+                    // Hiba kezelése (pl. hálózati probléma, 404 stb.)
+                    System.Diagnostics.Debug.WriteLine($"Kérés hiba: {e.Message}");
+                    return new List<T>(); // Üres lista visszaadása hiba esetén
+                }
+            }
+        }
+        
 
         public abstract void DeleteAData();
 
