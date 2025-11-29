@@ -37,22 +37,20 @@ namespace BorsodCoding_WPF_Admin
                 tablaNevek[i] = tabla.ToString();
                 i++;
             }
+            kivalasztottTabla = tablaNevek[0];
+            LoadDataByGET();
 
         }
 
         private void tablak_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            kivalasztottTabla = tablak.SelectedValue.ToString();
-            //LoadDataBySQLSelect();
-            LoadDataByGET();
-            
+            if (tablak.SelectedValue.ToString() != kivalasztottTabla)
+            {
+                kivalasztottTabla = tablak.SelectedValue.ToString();
+                LoadDataByGET();
+            }
+
         }
-
-       
-        
-
-
-       
 
         private async void LoadDataByGET()
         {
@@ -89,6 +87,18 @@ namespace BorsodCoding_WPF_Admin
 
         }
 
-       
+        private void tabla_OszlopBeallitas(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            if (e.PropertyType == typeof(DateTime))
+            {
+                if (e.Column is DataGridTextColumn textColumn)
+                {
+                    var binding = (Binding)textColumn.Binding;
+
+                    binding.StringFormat = "yyyy-MM-dd HH:mm:ss";
+                }
+            }
+        }
+
     }
 }

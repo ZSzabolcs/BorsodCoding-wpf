@@ -14,7 +14,7 @@
         </Grid.ColumnDefinitions>
         <ListBox x:Name="tablak" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,37,0,0" Grid.Column="0" SelectionChanged="tablak_SelectionChanged"/>
         <Label Content="Táblák" HorizontalAlignment="Left" Margin="0,3,0,0" VerticalAlignment="Top" FontSize="18" Height="34" Grid.Column="0" Width="60"/>
-        <DataGrid x:Name="tabla" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="True" Margin="0,0,6,0" Grid.Column="1"/>
+        <DataGrid x:Name="tabla" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="True" Margin="0,0,6,0" Grid.Column="1" AutoGeneratingColumn="tabla_OszlopBeallitas"/>
         <Label Content="Végzések" HorizontalAlignment="Center" Margin="0,13,0,0" VerticalAlignment="Top" FontSize="18" Grid.Column="2" Height="34" Width="84"/>
 
     </Grid>
