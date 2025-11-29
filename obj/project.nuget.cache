@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "613Y1iulc/8=",
+  "dgSpecHash": "BbBMO3OaDGU=",
   "success": true,
-  "projectFilePath": "D:\\Munka\\Iskola\\vegso_projekt\\wpf\\BorsodCoding WPF Admin.csproj",
+  "projectFilePath": "D:\\Munka\\Iskola\\vegso_projekt\\BorsodCoding-wpf\\BorsodCoding WPF Admin.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Krisz\\.nuget\\packages\\bouncycastle.cryptography\\2.6.2\\bouncycastle.cryptography.2.6.2.nupkg.sha512",
     "C:\\Users\\Krisz\\.nuget\\packages\\google.protobuf\\3.32.0\\google.protobuf.3.32.0.nupkg.sha512",

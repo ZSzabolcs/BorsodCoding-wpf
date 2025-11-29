@@ -12,59 +12,16 @@ namespace BorsodCoding_WPF_Admin
 {
     class UserTabla : Tabla
     {
-        public readonly string apiUrl = "http://localhost:5233/api/UserRegistData";
         public UserTabla()
         {
-            tablaNev = "user";
+            TablaNev = "user";
+            ApiURL = "http://localhost:5233/api/User/ToWPF";
         }
 
-        public List<UserMezoi> GetDataBySQL(MySqlDataReader data)
-        {
-            List<UserMezoi> userAdatok = new List<UserMezoi>();
-            while (data.Read())
-            {
-                userAdatok.Add(new UserMezoi
-                {
-                    Id = data.GetInt32("Id"),
-                    Name = data.GetString("Name"),
-                    Password = data.GetString("Password"),
-                    Date = data.GetDateTime("Date")
-                });
-            }
-            return userAdatok;
-        }
-        /*
-        public static async Task<List<UserMezoi>> GetDataFromApi()
-        {
-            
-            using (HttpClient client = new HttpClient())
-            {
-                try
-                {
-                    // GET kérés küldése
-                    HttpResponseMessage response = await client.GetAsync(apiUrl);
-                    response.EnsureSuccessStatusCode(); // Hiba esetén kivételt dob
-
-                    string responseBody = await response.Content.ReadAsStringAsync();
-
-                    // JSON válasz deserializálása List<AdatElem> típusú listává
-                    List<UserMezoi> data = JsonSerializer.Deserialize<List<UserMezoi>>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-
-                    return data;
-                }
-                catch (HttpRequestException e)
-                {
-                    // Hiba kezelése (pl. hálózati probléma, 404 stb.)
-                    System.Diagnostics.Debug.WriteLine($"Kérés hiba: {e.Message}");
-                    return new List<UserMezoi>(); // Üres lista visszaadása hiba esetén
-                }
-            }
-        }
-        */
         
-        public override Task<List<T>> GetDataFromApi<T>(string apiUrl)
+        public override Task<List<T>> GetDataFromApi<T>()
         {
-            return base.GetDataFromApi<T>(this.apiUrl);
+            return base.GetDataFromApi<T>();
         }
         
 

@@ -12,7 +12,8 @@ namespace BorsodCoding_WPF_Admin
         public int Points { get; set; }
         public int Level { get; set; }
         public string Language { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime RegDate { get; set; }
+        public DateTime ModDate { get; set; }
         public int UserId { get; set; }
     }
 }

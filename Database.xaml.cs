@@ -27,9 +27,16 @@ namespace BorsodCoding_WPF_Admin
         public Database()
         {
             InitializeComponent();
-            tablaKollekcio.Add(new UserTabla().tablaNev, new UserTabla());
-            tablaKollekcio.Add(new SaveTabla().tablaNev, new SaveTabla());
-            tablak.ItemsSource = new string[] { new UserTabla().tablaNev, new SaveTabla().tablaNev };
+            tablaKollekcio.Add(new UserTabla().TablaNev, new UserTabla());
+            tablaKollekcio.Add(new SaveTabla().TablaNev, new SaveTabla());
+            string[] tablaNevek = new string[tablaKollekcio.Count];
+            tablak.ItemsSource = tablaNevek;
+            int i = 0;
+            foreach (var tabla in tablaKollekcio.Keys)
+            {
+                tablaNevek[i] = tabla.ToString();
+                i++;
+            }
 
         }
 
@@ -45,35 +52,7 @@ namespace BorsodCoding_WPF_Admin
         
 
 
-        private void LoadDataBySQLSelect()
-        {
-            ConnectToDatabase.connection.Open();
-            var data = new MySqlCommand($"SELECT * FROM {kivalasztottTabla}", ConnectToDatabase.connection).ExecuteReader();
-            if (kivalasztottTabla == "save")
-            {
-                List<SaveMezoi> save = tablaKollekcio[kivalasztottTabla].GetDataBySQLSelect<SaveMezoi>(data);
-                tabla.ItemsSource = save;
-            }
-            else if (kivalasztottTabla == "user")
-            {
-                List<UserMezoi> user = tablaKollekcio[kivalasztottTabla].GetDataBySQLSelect<UserMezoi>(data);
-                tabla.ItemsSource = user;
-            }
-
-                /*
-                if (kivalasztottTabla == "user")
-                {
-                    List<UserMezoi> userTabla = (tablaKollekcio[kivalasztottTabla] as UserTabla).GetDataBySQL(data);
-                    tabla.ItemsSource = userTabla;
-                }
-                else if (kivalasztottTabla == "save")
-                {
-                    List<SaveMezoi> saveTabla = (tablaKollekcio[kivalasztottTabla] as SaveTabla).GetDataBySQL(data);
-                    tabla.ItemsSource = saveTabla;
-                }
-                */
-                ConnectToDatabase.connection.Close();
-        }
+       
 
         private async void LoadDataByGET()
         {
@@ -97,12 +76,12 @@ namespace BorsodCoding_WPF_Admin
             T osztaly = new T();
             if (osztaly is UserMezoi)
             {
-                var data = await kivalasztottTabla.GetDataFromApi<T>(kivalasztottTabla.apiUrl);
+                var data = await kivalasztottTabla.GetDataFromApi<T>();
                 return data;
             }
             else if (osztaly is SaveMezoi)
             {
-                var data = await kivalasztottTabla.GetDataFromApi<T>(kivalasztottTabla.apiUrl);
+                var data = await kivalasztottTabla.GetDataFromApi<T>();
                 return data;
             }
 
