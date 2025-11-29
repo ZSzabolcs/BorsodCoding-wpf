@@ -14,6 +14,6 @@ namespace BorsodCoding_WPF_Admin
         public string Language { get; set; }
         public DateTime RegDate { get; set; }
         public DateTime ModDate { get; set; }
-        public int UserId { get; set; }
+        public Guid Id { get; set; }
     }
 }
