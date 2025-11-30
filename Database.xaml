@@ -8,14 +8,19 @@
         Title="Database" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="0.5*"/>
             <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <ListBox x:Name="tablak" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,37,0,0" Grid.Column="0" SelectionChanged="tablak_SelectionChanged"/>
         <Label Content="Táblák" HorizontalAlignment="Left" Margin="0,3,0,0" VerticalAlignment="Top" FontSize="18" Height="34" Grid.Column="0" Width="60"/>
-        <DataGrid x:Name="tabla" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="True" Margin="0,0,6,0" Grid.Column="1" AutoGeneratingColumn="tabla_OszlopBeallitas"/>
-        <Label Content="Végzések" HorizontalAlignment="Center" Margin="0,13,0,0" VerticalAlignment="Top" FontSize="18" Grid.Column="2" Height="34" Width="84"/>
-
+        <DataGrid x:Name="tabla" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="True" Grid.Column="1" AutoGeneratingColumn="tabla_OszlopBeallitas" SelectionChanged="tabla_SelectionChanged"/>
+        <StackPanel Grid.Column="2">
+            <Label Content="Végzések" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="18" Height="34" Width="84"/>
+            <Button x:Name="rekordTorles" Content="Kiválasztott rekord törlése" Visibility="Collapsed" Click="button_KivalasztottRekordTorlese"></Button>
+            <Button x:Name="rekordModositas" Content="Kiválasztott rekord módosítása" Visibility="Collapsed" Click="button_KivalasztottRekordModositas"/>
+            <Button Content="Egy újabb rekord hozzáadása" Click="button_UjRekord"></Button>
+        </StackPanel>
+        
     </Grid>
 </Window>

@@ -100,5 +100,24 @@ namespace BorsodCoding_WPF_Admin
             }
         }
 
+        private void button_KivalasztottRekordTorlese(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void button_KivalasztottRekordModositas(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void button_UjRekord(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void tabla_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
