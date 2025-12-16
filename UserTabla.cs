@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace BorsodCoding_WPF_Admin
 {
@@ -16,10 +17,11 @@ namespace BorsodCoding_WPF_Admin
         {
             TablaNev = "user";
             ApiURL = "http://localhost:5233/api/User/ToWPF";
+            ObjURL = "http://localhost:5233/api/User/";
         }
 
         
-        public override Task<List<T>> GetDataFromApi<T>()
+        public override Task<ObservableCollection<T>> GetDataFromApi<T>()
         {
             return base.GetDataFromApi<T>();
         }

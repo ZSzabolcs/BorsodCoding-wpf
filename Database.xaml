@@ -16,10 +16,29 @@
         <Label Content="Táblák" HorizontalAlignment="Left" Margin="0,3,0,0" VerticalAlignment="Top" FontSize="18" Height="34" Grid.Column="0" Width="60"/>
         <DataGrid x:Name="tabla" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="True" Grid.Column="1" AutoGeneratingColumn="tabla_OszlopBeallitas" SelectionChanged="tabla_SelectionChanged"/>
         <StackPanel Grid.Column="2">
+
             <Label Content="Végzések" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="18" Height="34" Width="84"/>
-            <Button x:Name="rekordTorles" Content="Kiválasztott rekord törlése" Visibility="Collapsed" Click="button_KivalasztottRekordTorlese"></Button>
-            <Button x:Name="rekordModositas" Content="Kiválasztott rekord módosítása" Visibility="Collapsed" Click="button_KivalasztottRekordModositas"/>
-            <Button Content="Egy újabb rekord hozzáadása" Click="button_UjRekord"></Button>
+            <Label x:Name="lb_first" Content="" HorizontalAlignment="Left"/>
+            <TextBox x:Name="tbx_first"/>
+            <Label x:Name="lb_second" Content="" HorizontalAlignment="Left"/>
+            <TextBox x:Name="tbx_second"/>
+            <Label x:Name="lb_third" Content="" HorizontalAlignment="Left"/>
+            <TextBox x:Name="tbx_third"/>
+            <Label x:Name="lb_fourth" Content="" HorizontalAlignment="Left"/>
+            <TextBox x:Name="tbx_fourth"/>
+            <Label x:Name="lb_fifth" Content="" HorizontalAlignment="Left"/>
+            <TextBox x:Name="tbx_fifth"/>
+            <Button Content="Egy újabb rekord hozzáadása" 
+                    Click="button_UjRekord" 
+                    Margin="0 15 0 0"/>
+            <Button x:Name="rekordModositas"
+                    Content="Kiválasztott rekord módosítása"
+                    Click="button_KivalasztottRekordModositas"
+                    Margin="0 15 0 0"/>
+            <Button x:Name="rekordTorles" 
+                    Content="Kiválasztott rekord törlése"
+                    Click="button_KivalasztottRekordTorlese"
+                    Margin="0 15 0 0"/>
         </StackPanel>
         
     </Grid>

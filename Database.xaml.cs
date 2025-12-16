@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 
 namespace BorsodCoding_WPF_Admin
 {
@@ -38,8 +39,34 @@ namespace BorsodCoding_WPF_Admin
                 i++;
             }
             kivalasztottTabla = tablaNevek[0];
+            TablaNevEllenorzes();
             LoadDataByGET();
 
+        }
+
+        private bool TablaNevEllenorzes()
+        {
+            if (kivalasztottTabla == "user")
+            {
+                lb_first.Content = "Név";
+                lb_second.Content = "Jelszó";
+                lb_third.Content = "E-mail";
+                lb_fourth.Content = "Regisztráció ideje";
+                lb_fifth.Content = "Módosítás ideje";
+                return true;
+
+            }
+            if (kivalasztottTabla == "save")
+            {
+                lb_first.Content = "Pont";
+                lb_second.Content = "Szint";
+                lb_third.Content = "Nyelv";
+                lb_fourth.Content = "Regisztráció ideje";
+                lb_fifth.Content = "Módosítás ideje";
+                return true;
+            }
+
+            return false;
         }
 
         private void tablak_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -47,6 +74,7 @@ namespace BorsodCoding_WPF_Admin
             if (tablak.SelectedValue.ToString() != kivalasztottTabla)
             {
                 kivalasztottTabla = tablak.SelectedValue.ToString();
+                TablaNevEllenorzes();
                 LoadDataByGET();
             }
 
@@ -69,7 +97,7 @@ namespace BorsodCoding_WPF_Admin
 
         }
 
-        private async Task<List<T>> BeginLoadAsync<T>(Tabla kivalasztottTabla) where T : Mezo, new()
+        private async Task<ObservableCollection<T>> BeginLoadAsync<T>(Tabla kivalasztottTabla) where T : Mezo, new()
         {
             T osztaly = new T();
             if (osztaly is UserMezoi)
@@ -83,7 +111,7 @@ namespace BorsodCoding_WPF_Admin
                 return data;
             }
 
-            return new List<T>();
+            return new ObservableCollection<T>();
 
         }
 
@@ -110,8 +138,15 @@ namespace BorsodCoding_WPF_Admin
 
         }
 
-        private void button_UjRekord(object sender, RoutedEventArgs e)
+        private async void button_UjRekord(object sender, RoutedEventArgs e)
         {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Post, "/UserSaveData");
+            var content = new StringContent("{\r\n\"name\" : \"\",\r\n\"points\" : 0,\r\n\"level\" : 0,\r\n\"language\" : \"hu\"\r\n}", null, "application/json");
+            request.Content = content;
+            var response = await client.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+            Console.WriteLine(await response.Content.ReadAsStringAsync());
 
         }
 

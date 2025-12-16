@@ -14,5 +14,6 @@ namespace BorsodCoding_WPF_Admin
         public string Password { get; set; }
         public DateTime RegDate { get; set; }
         public DateTime ModDate { get; set; }
+        public string? Email { get; set; }
     }
 }

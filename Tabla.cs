@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -14,12 +15,14 @@ namespace BorsodCoding_WPF_Admin
     {
         protected string ApiURL { get; set; }
 
+        protected string ObjURL { get; set; }
+
         public string TablaNev { get; protected set; }
         protected Tabla() { }
 
         
 
-        public virtual async Task<List<T>> GetDataFromApi<T>() where T : Mezo, new()
+        public virtual async Task<ObservableCollection<T>> GetDataFromApi<T>() where T : Mezo, new()
         {
             
            try
@@ -32,7 +35,7 @@ namespace BorsodCoding_WPF_Admin
                     string responseBody = await response.Content.ReadAsStringAsync();
 
 
-                    List<T> data = JsonSerializer.Deserialize<List<T>>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    ObservableCollection<T> data = JsonSerializer.Deserialize<ObservableCollection<T>>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
                     return data;
                 }
@@ -40,10 +43,12 @@ namespace BorsodCoding_WPF_Admin
            catch (HttpRequestException e)
            {
                 MessageBox.Show(e.Message);
-                return new List<T>(); 
+                return new ObservableCollection<T>(); 
            }
             
         }
+
+        public virtual void OpenWindowToModifyOrNewObject() { }
         
 
         public abstract void DeleteAData();
