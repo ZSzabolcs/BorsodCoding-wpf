@@ -24,6 +24,7 @@ namespace BorsodCoding_WPF_Admin
     public partial class Database : Window
     {
         Dictionary<string, Tabla> tablaKollekcio = new Dictionary<string, Tabla>();
+        object tableCollection = new object();
         string kivalasztottTabla = "";
         public Database()
         {
@@ -39,34 +40,43 @@ namespace BorsodCoding_WPF_Admin
                 i++;
             }
             kivalasztottTabla = tablaNevek[0];
-            TablaNevEllenorzes();
-            LoadDataByGET();
+            TablaNevEllenorzesEsBetoltes();
 
         }
 
-        private bool TablaNevEllenorzes()
+        private async Task<bool> TablaNevEllenorzesEsBetoltes()
         {
             if (kivalasztottTabla == "user")
             {
                 lb_first.Content = "Név";
                 lb_second.Content = "Jelszó";
                 lb_third.Content = "E-mail";
-                lb_fourth.Content = "Regisztráció ideje";
-                lb_fifth.Content = "Módosítás ideje";
-                return true;
+                lb_fourth.Visibility = Visibility.Collapsed;
+                tbx_fourth.Visibility = Visibility.Collapsed;
+                var adatok = await BeginLoadAsync<UserMezoi>();
+                tableCollection = adatok;
+                tabla.ItemsSource = adatok;
 
             }
-            if (kivalasztottTabla == "save")
+            else if (kivalasztottTabla == "save")
             {
-                lb_first.Content = "Pont";
-                lb_second.Content = "Szint";
-                lb_third.Content = "Nyelv";
-                lb_fourth.Content = "Regisztráció ideje";
-                lb_fifth.Content = "Módosítás ideje";
-                return true;
+                lb_first.Content = "Név";
+                lb_second.Content = "Pont";
+                lb_third.Content = "Szint";
+                lb_fourth.Content = "Nyelv";
+                lb_fourth.Visibility = Visibility.Visible;
+                tbx_fourth.Visibility = Visibility.Visible;
+                var adatok = await BeginLoadAsync<SaveMezoi>();
+                tableCollection = adatok;
+                tabla.ItemsSource = adatok;
+ 
+            }
+            else
+            {
+                return false;
             }
 
-            return false;
+                return true;
         }
 
         private void tablak_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -74,44 +84,18 @@ namespace BorsodCoding_WPF_Admin
             if (tablak.SelectedValue.ToString() != kivalasztottTabla)
             {
                 kivalasztottTabla = tablak.SelectedValue.ToString();
-                TablaNevEllenorzes();
-                LoadDataByGET();
+                TablaNevEllenorzesEsBetoltes();
             }
 
         }
 
-        private async void LoadDataByGET()
+
+        private async Task<ObservableCollection<T>> BeginLoadAsync<T>() where T : Mezo, new()
         {
-            if (kivalasztottTabla == "user")
-            {
-                var adatok = await BeginLoadAsync<UserMezoi>(tablaKollekcio[kivalasztottTabla]);
-                tabla.ItemsSource = adatok;
-            }
-            else
-            {
-                var adatok = await BeginLoadAsync<SaveMezoi>(tablaKollekcio[kivalasztottTabla]);
-                tabla.ItemsSource = adatok;
-            }
 
-
-
-        }
-
-        private async Task<ObservableCollection<T>> BeginLoadAsync<T>(Tabla kivalasztottTabla) where T : Mezo, new()
-        {
-            T osztaly = new T();
-            if (osztaly is UserMezoi)
-            {
-                var data = await kivalasztottTabla.GetDataFromApi<T>();
-                return data;
-            }
-            else if (osztaly is SaveMezoi)
-            {
-                var data = await kivalasztottTabla.GetDataFromApi<T>();
-                return data;
-            }
-
-            return new ObservableCollection<T>();
+            var data = await tablaKollekcio[kivalasztottTabla].GetDataFromApi<T>();
+            return data;
+            
 
         }
 
@@ -138,15 +122,32 @@ namespace BorsodCoding_WPF_Admin
 
         }
 
-        private async void button_UjRekord(object sender, RoutedEventArgs e)
+        private void button_UjRekord(object sender, RoutedEventArgs e)
         {
-            var client = new HttpClient();
-            var request = new HttpRequestMessage(HttpMethod.Post, "/UserSaveData");
-            var content = new StringContent("{\r\n\"name\" : \"\",\r\n\"points\" : 0,\r\n\"level\" : 0,\r\n\"language\" : \"hu\"\r\n}", null, "application/json");
-            request.Content = content;
-            var response = await client.SendAsync(request);
-            response.EnsureSuccessStatusCode();
-            Console.WriteLine(await response.Content.ReadAsStringAsync());
+            if (kivalasztottTabla == "user")
+            {
+                UserJsonBody userJsonBody = new UserJsonBody() 
+                { 
+                    Name = tbx_first.Text,
+                    Password = tbx_second.Text,
+                    Email = tbx_third.Text
+                };
+               
+
+            }
+            if (kivalasztottTabla == "save")
+            {
+                SaveJsonBody saveJsonBody = new SaveJsonBody()
+                {
+                    Name = tbx_first.Text,
+                    Points = int.Parse(tbx_second.Text),
+                    Level = int.Parse(tbx_third.Text),
+                    Language = tbx_fourth.Text,
+                };
+                tablaKollekcio[kivalasztottTabla].InsertAData(saveJsonBody);
+            }
+            TablaNevEllenorzesEsBetoltes();
+
 
         }
 

@@ -1,12 +1,13 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System.Collections.ObjectModel;
 using System.Windows;
 
 namespace BorsodCoding_WPF_Admin
@@ -18,6 +19,7 @@ namespace BorsodCoding_WPF_Admin
             TablaNev = "save";
             ApiURL = "http://localhost:5233/api/Save/ToWPF";
             ObjURL = "http://localhost:5233/api/Save";
+            JsonBody = null;
         }
        
         public override Task<ObservableCollection<T>> GetDataFromApi<T>()
@@ -25,17 +27,17 @@ namespace BorsodCoding_WPF_Admin
             return base.GetDataFromApi<T>();
         }
        
-        public override async void InsertAData()
+        public override async Task<bool> InsertAData(object jsonBody)
         {
             try
             {
+                var sendjsonBody = jsonBody as SaveJsonBody;
                 var client = new HttpClient();
-                var request = new HttpRequestMessage(HttpMethod.Post, "/UserSaveData");
-                var content = new StringContent("{\"name\" : \"{{name}}\",  \"points\" : 0,  \"level\" : 0,\r\n    \"language\" : \"{{lang}}\"}", null, "application/json");
-                request.Content = content;
-                var response = await client.SendAsync(request);
-                response.EnsureSuccessStatusCode();
-                Console.WriteLine(await response.Content.ReadAsStringAsync());
+                JsonBody = sendjsonBody;
+                HttpResponseMessage response = await client.PostAsJsonAsync(ObjURL, JsonBody);
+                MessageBox.Show(await response.Content.ReadAsStringAsync());
+                return response.IsSuccessStatusCode;
+                
 
             }
             catch (Exception ex)
@@ -43,6 +45,7 @@ namespace BorsodCoding_WPF_Admin
                 MessageBox.Show(ex.Message);
 
             }
+            return false;
         }
 
         public override void DeleteAData()

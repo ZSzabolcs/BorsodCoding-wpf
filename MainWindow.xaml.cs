@@ -26,7 +26,7 @@ namespace BorsodCoding_WPF_Admin
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
-            if (UserName.Text == "root" && Address.Text == "localhost" && GetPassword(Passw) == "" && DatabaseName.Text == "for_the_potatoe")
+            if (UserName.Text == "root" && Address.Text == "localhost" && GetPassword(Passw) == "" && DatabaseName.Text == "for_the_potato")
             {
                 Database databaseWindow = new Database();
                 ConnectToDatabase d = new ConnectToDatabase(Address.Text, UserName.Text, "", DatabaseName.Text);

@@ -26,8 +26,6 @@
             <TextBox x:Name="tbx_third"/>
             <Label x:Name="lb_fourth" Content="" HorizontalAlignment="Left"/>
             <TextBox x:Name="tbx_fourth"/>
-            <Label x:Name="lb_fifth" Content="" HorizontalAlignment="Left"/>
-            <TextBox x:Name="tbx_fifth"/>
             <Button Content="Egy újabb rekord hozzáadása" 
                     Click="button_UjRekord" 
                     Margin="0 15 0 0"/>
