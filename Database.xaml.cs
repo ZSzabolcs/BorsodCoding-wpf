@@ -122,7 +122,7 @@ namespace BorsodCoding_WPF_Admin
 
         }
 
-        private void button_UjRekord(object sender, RoutedEventArgs e)
+        private async void button_UjRekord(object sender, RoutedEventArgs e)
         {
             if (kivalasztottTabla == "user")
             {
@@ -132,7 +132,15 @@ namespace BorsodCoding_WPF_Admin
                     Password = tbx_second.Text,
                     Email = tbx_third.Text
                 };
-               
+                var user = await tablaKollekcio[kivalasztottTabla].InsertAData(userJsonBody);
+                if (user.ToString() == "True")
+                {
+                    await TablaNevEllenorzesEsBetoltes();
+                }
+                else
+                {
+                    MessageBox.Show("Sikertelen");
+                }
 
             }
             if (kivalasztottTabla == "save")
@@ -144,9 +152,9 @@ namespace BorsodCoding_WPF_Admin
                     Level = int.Parse(tbx_third.Text),
                     Language = tbx_fourth.Text,
                 };
-                tablaKollekcio[kivalasztottTabla].InsertAData(saveJsonBody);
+                await tablaKollekcio[kivalasztottTabla].InsertAData(saveJsonBody);
             }
-            TablaNevEllenorzesEsBetoltes();
+            //TablaNevEllenorzesEsBetoltes();
 
 
         }
