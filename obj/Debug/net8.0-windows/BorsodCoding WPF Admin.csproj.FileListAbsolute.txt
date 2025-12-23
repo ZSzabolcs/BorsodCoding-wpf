@@ -198,3 +198,43 @@ C:\Users\CsKrisz\Desktop\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCoding 
 C:\Users\CsKrisz\Desktop\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCo.CCC6AFEE.Up2Date
 C:\Users\CsKrisz\Desktop\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.genruntimeconfig.cache
 C:\Users\CsKrisz\Desktop\BorsodCoding-wpf\obj\Debug\net8.0-windows\ref\BorsodCoding WPF Admin.dll
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\bin\Debug\net8.0-windows\BorsodCoding WPF Admin.exe
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\bin\Debug\net8.0-windows\BorsodCoding WPF Admin.deps.json
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\bin\Debug\net8.0-windows\BorsodCoding WPF Admin.runtimeconfig.json
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\bin\Debug\net8.0-windows\BorsodCoding WPF Admin.dll
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\bin\Debug\net8.0-windows\BorsodCoding WPF Admin.pdb
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\bin\Debug\net8.0-windows\BouncyCastle.Cryptography.dll
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\bin\Debug\net8.0-windows\Google.Protobuf.dll
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\bin\Debug\net8.0-windows\K4os.Compression.LZ4.dll
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\bin\Debug\net8.0-windows\K4os.Compression.LZ4.Streams.dll
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\bin\Debug\net8.0-windows\K4os.Hash.xxHash.dll
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\bin\Debug\net8.0-windows\MySql.Data.dll
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\bin\Debug\net8.0-windows\System.IO.Pipelines.dll
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\bin\Debug\net8.0-windows\ZstdSharp.dll
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\bin\Debug\net8.0-windows\runtimes\win-x64\native\comerr64.dll
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\bin\Debug\net8.0-windows\runtimes\win-x64\native\gssapi64.dll
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\bin\Debug\net8.0-windows\runtimes\win-x64\native\k5sprt64.dll
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\bin\Debug\net8.0-windows\runtimes\win-x64\native\krb5_64.dll
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\bin\Debug\net8.0-windows\runtimes\win-x64\native\krbcc64.dll
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.csproj.AssemblyReference.cache
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\obj\Debug\net8.0-windows\Database.g.cs
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\obj\Debug\net8.0-windows\MainWindow.g.cs
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\obj\Debug\net8.0-windows\UserModifyerOrCreate.g.cs
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\obj\Debug\net8.0-windows\App.g.cs
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCoding WPF Admin_MarkupCompile.cache
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCoding WPF Admin_MarkupCompile.lref
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\obj\Debug\net8.0-windows\Database.baml
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\obj\Debug\net8.0-windows\MainWindow.baml
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\obj\Debug\net8.0-windows\UserModifyerOrCreate.baml
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.g.resources
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.AssemblyInfoInputs.cache
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.AssemblyInfo.cs
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.csproj.CoreCompileInputs.cache
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.sourcelink.json
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCo.CCC6AFEE.Up2Date
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.dll
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\obj\Debug\net8.0-windows\refint\BorsodCoding WPF Admin.dll
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.pdb
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.genruntimeconfig.cache
+C:\Users\Krisz\Desktop\3_Konyvkiadas\BorsodCoding-wpf\obj\Debug\net8.0-windows\ref\BorsodCoding WPF Admin.dll

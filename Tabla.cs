@@ -11,7 +11,7 @@ using System.Windows;
 
 namespace BorsodCoding_WPF_Admin
 {
-    abstract class Tabla
+    public abstract class Tabla
     {
         protected string ApiURL { get; set; }
 

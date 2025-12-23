@@ -12,7 +12,7 @@ using System.Windows;
 
 namespace BorsodCoding_WPF_Admin
 {
-    class SaveTabla : Tabla
+   public class SaveTabla : Tabla
     {
         public SaveTabla()
         {

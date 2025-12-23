@@ -13,7 +13,7 @@ using System.Windows;
 
 namespace BorsodCoding_WPF_Admin
 {
-    class UserTabla : Tabla
+    public class UserTabla : Tabla
     {
         public UserTabla()
         {
@@ -44,9 +44,8 @@ namespace BorsodCoding_WPF_Admin
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-
+                return false;
             }
-            return false;
         }
 
         public override void DeleteAData()
