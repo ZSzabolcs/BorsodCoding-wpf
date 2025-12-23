@@ -149,7 +149,7 @@ namespace BorsodCoding_WPF_Admin {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/BorsodCoding WPF Admin;V1.0.0.0;component/database.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/BorsodCoding WPF Admin;component/database.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\Database.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

@@ -53,7 +53,7 @@ namespace BorsodCoding_WPF_Admin {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/BorsodCoding WPF Admin;V1.0.0.0;component/usermodifyerorcreate.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/BorsodCoding WPF Admin;component/usermodifyerorcreate.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\UserModifyerOrCreate.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
