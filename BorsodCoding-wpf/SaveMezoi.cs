@@ -9,11 +9,12 @@ namespace BorsodCoding_WPF_Admin
     internal class SaveMezoi : Mezo
     {
         public SaveMezoi() { }
+        public Guid Id { get; set; }
         public int Points { get; set; }
         public int Level { get; set; }
         public string Language { get; set; }
         public DateTime RegDate { get; set; }
         public DateTime ModDate { get; set; }
-        public Guid Id { get; set; }
+
     }
 }

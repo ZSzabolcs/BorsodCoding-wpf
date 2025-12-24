@@ -44,7 +44,7 @@ namespace BorsodCoding_WPF_Admin
 
         }
 
-        private async Task<bool> TablaNevEllenorzesEsBetoltes()
+        private async void TablaNevEllenorzesEsBetoltes()
         {
             if (kivalasztottTabla == "user")
             {
@@ -71,12 +71,7 @@ namespace BorsodCoding_WPF_Admin
                 tabla.ItemsSource = adatok;
  
             }
-            else
-            {
-                return false;
-            }
-
-                return true;
+         
         }
 
         private void tablak_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -132,15 +127,17 @@ namespace BorsodCoding_WPF_Admin
                     Password = tbx_second.Text,
                     Email = tbx_third.Text
                 };
-                var user = await tablaKollekcio[kivalasztottTabla].InsertAData(userJsonBody);
-                if (user.ToString() == "True")
+                var isUser = await tablaKollekcio[kivalasztottTabla].InsertAData(userJsonBody);
+            
+                if (isUser)
                 {
-                    await TablaNevEllenorzesEsBetoltes();
+                    TablaNevEllenorzesEsBetoltes();
                 }
                 else
                 {
                     MessageBox.Show("Sikertelen");
                 }
+                
 
             }
             if (kivalasztottTabla == "save")
@@ -152,9 +149,19 @@ namespace BorsodCoding_WPF_Admin
                     Level = int.Parse(tbx_third.Text),
                     Language = tbx_fourth.Text,
                 };
-                await tablaKollekcio[kivalasztottTabla].InsertAData(saveJsonBody);
+                var isSave = await tablaKollekcio[kivalasztottTabla].InsertAData(saveJsonBody);
+                MessageBox.Show(isSave.ToString());
+
+                if (isSave)
+                {
+                    TablaNevEllenorzesEsBetoltes();
+                }
+                else
+                {
+                    MessageBox.Show("Sikertelen");
+                }
+
             }
-            //TablaNevEllenorzesEsBetoltes();
 
 
         }

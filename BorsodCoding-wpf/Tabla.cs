@@ -34,12 +34,21 @@ namespace BorsodCoding_WPF_Admin
                     HttpResponseMessage response = await client.GetAsync(ApiURL);
                     response.EnsureSuccessStatusCode(); 
 
-                    string responseBody = await response.Content.ReadAsStringAsync();
+                    string jsonBody = await response.Content.ReadAsStringAsync();
+
+                    using (JsonDocument doc = JsonDocument.Parse(jsonBody))
+                    {
+                        if (doc.RootElement.TryGetProperty("value", out var messageElement))
+                        {
+                            ObservableCollection<T>? data = JsonSerializer.Deserialize<ObservableCollection<T>>(messageElement.ToString(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                            return data;
+                        }
+                    }
+
+                    return new ObservableCollection<T>();
+                    
 
 
-                    ObservableCollection<T> data = JsonSerializer.Deserialize<ObservableCollection<T>>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-
-                    return data;
                 }
            }
            catch (HttpRequestException e)
@@ -50,14 +59,13 @@ namespace BorsodCoding_WPF_Admin
             
         }
 
-        public virtual void OpenWindowToModifyOrNewObject() { }
         
 
-        public abstract void DeleteAData();
+        public abstract Task<bool> DeleteAData(Guid id);
 
-        public abstract Task<bool> InsertAData(object JsonBody);
+        public abstract Task<bool> InsertAData(object jsonBody);
 
-        public abstract void UpdateAData();
+        public abstract Task<bool> UpdateAData(object jsonBody);
 
     }
 }

@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -22,9 +23,9 @@ namespace BorsodCoding_WPF_Admin
             JsonBody = null;
         }
        
-        public override Task<ObservableCollection<T>> GetDataFromApi<T>()
+        public override async Task<ObservableCollection<T>> GetDataFromApi<T>()
         {
-            return base.GetDataFromApi<T>();
+            return await base.GetDataFromApi<T>();
         }
        
         public override async Task<bool> InsertAData(object jsonBody)
@@ -34,8 +35,18 @@ namespace BorsodCoding_WPF_Admin
                 var sendjsonBody = jsonBody as SaveJsonBody;
                 var client = new HttpClient();
                 JsonBody = sendjsonBody;
+                JsonSerializerOptions serializerOptions = new JsonSerializerOptions();
                 HttpResponseMessage response = await client.PostAsJsonAsync(ObjURL, JsonBody);
-                MessageBox.Show(await response.Content.ReadAsStringAsync());
+                string jsonString = await response.Content.ReadAsStringAsync();
+
+                using (JsonDocument doc = JsonDocument.Parse(jsonString))
+                {
+                    if (doc.RootElement.TryGetProperty("message", out var messageElement))
+                    {
+                        string message = messageElement.GetString();
+                        MessageBox.Show(message);
+                    }
+                }
                 return response.IsSuccessStatusCode;
                 
 
@@ -43,19 +54,69 @@ namespace BorsodCoding_WPF_Admin
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                return false;
+            }
+
+        }
+
+        public override async Task<bool> DeleteAData(Guid id)
+        {
+
+            try
+            {
+                ObjURL = $"http://localhost:5233/api/Save?id={id}";
+                var client = new HttpClient();
+                HttpResponseMessage response = await client.DeleteAsync(ObjURL);
+
+                string jsonString = await response.Content.ReadAsStringAsync();
+
+                using (JsonDocument doc = JsonDocument.Parse(jsonString))
+                {
+                    if (doc.RootElement.TryGetProperty("message", out var messageElement))
+                    {
+                        string message = messageElement.GetString();
+                        MessageBox.Show(message);
+                    }
+                }
+                return response.IsSuccessStatusCode;
+
 
             }
-            return false;
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
         }
 
-        public override void DeleteAData()
+        public override async Task<bool> UpdateAData(object jsonBody)
         {
-            throw new NotImplementedException();
-        }
 
-        public override void UpdateAData()
-        {
-            throw new NotImplementedException();
+            try
+            {
+                var sendJsonBody = jsonBody as SaveJsonBody;
+                JsonBody = sendJsonBody;
+                var client = new HttpClient();
+                HttpResponseMessage response = await client.PutAsJsonAsync(ObjURL, JsonBody);
+                string jsonString = await response.Content.ReadAsStringAsync();
+
+                using (JsonDocument doc = JsonDocument.Parse(jsonString))
+                {
+                    if (doc.RootElement.TryGetProperty("message", out var messageElement))
+                    {
+                        string message = messageElement.GetString();
+                        MessageBox.Show(message);
+                    }
+                }
+                return response.IsSuccessStatusCode;
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
         }
     }
 }

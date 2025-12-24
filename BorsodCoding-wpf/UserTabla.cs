@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -19,7 +20,7 @@ namespace BorsodCoding_WPF_Admin
         {
             TablaNev = "user";
             ApiURL = "http://localhost:5233/api/User/ToWPF";
-            ObjURL = "http://localhost:5233/api/User/";
+            ObjURL = "http://localhost:5233/api/User/Registration";
             JsonBody = null;
         }
 
@@ -38,6 +39,16 @@ namespace BorsodCoding_WPF_Admin
                 var client = new HttpClient();
                 JsonBody = sendjsonBody;
                 HttpResponseMessage response = await client.PostAsJsonAsync(ObjURL, JsonBody);
+                string jsonString = await response.Content.ReadAsStringAsync();
+
+                using (JsonDocument doc = JsonDocument.Parse(jsonString))
+                {
+                    if (doc.RootElement.TryGetProperty("message", out var messageElement))
+                    {
+                        string message = messageElement.GetString();
+                        MessageBox.Show(message);
+                    }
+                }
                 return response.IsSuccessStatusCode;
 
             }
@@ -48,14 +59,60 @@ namespace BorsodCoding_WPF_Admin
             }
         }
 
-        public override void DeleteAData()
+        public override async Task<bool> DeleteAData(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ObjURL = $"http://localhost:5233/api/User?id={id}";
+                var client = new HttpClient();
+                HttpResponseMessage response = await client.DeleteAsync(ObjURL);
+                string jsonString = await response.Content.ReadAsStringAsync();
+
+                using (JsonDocument doc = JsonDocument.Parse(jsonString))
+                {
+                    if (doc.RootElement.TryGetProperty("message", out var messageElement))
+                    {
+                        string message = messageElement.GetString();
+                        MessageBox.Show(message);
+                    }
+                }
+                return response.IsSuccessStatusCode;
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
         }
 
-        public override void UpdateAData()
+        public override async Task<bool> UpdateAData(object jsonBody)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var sendjsonBody = jsonBody as UserJsonBody;
+                var client = new HttpClient();
+                JsonBody = sendjsonBody;
+                HttpResponseMessage response = await client.PutAsJsonAsync(ObjURL, JsonBody);
+                string jsonString = await response.Content.ReadAsStringAsync();
+
+                using (JsonDocument doc = JsonDocument.Parse(jsonString))
+                {
+                    if (doc.RootElement.TryGetProperty("message", out var messageElement))
+                    {
+                        string message = messageElement.GetString();
+                        MessageBox.Show(message);
+                    }
+                }
+                return response.IsSuccessStatusCode;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
         }
     }
 }
