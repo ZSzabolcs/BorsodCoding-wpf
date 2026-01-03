@@ -91,6 +91,7 @@ namespace BorsodCoding_WPF_Admin
         {
             try
             {
+                ObjURL = "http://localhost:5233/api/User";
                 var sendjsonBody = jsonBody as UserJsonBody;
                 var client = new HttpClient();
                 JsonBody = sendjsonBody;

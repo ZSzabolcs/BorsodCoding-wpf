@@ -75,8 +75,8 @@ namespace BorsodCoding_WPF_Admin
                 tabla.ItemsSource = adatok;
 
             }
-            rekordModositas.IsEnabled = false;
-            rekordTorles.IsEnabled = false;
+            AlapAllapot();
+
         }
 
         private void tablak_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -86,6 +86,8 @@ namespace BorsodCoding_WPF_Admin
                 kivalasztottTabla = tablak.SelectedValue.ToString();
                 TablaNevEllenorzesEsBetoltes();
             }
+
+            tbx_first.IsEnabled = true;
 
         }
 
@@ -123,24 +125,28 @@ namespace BorsodCoding_WPF_Admin
 
         private async void button_KivalasztottRekordModositas(object sender, RoutedEventArgs e)
         {
-            object json = new { };
+            object json = new object();
             if (kivalasztottTabla == "user")
             {
                 var aktualisTabla = curenttableCollection as ObservableCollection<UserMezoi>;
                 var elem = aktualisTabla[(tabla.SelectedIndex >= 0 ? tabla.SelectedIndex : 0)];
-                json = new
+                json = new UserJsonBody
                 {
                     Name = elem.Name,
-                    Password = elem.Password,
-                    Email = elem.Email
+                    Password = tbx_second.Text,
+                    Email = tbx_third.Text,
                 };
             }
             if (kivalasztottTabla == "save")
             {
                 var aktualisTabla = curenttableCollection as ObservableCollection<SaveMezoi>;
                 var elem = aktualisTabla[(tabla.SelectedIndex >= 0 ? tabla.SelectedIndex : 0)];
-                json = new
+                json = new SaveJsonBody
                 {
+                    Id = elem.Id,
+                    Points = int.Parse(tbx_second.Text),
+                    Level = int.Parse(tbx_third.Text),
+                    Language = tbx_fourth.Text,
 
                 };
             }
@@ -154,43 +160,36 @@ namespace BorsodCoding_WPF_Admin
 
         private async void button_UjRekord(object sender, RoutedEventArgs e)
         {
+            object json = new object();
             if (kivalasztottTabla == "user")
             {
-                UserJsonBody userJsonBody = new UserJsonBody() 
+                json = new UserJsonBody() 
                 { 
                     Name = tbx_first.Text,
                     Password = tbx_second.Text,
                     Email = tbx_third.Text
                 };
-                var isUser = await tablaKollekcio[kivalasztottTabla].InsertAData(userJsonBody);
-            
-                if (isUser)
-                {
-                    TablaNevEllenorzesEsBetoltes();
-                }
-               
                 
-
+               
             }
             if (kivalasztottTabla == "save")
             {
-                SaveJsonBody saveJsonBody = new SaveJsonBody()
+                json = new SaveJsonBody()
                 {
                     Name = tbx_first.Text,
                     Points = int.Parse(tbx_second.Text),
                     Level = int.Parse(tbx_third.Text),
                     Language = tbx_fourth.Text,
                 };
-                var isSave = await tablaKollekcio[kivalasztottTabla].InsertAData(saveJsonBody);
-
-                if (isSave)
-                {
-                    TablaNevEllenorzesEsBetoltes();
-                }
+                
                
-
             }
+            var isSucceded = await tablaKollekcio[kivalasztottTabla].InsertAData(json);
 
+            if (isSucceded)
+            {
+                TablaNevEllenorzesEsBetoltes();
+            }
 
         }
 
@@ -199,18 +198,34 @@ namespace BorsodCoding_WPF_Admin
             try
             {
 
-                rekordModositas.IsEnabled = true;
-                rekordTorles.IsEnabled = true;
+
                 if (kivalasztottTabla == "user")
                 {
-                var jelenlegitabla = curenttableCollection as ObservableCollection<UserMezoi>;
-                kivalasztottId = jelenlegitabla[(tabla.SelectedIndex >= 0 ? tabla.SelectedIndex : 0)].Id;
+                    var jelenlegitabla = curenttableCollection as ObservableCollection<UserMezoi>;
+                    var elem = jelenlegitabla[(tabla.SelectedIndex >= 0 ? tabla.SelectedIndex : 0)];
+                    kivalasztottId = elem.Id;
+                    tbx_second.Text = elem.Password;
+                    tbx_third.Text = elem.Email;
+
                 }
+
                 if (kivalasztottTabla == "save")
                 {
-                var jelenlegitabla = curenttableCollection as ObservableCollection<SaveMezoi>;
-                kivalasztottId = jelenlegitabla[(tabla.SelectedIndex >= 0 ? tabla.SelectedIndex : 0)].Id;
+                    var jelenlegitabla = curenttableCollection as ObservableCollection<SaveMezoi>;
+                    var elem = jelenlegitabla[(tabla.SelectedIndex >= 0 ? tabla.SelectedIndex : 0)];
+                    kivalasztottId = elem.Id;
+                    tbx_second.Text = elem.Points.ToString();
+                    tbx_third.Text = elem.Level.ToString();
+                    tbx_fourth.Text = elem.Language;
+
                 }
+
+                btn_ujrekord.IsEnabled = false;
+                btn_rekordModositas.IsEnabled = true;
+                btn_rekordTorles.IsEnabled = true;
+                btn_megse.Visibility = Visibility.Visible;
+                tbx_first.Clear();
+                tbx_first.IsEnabled = false;
 
             }
             catch (Exception ex)
@@ -218,6 +233,24 @@ namespace BorsodCoding_WPF_Admin
                 MessageBox.Show(ex.Message);
             }
 
+        }
+
+        private void AlapAllapot()
+        {
+            btn_rekordModositas.IsEnabled = false;
+            btn_rekordTorles.IsEnabled = false;
+            btn_ujrekord.IsEnabled = true;
+            tbx_first.Clear();
+            tbx_second.Clear();
+            tbx_third.Clear();
+            tbx_fourth.Clear();
+            btn_megse.Visibility = Visibility.Collapsed;
+            tbx_first.IsEnabled = true;
+        }
+
+        private void btn_megse_Click(object sender, RoutedEventArgs e)
+        {
+            AlapAllapot();
         }
     }
 }

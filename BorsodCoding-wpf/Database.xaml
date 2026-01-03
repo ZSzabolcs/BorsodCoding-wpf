@@ -26,19 +26,25 @@
             <TextBox x:Name="tbx_third"/>
             <Label x:Name="lb_fourth" Content="" HorizontalAlignment="Left"/>
             <TextBox x:Name="tbx_fourth"/>
-            <Button Content="Egy újabb rekord hozzáadása" 
+            <Button x:Name="btn_ujrekord"
+                    Content="Egy újabb rekord hozzáadása" 
                     Click="button_UjRekord" 
                     Margin="0 15 0 0"/>
-            <Button x:Name="rekordModositas"
+            <Button x:Name="btn_rekordModositas"
                     Content="Kiválasztott rekord módosítása"
                     Click="button_KivalasztottRekordModositas"
                     Margin="0 15 0 0"
                     IsEnabled="False"/>
-            <Button x:Name="rekordTorles" 
+            <Button x:Name="btn_rekordTorles" 
                     Content="Kiválasztott rekord törlése"
                     Click="button_KivalasztottRekordTorlese"
                     Margin="0 15 0 0"
                     IsEnabled="False"/>
+            <Button x:Name="btn_megse" 
+                    Content="Mégse"
+                    Click="btn_megse_Click"
+                    Margin="0 15 0 0"
+                    Visibility="Collapsed"/>
         </StackPanel>
         
     </Grid>

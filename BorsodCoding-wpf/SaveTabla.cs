@@ -94,6 +94,7 @@ namespace BorsodCoding_WPF_Admin
 
             try
             {
+                ObjURL += "/FromWPF";
                 var sendJsonBody = jsonBody as SaveJsonBody;
                 JsonBody = sendJsonBody;
                 var client = new HttpClient();
