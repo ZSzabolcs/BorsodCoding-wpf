@@ -32,11 +32,13 @@
             <Button x:Name="rekordModositas"
                     Content="Kiválasztott rekord módosítása"
                     Click="button_KivalasztottRekordModositas"
-                    Margin="0 15 0 0"/>
+                    Margin="0 15 0 0"
+                    IsEnabled="False"/>
             <Button x:Name="rekordTorles" 
                     Content="Kiválasztott rekord törlése"
                     Click="button_KivalasztottRekordTorlese"
-                    Margin="0 15 0 0"/>
+                    Margin="0 15 0 0"
+                    IsEnabled="False"/>
         </StackPanel>
         
     </Grid>

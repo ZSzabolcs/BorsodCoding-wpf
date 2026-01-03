@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
+using System.Collections;
 
 namespace BorsodCoding_WPF_Admin
 {
@@ -24,7 +25,8 @@ namespace BorsodCoding_WPF_Admin
     public partial class Database : Window
     {
         Dictionary<string, Tabla> tablaKollekcio = new Dictionary<string, Tabla>();
-        object tableCollection = new object();
+        object curenttableCollection = new object();
+        Guid kivalasztottId = Guid.Empty;
         string kivalasztottTabla = "";
         public Database()
         {
@@ -46,15 +48,17 @@ namespace BorsodCoding_WPF_Admin
 
         private async void TablaNevEllenorzesEsBetoltes()
         {
+
             if (kivalasztottTabla == "user")
             {
+
                 lb_first.Content = "Név";
                 lb_second.Content = "Jelszó";
                 lb_third.Content = "E-mail";
                 lb_fourth.Visibility = Visibility.Collapsed;
                 tbx_fourth.Visibility = Visibility.Collapsed;
                 var adatok = await BeginLoadAsync<UserMezoi>();
-                tableCollection = adatok;
+                curenttableCollection = adatok;
                 tabla.ItemsSource = adatok;
 
             }
@@ -67,11 +71,12 @@ namespace BorsodCoding_WPF_Admin
                 lb_fourth.Visibility = Visibility.Visible;
                 tbx_fourth.Visibility = Visibility.Visible;
                 var adatok = await BeginLoadAsync<SaveMezoi>();
-                tableCollection = adatok;
+                curenttableCollection = adatok;
                 tabla.ItemsSource = adatok;
- 
+
             }
-         
+            rekordModositas.IsEnabled = false;
+            rekordTorles.IsEnabled = false;
         }
 
         private void tablak_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -107,14 +112,44 @@ namespace BorsodCoding_WPF_Admin
             }
         }
 
-        private void button_KivalasztottRekordTorlese(object sender, RoutedEventArgs e)
+        private async void button_KivalasztottRekordTorlese(object sender, RoutedEventArgs e)
         {
-
+            var issuceded = await tablaKollekcio[kivalasztottTabla].DeleteAData(kivalasztottId);
+            if (issuceded)
+            {
+                TablaNevEllenorzesEsBetoltes();
+            }
         }
 
-        private void button_KivalasztottRekordModositas(object sender, RoutedEventArgs e)
+        private async void button_KivalasztottRekordModositas(object sender, RoutedEventArgs e)
         {
+            object json = new { };
+            if (kivalasztottTabla == "user")
+            {
+                var aktualisTabla = curenttableCollection as ObservableCollection<UserMezoi>;
+                var elem = aktualisTabla[(tabla.SelectedIndex >= 0 ? tabla.SelectedIndex : 0)];
+                json = new
+                {
+                    Name = elem.Name,
+                    Password = elem.Password,
+                    Email = elem.Email
+                };
+            }
+            if (kivalasztottTabla == "save")
+            {
+                var aktualisTabla = curenttableCollection as ObservableCollection<SaveMezoi>;
+                var elem = aktualisTabla[(tabla.SelectedIndex >= 0 ? tabla.SelectedIndex : 0)];
+                json = new
+                {
 
+                };
+            }
+
+            var issuceded = await tablaKollekcio[kivalasztottTabla].UpdateAData(json);
+            if (issuceded)
+            {
+                TablaNevEllenorzesEsBetoltes();
+            }
         }
 
         private async void button_UjRekord(object sender, RoutedEventArgs e)
@@ -133,10 +168,7 @@ namespace BorsodCoding_WPF_Admin
                 {
                     TablaNevEllenorzesEsBetoltes();
                 }
-                else
-                {
-                    MessageBox.Show("Sikertelen");
-                }
+               
                 
 
             }
@@ -150,16 +182,12 @@ namespace BorsodCoding_WPF_Admin
                     Language = tbx_fourth.Text,
                 };
                 var isSave = await tablaKollekcio[kivalasztottTabla].InsertAData(saveJsonBody);
-                MessageBox.Show(isSave.ToString());
 
                 if (isSave)
                 {
                     TablaNevEllenorzesEsBetoltes();
                 }
-                else
-                {
-                    MessageBox.Show("Sikertelen");
-                }
+               
 
             }
 
@@ -168,6 +196,27 @@ namespace BorsodCoding_WPF_Admin
 
         private void tabla_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            try
+            {
+
+                rekordModositas.IsEnabled = true;
+                rekordTorles.IsEnabled = true;
+                if (kivalasztottTabla == "user")
+                {
+                var jelenlegitabla = curenttableCollection as ObservableCollection<UserMezoi>;
+                kivalasztottId = jelenlegitabla[(tabla.SelectedIndex >= 0 ? tabla.SelectedIndex : 0)].Id;
+                }
+                if (kivalasztottTabla == "save")
+                {
+                var jelenlegitabla = curenttableCollection as ObservableCollection<SaveMezoi>;
+                kivalasztottId = jelenlegitabla[(tabla.SelectedIndex >= 0 ? tabla.SelectedIndex : 0)].Id;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
         }
     }
