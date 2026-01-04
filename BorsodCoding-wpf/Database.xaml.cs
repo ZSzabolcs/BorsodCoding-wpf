@@ -46,7 +46,7 @@ namespace BorsodCoding_WPF_Admin
 
         }
 
-        private async void TablaNevEllenorzesEsBetoltes()
+        private async void TablaBetoltes()
         {
 
             if (kivalasztottTabla == "user")
@@ -57,7 +57,7 @@ namespace BorsodCoding_WPF_Admin
                 lb_third.Content = "E-mail";
                 lb_fourth.Visibility = Visibility.Collapsed;
                 tbx_fourth.Visibility = Visibility.Collapsed;
-                var adatok = await BeginLoadAsync<UserMezoi>();
+                var adatok = await tablaKollekcio[kivalasztottTabla].GetDataFromApi<UserMezoi>();
                 curenttableCollection = adatok;
                 tabla.ItemsSource = adatok;
 
@@ -70,7 +70,7 @@ namespace BorsodCoding_WPF_Admin
                 lb_fourth.Content = "Nyelv";
                 lb_fourth.Visibility = Visibility.Visible;
                 tbx_fourth.Visibility = Visibility.Visible;
-                var adatok = await BeginLoadAsync<SaveMezoi>();
+                var adatok = await tablaKollekcio[kivalasztottTabla].GetDataFromApi<SaveMezoi>();
                 curenttableCollection = adatok;
                 tabla.ItemsSource = adatok;
 
@@ -92,14 +92,6 @@ namespace BorsodCoding_WPF_Admin
         }
 
 
-        private async Task<ObservableCollection<T>> BeginLoadAsync<T>() where T : Mezo, new()
-        {
-
-            var data = await tablaKollekcio[kivalasztottTabla].GetDataFromApi<T>();
-            return data;
-            
-
-        }
 
         private void tabla_OszlopBeallitas(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
