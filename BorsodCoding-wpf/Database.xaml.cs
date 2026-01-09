@@ -42,7 +42,7 @@ namespace BorsodCoding_WPF_Admin
                 i++;
             }
             kivalasztottTabla = tablaNevek[0];
-            TablaNevEllenorzesEsBetoltes();
+            TablaBetoltes();
 
         }
 
@@ -84,7 +84,7 @@ namespace BorsodCoding_WPF_Admin
             if (tablak.SelectedValue.ToString() != kivalasztottTabla)
             {
                 kivalasztottTabla = tablak.SelectedValue.ToString();
-                TablaNevEllenorzesEsBetoltes();
+                TablaBetoltes();
             }
 
             tbx_first.IsEnabled = true;
@@ -111,7 +111,7 @@ namespace BorsodCoding_WPF_Admin
             var issuceded = await tablaKollekcio[kivalasztottTabla].DeleteAData(kivalasztottId);
             if (issuceded)
             {
-                TablaNevEllenorzesEsBetoltes();
+                TablaBetoltes();
             }
         }
 
@@ -146,7 +146,7 @@ namespace BorsodCoding_WPF_Admin
             var issuceded = await tablaKollekcio[kivalasztottTabla].UpdateAData(json);
             if (issuceded)
             {
-                TablaNevEllenorzesEsBetoltes();
+                TablaBetoltes();
             }
         }
 
@@ -180,7 +180,7 @@ namespace BorsodCoding_WPF_Admin
 
             if (isSucceded)
             {
-                TablaNevEllenorzesEsBetoltes();
+                TablaBetoltes();
             }
 
         }
