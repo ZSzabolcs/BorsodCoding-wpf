@@ -20,7 +20,6 @@ namespace BorsodCoding_WPF_Admin
             TablaNev = "save";
             ApiURL = "http://localhost:5233/api/Save/ToWPF";
             ObjURL = "http://localhost:5233/api/Save";
-            JsonBody = null;
         }
        
         public override async Task<ObservableCollection<T>> GetDataFromApi<T>()
@@ -34,9 +33,8 @@ namespace BorsodCoding_WPF_Admin
             {
                 var sendjsonBody = jsonBody as SaveJsonBody;
                 var client = new HttpClient();
-                JsonBody = sendjsonBody;
                 JsonSerializerOptions serializerOptions = new JsonSerializerOptions();
-                HttpResponseMessage response = await client.PostAsJsonAsync(ObjURL, JsonBody);
+                HttpResponseMessage response = await client.PostAsJsonAsync(ObjURL, jsonBody);
                 string jsonString = await response.Content.ReadAsStringAsync();
 
                 using (JsonDocument doc = JsonDocument.Parse(jsonString))
@@ -59,7 +57,7 @@ namespace BorsodCoding_WPF_Admin
 
         }
 
-        public override async Task<bool> DeleteAData(Guid id)
+        public override async Task<bool> DeleteAData(string id)
         {
 
             try
@@ -94,11 +92,9 @@ namespace BorsodCoding_WPF_Admin
 
             try
             {
-                ObjURL += "/FromWPF";
                 var sendJsonBody = jsonBody as SaveJsonBody;
-                JsonBody = sendJsonBody;
                 var client = new HttpClient();
-                HttpResponseMessage response = await client.PutAsJsonAsync(ObjURL, JsonBody);
+                HttpResponseMessage response = await client.PutAsJsonAsync(ObjURL, jsonBody);
                 string jsonString = await response.Content.ReadAsStringAsync();
 
                 using (JsonDocument doc = JsonDocument.Parse(jsonString))

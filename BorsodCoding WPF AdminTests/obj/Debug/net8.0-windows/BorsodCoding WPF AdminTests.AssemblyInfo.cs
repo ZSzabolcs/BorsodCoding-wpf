@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BorsodCoding WPF AdminTests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a4db9c3c4afb84707ad8006449bfaa9d8de52b51")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+360b8a81bef0c53f068a07363b9157478865a162")]
 [assembly: System.Reflection.AssemblyProductAttribute("BorsodCoding WPF AdminTests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BorsodCoding WPF AdminTests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

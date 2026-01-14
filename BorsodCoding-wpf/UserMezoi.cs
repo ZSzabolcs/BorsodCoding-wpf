@@ -9,7 +9,7 @@ namespace BorsodCoding_WPF_Admin
     internal class UserMezoi : Mezo
     {
         public UserMezoi() { }
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public string Password { get; set; }
         public DateTime RegDate { get; set; }

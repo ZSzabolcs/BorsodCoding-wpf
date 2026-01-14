@@ -21,7 +21,6 @@ namespace BorsodCoding_WPF_Admin
             TablaNev = "user";
             ApiURL = "http://localhost:5233/api/User/ToWPF";
             ObjURL = "http://localhost:5233/api/User/Registration";
-            JsonBody = null;
         }
 
         
@@ -37,8 +36,7 @@ namespace BorsodCoding_WPF_Admin
             {
                 var sendjsonBody = jsonBody as UserJsonBody;
                 var client = new HttpClient();
-                JsonBody = sendjsonBody;
-                HttpResponseMessage response = await client.PostAsJsonAsync(ObjURL, JsonBody);
+                HttpResponseMessage response = await client.PostAsJsonAsync(ObjURL, sendjsonBody);
                 string jsonString = await response.Content.ReadAsStringAsync();
 
                 using (JsonDocument doc = JsonDocument.Parse(jsonString))
@@ -94,8 +92,7 @@ namespace BorsodCoding_WPF_Admin
                 ObjURL = "http://localhost:5233/api/User";
                 var sendjsonBody = jsonBody as UserJsonBody;
                 var client = new HttpClient();
-                JsonBody = sendjsonBody;
-                HttpResponseMessage response = await client.PutAsJsonAsync(ObjURL, JsonBody);
+                HttpResponseMessage response = await client.PutAsJsonAsync(ObjURL, sendjsonBody);
                 string jsonString = await response.Content.ReadAsStringAsync();
 
                 using (JsonDocument doc = JsonDocument.Parse(jsonString))

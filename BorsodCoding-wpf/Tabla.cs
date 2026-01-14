@@ -19,7 +19,6 @@ namespace BorsodCoding_WPF_Admin
 
         public string TablaNev { get; protected set; }
 
-        public object? JsonBody { get; protected set; } = null;
         protected Tabla() { }
 
         
@@ -61,7 +60,7 @@ namespace BorsodCoding_WPF_Admin
 
         
 
-        public abstract Task<bool> DeleteAData(Guid id);
+        public abstract Task<bool> DeleteAData(string id);
 
         public abstract Task<bool> InsertAData(object jsonBody);
 

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BorsodCoding WPF Admin")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8db66280024021363dfd567cb90b939a952c991a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+360b8a81bef0c53f068a07363b9157478865a162")]
 [assembly: System.Reflection.AssemblyProductAttribute("BorsodCoding WPF Admin")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BorsodCoding WPF Admin")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
