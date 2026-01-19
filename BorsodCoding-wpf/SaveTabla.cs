@@ -10,16 +10,16 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using System.Windows;
+using static System.Net.WebRequestMethods;
 
 namespace BorsodCoding_WPF_Admin
 {
    public class SaveTabla : Tabla
-    {
+   {
         public SaveTabla()
         {
             TablaNev = "save";
-            ApiURL = "http://localhost:5233/api/Save/ToWPF";
-            ObjURL = "http://localhost:5233/api/Save";
+            ApiURL = "https://localhost:7036/api/Save";
         }
        
         public override async Task<ObservableCollection<T>> GetDataFromApi<T>()
@@ -34,7 +34,7 @@ namespace BorsodCoding_WPF_Admin
                 var sendjsonBody = jsonBody as SaveJsonBody;
                 var client = new HttpClient();
                 JsonSerializerOptions serializerOptions = new JsonSerializerOptions();
-                HttpResponseMessage response = await client.PostAsJsonAsync(ObjURL, jsonBody);
+                HttpResponseMessage response = await client.PostAsJsonAsync(ApiURL, jsonBody);
                 string jsonString = await response.Content.ReadAsStringAsync();
 
                 using (JsonDocument doc = JsonDocument.Parse(jsonString))
@@ -62,9 +62,9 @@ namespace BorsodCoding_WPF_Admin
 
             try
             {
-                ObjURL = $"http://localhost:5233/api/Save?id={id}";
+                ApiURL = $"https://localhost:7036/api/Save?id={id}";
                 var client = new HttpClient();
-                HttpResponseMessage response = await client.DeleteAsync(ObjURL);
+                HttpResponseMessage response = await client.DeleteAsync(ApiURL);
 
                 string jsonString = await response.Content.ReadAsStringAsync();
 
@@ -94,7 +94,7 @@ namespace BorsodCoding_WPF_Admin
             {
                 var sendJsonBody = jsonBody as SaveJsonBody;
                 var client = new HttpClient();
-                HttpResponseMessage response = await client.PutAsJsonAsync(ObjURL, jsonBody);
+                HttpResponseMessage response = await client.PutAsJsonAsync(ApiURL, jsonBody);
                 string jsonString = await response.Content.ReadAsStringAsync();
 
                 using (JsonDocument doc = JsonDocument.Parse(jsonString))

@@ -26,7 +26,7 @@ namespace BorsodCoding_WPF_Admin
     {
         Dictionary<string, Tabla> tablaKollekcio = new Dictionary<string, Tabla>();
         object curenttableCollection = new object();
-        Guid kivalasztottId = Guid.Empty;
+        string kivalasztottId = string.Empty;
         string kivalasztottTabla = "";
         public Database()
         {
@@ -124,7 +124,7 @@ namespace BorsodCoding_WPF_Admin
                 var elem = aktualisTabla[(tabla.SelectedIndex >= 0 ? tabla.SelectedIndex : 0)];
                 json = new UserJsonBody
                 {
-                    Name = elem.Name,
+                    Name = elem.UserName,
                     Password = tbx_second.Text,
                     Email = tbx_third.Text,
                 };
@@ -196,7 +196,7 @@ namespace BorsodCoding_WPF_Admin
                     var jelenlegitabla = curenttableCollection as ObservableCollection<UserMezoi>;
                     var elem = jelenlegitabla[(tabla.SelectedIndex >= 0 ? tabla.SelectedIndex : 0)];
                     kivalasztottId = elem.Id;
-                    tbx_second.Text = elem.Password;
+                    tbx_second.Text = elem.PasswordHash;
                     tbx_third.Text = elem.Email;
 
                 }

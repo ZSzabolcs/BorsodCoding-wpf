@@ -3,8 +3,8 @@
   <Class Name="BorsodCoding_WPF_Admin.SaveMezoi">
     <Position X="7.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAACAAAgAAAAAAAAAkAAAAAAAABAAAAACAAAAA=</HashCode>
-      <FileName>SaveMezoi.cs</FileName>
+      <HashCode>AAAAAAAACAAAgAAAAAAAAAEAAAAAAAABAAAAACAAAAA=</HashCode>
+      <FileName>Mezo.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BorsodCoding_WPF_Admin.SaveTabla">
@@ -17,15 +17,16 @@
   <Class Name="BorsodCoding_WPF_Admin.Tabla">
     <Position X="2.75" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gAGAAAAAAAAAAAAAAAAAAAAAEAAAAAABAAAAAEAAAAA=</HashCode>
+      <HashCode>gAGAAAAAAAAAAAAAAAAAAAAAEAAAAAABAAAAAUAAAAA=</HashCode>
       <FileName>Tabla.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BorsodCoding_WPF_Admin.UserMezoi">
-    <Position X="11.5" Y="4" Width="1.5" />
+    <Position X="11.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAAAAAAUAAAAAAAACAAAAACAAAAA=</HashCode>
-      <FileName>UserMezoi.cs</FileName>
+      <HashCode>AACAAAAABCAAIEAIAAAAQAUBQAAAAAAIAQQABAAAAQA=</HashCode>
+      <FileName>Mezo.cs</FileName>
+      <NewMemberFileName>UserMezoi.cs</NewMemberFileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BorsodCoding_WPF_Admin.UserTabla">
@@ -38,7 +39,7 @@
   <Class Name="BorsodCoding_WPF_Admin.Mezo">
     <Position X="9.25" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Mezo.cs</FileName>
     </TypeIdentifier>
   </Class>

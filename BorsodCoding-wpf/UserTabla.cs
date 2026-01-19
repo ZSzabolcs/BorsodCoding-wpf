@@ -19,8 +19,8 @@ namespace BorsodCoding_WPF_Admin
         public UserTabla()
         {
             TablaNev = "user";
-            ApiURL = "http://localhost:5233/api/User/ToWPF";
-            ObjURL = "http://localhost:5233/api/User/Registration";
+            ApiURL = "http://localhost:5019/auth";
+            ObjURL = "";
         }
 
         
@@ -57,11 +57,11 @@ namespace BorsodCoding_WPF_Admin
             }
         }
 
-        public override async Task<bool> DeleteAData(Guid id)
+        public override async Task<bool> DeleteAData(string id)
         {
             try
             {
-                ObjURL = $"http://localhost:5233/api/User?id={id}";
+                ObjURL = $"http://localhost:5019/api/auth?id={id}";
                 var client = new HttpClient();
                 HttpResponseMessage response = await client.DeleteAsync(ObjURL);
                 string jsonString = await response.Content.ReadAsStringAsync();
