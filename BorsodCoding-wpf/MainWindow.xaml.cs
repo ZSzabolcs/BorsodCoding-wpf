@@ -1,6 +1,9 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Net;
+using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -23,20 +26,59 @@ namespace BorsodCoding_WPF_Admin
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
-
-            if (UserName.Text == "root" && Address.Text == "localhost" && GetPassword(Passw) == "" && DatabaseName.Text == "for_the_potato")
+            try
             {
-                Database databaseWindow = new Database();
-                ConnectToDatabase d = new ConnectToDatabase(Address.Text, UserName.Text, "", DatabaseName.Text);
-                databaseWindow.Show();
-                this.Close();
 
+
+
+                if (Address.Text == "localhost" && DatabaseName.Text == "for_the_potato")
+                {
+                    var client = new HttpClient();
+                    var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7159/auth/login");
+                    var content = new StringContent("{\r\n  \"userName\" : \""+UserName.Text+"\",\r\n  \"password\" : \""+GetPassword(Passw)+"\"\r\n}", null, "application/json");
+                    request.Content = content;
+                    var response = await client.SendAsync(request);
+                    string jsonBody = await response.Content.ReadAsStringAsync();
+                    if (response.StatusCode != HttpStatusCode.OK)
+                    {
+                        MessageBox.Show(jsonBody.ToString(), "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+
+                    string token = "";
+
+                    using (JsonDocument jsonDocument = JsonDocument.Parse(jsonBody))
+                    {
+                        if (jsonDocument.RootElement.TryGetProperty("message", out var messageElement))
+                        {
+                            MessageBox.Show(messageElement.ToString(), "Infó", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+
+                        if (jsonDocument.RootElement.TryGetProperty("token", out var tokenElement))
+                        {
+                            token = tokenElement.ToString();
+                            Database databaseWindow = new Database(token);
+                            databaseWindow.Show();
+                            Close();
+
+                        }
+
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
 
         }
+
+
+        
         public static string GetPassword(PasswordBox passwordBox)
         {
             // A jelszó a SecureString típusban érkezik

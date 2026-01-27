@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BorsodCoding_WPF_Admin
+namespace BorsodCoding_WPF_Admin.Mezok
 {
     public class Mezo
     {

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using static System.Net.WebRequestMethods;
 
-namespace BorsodCoding_WPF_Admin
+namespace BorsodCoding_WPF_Admin.Tablak
 {
    public class SaveTabla : Tabla
    {
@@ -22,9 +22,9 @@ namespace BorsodCoding_WPF_Admin
             ApiURL = "https://localhost:7036/api/Save";
         }
        
-        public override async Task<ObservableCollection<T>> GetDataFromApi<T>()
+        public override async Task<ObservableCollection<T>> GetDataFromApi<T>(string token)
         {
-            return await base.GetDataFromApi<T>();
+            return await base.GetDataFromApi<T>(token);
         }
        
         public override async Task<bool> InsertAData(object jsonBody)

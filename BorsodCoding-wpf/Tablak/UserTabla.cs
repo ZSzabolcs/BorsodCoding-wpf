@@ -12,21 +12,21 @@ using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace BorsodCoding_WPF_Admin
+namespace BorsodCoding_WPF_Admin.Tablak
 {
     public class UserTabla : Tabla
     {
         public UserTabla()
         {
             TablaNev = "user";
-            ApiURL = "http://localhost:5019/auth";
+            ApiURL = "https://localhost:7159/auth";
             ObjURL = "";
         }
 
         
-        public override Task<ObservableCollection<T>> GetDataFromApi<T>()
+        public override Task<ObservableCollection<T>> GetDataFromApi<T>(string token)
         {
-            return base.GetDataFromApi<T>();
+            return base.GetDataFromApi<T>(token);
         }
         
 

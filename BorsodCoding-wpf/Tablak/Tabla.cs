@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using BorsodCoding_WPF_Admin.Mezok;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,7 +10,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace BorsodCoding_WPF_Admin
+namespace BorsodCoding_WPF_Admin.Tablak
 {
     public abstract class Tabla
     {
@@ -23,14 +24,16 @@ namespace BorsodCoding_WPF_Admin
 
         
 
-        public virtual async Task<ObservableCollection<T>> GetDataFromApi<T>() where T : Mezo, new()
+        public virtual async Task<ObservableCollection<T>> GetDataFromApi<T>(string token) where T : Mezo, new()
         {
             
            try
            {
                 using (HttpClient client = new HttpClient())
                 {   
-                    HttpResponseMessage response = await client.GetAsync(ApiURL);
+                    var request = new HttpRequestMessage(HttpMethod.Get, ApiURL);
+                    request.Headers.Add("Authorization", $"Bearer {token}");
+                    HttpResponseMessage response = await client.SendAsync(request);
                     response.EnsureSuccessStatusCode(); 
 
                     string jsonBody = await response.Content.ReadAsStringAsync();

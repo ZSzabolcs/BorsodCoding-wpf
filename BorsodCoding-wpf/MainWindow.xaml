@@ -8,7 +8,7 @@
         Title="Borsod Coding Admin App" Height="450" Width="800">
     <Grid>
         <TextBox x:Name="Address" Text="localhost" HorizontalAlignment="Left" Margin="430,139,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Height="25"/>
-        <TextBox x:Name="UserName" Text="root" HorizontalAlignment="Left" Margin="430,192,0,0"  VerticalAlignment="Top" Width="120" Height="25"/>
+        <TextBox x:Name="UserName" HorizontalAlignment="Left" Margin="430,192,0,0"  VerticalAlignment="Top" Width="120" Height="25"/>
         <PasswordBox x:Name="Passw" HorizontalAlignment="Left" Margin="430,243,0,0" VerticalAlignment="Top" Width="120" Height="25"/>
         <TextBox x:Name="DatabaseName" Text="for_the_potato" HorizontalAlignment="Left" Margin="430,294,0,0"  VerticalAlignment="Top" Width="120" Height="25"/>
         

@@ -1,5 +1,4 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -16,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.Collections;
+using BorsodCoding_WPF_Admin.Tablak;
+using BorsodCoding_WPF_Admin.Mezok;
 
 namespace BorsodCoding_WPF_Admin
 {
@@ -28,9 +29,11 @@ namespace BorsodCoding_WPF_Admin
         object curenttableCollection = new object();
         string kivalasztottId = string.Empty;
         string kivalasztottTabla = "";
-        public Database()
+        string userToken = string.Empty;
+        public Database(string token)
         {
             InitializeComponent();
+            userToken = token;
             tablaKollekcio.Add(new UserTabla().TablaNev, new UserTabla());
             tablaKollekcio.Add(new SaveTabla().TablaNev, new SaveTabla());
             string[] tablaNevek = new string[tablaKollekcio.Count];
@@ -57,7 +60,7 @@ namespace BorsodCoding_WPF_Admin
                 lb_third.Content = "E-mail";
                 lb_fourth.Visibility = Visibility.Collapsed;
                 tbx_fourth.Visibility = Visibility.Collapsed;
-                var adatok = await tablaKollekcio[kivalasztottTabla].GetDataFromApi<UserMezoi>();
+                var adatok = await tablaKollekcio[kivalasztottTabla].GetDataFromApi<UserMezoi>(userToken);
                 curenttableCollection = adatok;
                 tabla.ItemsSource = adatok;
 
@@ -70,7 +73,7 @@ namespace BorsodCoding_WPF_Admin
                 lb_fourth.Content = "Nyelv";
                 lb_fourth.Visibility = Visibility.Visible;
                 tbx_fourth.Visibility = Visibility.Visible;
-                var adatok = await tablaKollekcio[kivalasztottTabla].GetDataFromApi<SaveMezoi>();
+                var adatok = await tablaKollekcio[kivalasztottTabla].GetDataFromApi<SaveMezoi>(userToken);
                 curenttableCollection = adatok;
                 tabla.ItemsSource = adatok;
 
@@ -117,37 +120,41 @@ namespace BorsodCoding_WPF_Admin
 
         private async void button_KivalasztottRekordModositas(object sender, RoutedEventArgs e)
         {
-            object json = new object();
-            if (kivalasztottTabla == "user")
+            if (tabla.SelectedIndex >= 0)
             {
-                var aktualisTabla = curenttableCollection as ObservableCollection<UserMezoi>;
-                var elem = aktualisTabla[(tabla.SelectedIndex >= 0 ? tabla.SelectedIndex : 0)];
-                json = new UserJsonBody
+                object json = new object();
+                if (kivalasztottTabla == "user")
                 {
-                    Name = elem.UserName,
-                    Password = tbx_second.Text,
-                    Email = tbx_third.Text,
-                };
-            }
-            if (kivalasztottTabla == "save")
-            {
-                var aktualisTabla = curenttableCollection as ObservableCollection<SaveMezoi>;
-                var elem = aktualisTabla[(tabla.SelectedIndex >= 0 ? tabla.SelectedIndex : 0)];
-                json = new SaveJsonBody
+                    var aktualisTabla = curenttableCollection as ObservableCollection<UserMezoi>;
+                    var elem = aktualisTabla[tabla.SelectedIndex];
+                    json = new UserJsonBody
+                    {
+                        Name = elem.UserName,
+                        Password = tbx_second.Text,
+                        Email = tbx_third.Text,
+                    };
+                }
+                if (kivalasztottTabla == "save")
                 {
-                    Id = elem.Id,
-                    Points = int.Parse(tbx_second.Text),
-                    Level = int.Parse(tbx_third.Text),
-                    Language = tbx_fourth.Text,
+                    var aktualisTabla = curenttableCollection as ObservableCollection<SaveMezoi>;
+                    var elem = aktualisTabla[tabla.SelectedIndex];
+                    json = new SaveJsonBody
+                    {
+                        Id = elem.Id,
+                        Points = int.Parse(tbx_second.Text),
+                        Level = int.Parse(tbx_third.Text),
+                        Language = tbx_fourth.Text,
 
-                };
-            }
+                    };
+                }
 
-            var issuceded = await tablaKollekcio[kivalasztottTabla].UpdateAData(json);
-            if (issuceded)
-            {
-                TablaBetoltes();
+                var issuceded = await tablaKollekcio[kivalasztottTabla].UpdateAData(json);
+                if (issuceded)
+                {
+                    TablaBetoltes();
+                }
             }
+           
         }
 
         private async void button_UjRekord(object sender, RoutedEventArgs e)
