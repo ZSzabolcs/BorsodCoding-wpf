@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
@@ -27,14 +28,14 @@ namespace BorsodCoding_WPF_Admin.Tablak
             return await base.GetDataFromApi<T>(token);
         }
        
-        public override async Task<bool> InsertAData(object jsonBody)
+        public override async Task<bool> InsertAData(object jsonBody, string token)
         {
             try
             {
                 var sendjsonBody = jsonBody as SaveJsonBody;
                 var client = new HttpClient();
-                JsonSerializerOptions serializerOptions = new JsonSerializerOptions();
-                HttpResponseMessage response = await client.PostAsJsonAsync(ApiURL, jsonBody);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                HttpResponseMessage response = await client.PostAsJsonAsync(ApiURL, sendjsonBody);
                 string jsonString = await response.Content.ReadAsStringAsync();
 
                 using (JsonDocument doc = JsonDocument.Parse(jsonString))
@@ -57,13 +58,14 @@ namespace BorsodCoding_WPF_Admin.Tablak
 
         }
 
-        public override async Task<bool> DeleteAData(string id)
+        public override async Task<bool> DeleteAData(string id, string token)
         {
 
             try
             {
                 ApiURL = $"https://localhost:7036/api/Save?id={id}";
                 var client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 HttpResponseMessage response = await client.DeleteAsync(ApiURL);
 
                 string jsonString = await response.Content.ReadAsStringAsync();
@@ -87,14 +89,16 @@ namespace BorsodCoding_WPF_Admin.Tablak
             }
         }
 
-        public override async Task<bool> UpdateAData(object jsonBody)
+        public override async Task<bool> UpdateAData(object jsonBody, string token)
         {
 
             try
             {
+                ApiURL = "https://localhost:7036/api/Save/FromWPF";
                 var sendJsonBody = jsonBody as SaveJsonBody;
                 var client = new HttpClient();
-                HttpResponseMessage response = await client.PutAsJsonAsync(ApiURL, jsonBody);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                HttpResponseMessage response = await client.PutAsJsonAsync(ApiURL, sendJsonBody);
                 string jsonString = await response.Content.ReadAsStringAsync();
 
                 using (JsonDocument doc = JsonDocument.Parse(jsonString))
@@ -105,6 +109,7 @@ namespace BorsodCoding_WPF_Admin.Tablak
                         MessageBox.Show(message);
                     }
                 }
+                MessageBox.Show(response.IsSuccessStatusCode.ToString());
                 return response.IsSuccessStatusCode;
 
 

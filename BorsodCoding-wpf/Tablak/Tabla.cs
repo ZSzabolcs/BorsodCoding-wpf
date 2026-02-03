@@ -63,11 +63,11 @@ namespace BorsodCoding_WPF_Admin.Tablak
 
         
 
-        public abstract Task<bool> DeleteAData(string id);
+        public abstract Task<bool> DeleteAData(string id, string token);
 
-        public abstract Task<bool> InsertAData(object jsonBody);
+        public abstract Task<bool> InsertAData(object jsonBody, string token);
 
-        public abstract Task<bool> UpdateAData(object jsonBody);
+        public abstract Task<bool> UpdateAData(object jsonBody, string token);
 
     }
 }

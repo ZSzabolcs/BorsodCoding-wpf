@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
@@ -30,12 +31,13 @@ namespace BorsodCoding_WPF_Admin.Tablak
         }
         
 
-        public async override Task<bool> InsertAData(object jsonBody)
+        public async override Task<bool> InsertAData(object jsonBody, string token)
         {
             try
             {
                 var sendjsonBody = jsonBody as UserJsonBody;
                 var client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 HttpResponseMessage response = await client.PostAsJsonAsync(ObjURL, sendjsonBody);
                 string jsonString = await response.Content.ReadAsStringAsync();
 
@@ -57,12 +59,13 @@ namespace BorsodCoding_WPF_Admin.Tablak
             }
         }
 
-        public override async Task<bool> DeleteAData(string id)
+        public override async Task<bool> DeleteAData(string id, string token)
         {
             try
             {
-                ObjURL = $"http://localhost:5019/api/auth?id={id}";
+                ObjURL = $"https://localhost:7159/auth?id={id}";
                 var client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 HttpResponseMessage response = await client.DeleteAsync(ObjURL);
                 string jsonString = await response.Content.ReadAsStringAsync();
 
@@ -85,13 +88,14 @@ namespace BorsodCoding_WPF_Admin.Tablak
             }
         }
 
-        public override async Task<bool> UpdateAData(object jsonBody)
+        public override async Task<bool> UpdateAData(object jsonBody, string token)
         {
             try
             {
-                ObjURL = "http://localhost:5233/api/User";
+                ObjURL = "https://localhost:7159/auth/Modositas";
                 var sendjsonBody = jsonBody as UserJsonBody;
                 var client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 HttpResponseMessage response = await client.PutAsJsonAsync(ObjURL, sendjsonBody);
                 string jsonString = await response.Content.ReadAsStringAsync();
 

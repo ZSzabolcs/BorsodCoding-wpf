@@ -5,47 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BorsodCoding_WPF_Admin"
         mc:Ignorable="d"
-        Title="Database" Height="450" Width="800">
+        Title="Borsod Coding Admin App" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.5*"/>
             <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <ListBox x:Name="tablak" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,37,0,0" Grid.Column="0" SelectionChanged="tablak_SelectionChanged"/>
-        <Label Content="Táblák" HorizontalAlignment="Left" Margin="0,3,0,0" VerticalAlignment="Top" FontSize="18" Height="34" Grid.Column="0" Width="60"/>
+        <Menu>
+            <MenuItem Header="_Műveletek">
+                <MenuItem Header="Új rekord"
+                          Click="button_UjRekord"/>
+                <MenuItem Header="Kiválasztott elem módosítása"
+                          x:Name="miModify"
+                          IsEnabled="False"
+                          Click="button_KivalasztottRekordModositas"/>
+                <MenuItem Header="Kiválasztott elem törlése"
+                          x:Name="miDelete"
+                          IsEnabled="False"
+                          Click="button_KivalasztottRekordTorlese"/>
+            </MenuItem>
+        </Menu>
+        <ListBox x:Name="tablak" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,61,0,0" Grid.Column="0" SelectionChanged="tablak_SelectionChanged"/>
+        <Label Content="Táblák"  HorizontalAlignment="Left" Margin="0,22,0,0" VerticalAlignment="Top" FontSize="18" Height="34" Grid.Column="0" Width="60"/>
         <DataGrid x:Name="tabla" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="True" Grid.Column="1" AutoGeneratingColumn="tabla_OszlopBeallitas" SelectionChanged="tabla_SelectionChanged"/>
-        <StackPanel Grid.Column="2">
 
-            <Label Content="Végzések" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="18" Height="34" Width="84"/>
-            <Label x:Name="lb_first" Content="" HorizontalAlignment="Left"/>
-            <TextBox x:Name="tbx_first"/>
-            <Label x:Name="lb_second" Content="" HorizontalAlignment="Left"/>
-            <TextBox x:Name="tbx_second"/>
-            <Label x:Name="lb_third" Content="" HorizontalAlignment="Left"/>
-            <TextBox x:Name="tbx_third"/>
-            <Label x:Name="lb_fourth" Content="" HorizontalAlignment="Left"/>
-            <TextBox x:Name="tbx_fourth"/>
-            <Button x:Name="btn_ujrekord"
-                    Content="Egy újabb rekord hozzáadása" 
-                    Click="button_UjRekord" 
-                    Margin="0 15 0 0"/>
-            <Button x:Name="btn_rekordModositas"
-                    Content="Kiválasztott rekord módosítása"
-                    Click="button_KivalasztottRekordModositas"
-                    Margin="0 15 0 0"
-                    IsEnabled="False"/>
-            <Button x:Name="btn_rekordTorles" 
-                    Content="Kiválasztott rekord törlése"
-                    Click="button_KivalasztottRekordTorlese"
-                    Margin="0 15 0 0"
-                    IsEnabled="False"/>
-            <Button x:Name="btn_megse" 
-                    Content="Mégse"
-                    Click="btn_megse_Click"
-                    Margin="0 15 0 0"
-                    Visibility="Collapsed"/>
-        </StackPanel>
-        
     </Grid>
 </Window>

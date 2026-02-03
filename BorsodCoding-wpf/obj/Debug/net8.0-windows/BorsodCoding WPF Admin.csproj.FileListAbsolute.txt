@@ -260,13 +260,11 @@ D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\bin\Debug\net8.0
 D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.csproj.AssemblyReference.cache
 D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\Database.g.cs
 D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\MainWindow.g.cs
-D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\UserModifyerOrCreate.g.cs
 D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\App.g.cs
 D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCoding WPF Admin_MarkupCompile.cache
 D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCoding WPF Admin_MarkupCompile.lref
 D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\Database.baml
 D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\MainWindow.baml
-D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\UserModifyerOrCreate.baml
 D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.g.resources
 D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.GeneratedMSBuildEditorConfig.editorconfig
 D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.AssemblyInfoInputs.cache
@@ -279,3 +277,5 @@ D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0
 D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.pdb
 D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.genruntimeconfig.cache
 D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\ref\BorsodCoding WPF Admin.dll
+D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\AddOrUpdateSave.g.cs
+D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\AddOrUpdateSave.baml
