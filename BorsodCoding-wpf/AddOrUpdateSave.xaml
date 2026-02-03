@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BorsodCoding_WPF_Admin"
         mc:Ignorable="d"
-        Title="AddOrUpdateSave" Height="450" Width="800">
+        Title="AddOrUpdateSave" Height="450" Width="600">
     <Grid>
-        <StackPanel HorizontalAlignment="Center" Width="322" >
+        <StackPanel HorizontalAlignment="Center" Width="320" >
             <Label x:Name="lbName" Content="Név"></Label>
             <TextBox x:Name="tbxName"></TextBox>
             <Label Content="Pontszám"></Label>

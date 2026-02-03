@@ -78,6 +78,7 @@ namespace BorsodCoding_WPF_Admin
                 miModify.IsEnabled = false;
                 miDelete.IsEnabled = false;
                 TablaBetoltes();
+                AlapAllapot();
             }
 
         }
@@ -103,37 +104,22 @@ namespace BorsodCoding_WPF_Admin
             if (issuceded)
             {
                 TablaBetoltes();
+                AlapAllapot();
             }
         }
 
         private async void button_KivalasztottRekordModositas(object sender, RoutedEventArgs e)
         {
-            if (kivalasztottTabla == "save")
-            {
-                AddOrUpdateSave addOrUpdateSave = new AddOrUpdateSave((kivalasztottElem as SaveJsonBody), "modify", userToken);
-                addOrUpdateSave.ShowDialog();
-                TablaBetoltes();
-            }
-
-
-
+            tablaKollekcio[kivalasztottTabla].LoadUpdateWindow(kivalasztottElem, userToken, "modify");
+            TablaBetoltes();
+            AlapAllapot();
         }
 
         private async void button_UjRekord(object sender, RoutedEventArgs e)
         {
-            if (kivalasztottTabla == "save")
-            {
-                AddOrUpdateSave addOrUpdateSave = new AddOrUpdateSave("add", userToken);
-                addOrUpdateSave.ShowDialog();
-                TablaBetoltes();
-            }
-
-            if (kivalasztottTabla == "user")
-            {
-                
-            }
-
-
+            tablaKollekcio[kivalasztottTabla].LoadAddWindow(userToken, "add");
+            TablaBetoltes();
+            AlapAllapot();
         }
 
         private void tabla_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -146,14 +132,14 @@ namespace BorsodCoding_WPF_Admin
                     {
                         kivalasztottId = (currentTableCollection as ObservableCollection<UserMezoi>)[tabla.SelectedIndex].Id;
                         var rekord = (currentTableCollection as ObservableCollection<UserMezoi>)[tabla.SelectedIndex];
-                        object jsonBody = new
+                        object jsonBody = new UserJsonBody()
                         {
                             UserName = rekord.UserName,
                             Password = "",
                             Email = rekord.Email
 
                         };
-                        kivalasztottElem = jsonBody as UserJsonBody;
+                        kivalasztottElem = jsonBody;
 
                     }
 
@@ -187,7 +173,8 @@ namespace BorsodCoding_WPF_Admin
 
         private void AlapAllapot()
         {
-
+            miDelete.IsEnabled = false;
+            miModify.IsEnabled = false;
         }
 
         private void btn_megse_Click(object sender, RoutedEventArgs e)

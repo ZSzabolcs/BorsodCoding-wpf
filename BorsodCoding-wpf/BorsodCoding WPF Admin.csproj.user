@@ -5,6 +5,9 @@
     <Compile Update="AddOrUpdateSave.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="AddOrUpdateUser.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Database.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

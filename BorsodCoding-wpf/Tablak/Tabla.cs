@@ -69,5 +69,8 @@ namespace BorsodCoding_WPF_Admin.Tablak
 
         public abstract Task<bool> UpdateAData(object jsonBody, string token);
 
+        public abstract void LoadUpdateWindow(object kivalasztottElem, string userToken, string mode);
+        public abstract void LoadAddWindow(string userToken, string mode);
+
     }
 }

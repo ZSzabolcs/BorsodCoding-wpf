@@ -35,6 +35,7 @@ namespace BorsodCoding_WPF_Admin.Tablak
         {
             try
             {
+                ObjURL = "https://localhost:7159/auth/register";
                 var sendjsonBody = jsonBody as UserJsonBody;
                 var client = new HttpClient();
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -115,6 +116,18 @@ namespace BorsodCoding_WPF_Admin.Tablak
                 MessageBox.Show(ex.Message);
                 return false;
             }
+        }
+
+        public override void LoadUpdateWindow(object kivalasztottElem, string userToken, string mode)
+        {
+            AddOrUpdateUser addOrUpdateUser = new AddOrUpdateUser((kivalasztottElem as UserJsonBody), mode, userToken);
+            addOrUpdateUser.ShowDialog();
+        }
+
+        public override void LoadAddWindow(string userToken, string mode)
+        {
+            AddOrUpdateUser addOrUpdateUser = new AddOrUpdateUser(mode, userToken);
+            addOrUpdateUser.ShowDialog();
         }
     }
 }

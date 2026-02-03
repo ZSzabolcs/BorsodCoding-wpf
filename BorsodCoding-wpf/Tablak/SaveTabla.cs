@@ -120,5 +120,17 @@ namespace BorsodCoding_WPF_Admin.Tablak
                 return false;
             }
         }
+
+        public override void LoadUpdateWindow(object kivalasztottElem, string userToken, string mode)
+        {
+            AddOrUpdateSave addOrUpdateSave = new AddOrUpdateSave((kivalasztottElem as SaveJsonBody), mode, userToken);
+            addOrUpdateSave.ShowDialog();
+        }
+
+        public override void LoadAddWindow(string userToken, string mode)
+        {
+            AddOrUpdateSave addOrUpdateSave = new AddOrUpdateSave(mode, userToken);
+            addOrUpdateSave.ShowDialog();
+        }
     }
 }
