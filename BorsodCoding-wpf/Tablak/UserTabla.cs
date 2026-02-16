@@ -1,4 +1,7 @@
-﻿using MySql.Data.MySqlClient;
+﻿using BorsodCoding_WPF_Admin.JsonBodies;
+using BorsodCoding_WPF_Admin.Tablak;
+using BorsodCoding_WPF_Admin.Mezok;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,117 +20,54 @@ namespace BorsodCoding_WPF_Admin.Tablak
 {
     public class UserTabla : Tabla
     {
-        public UserTabla()
+        public UserTabla(string tablaNev, string getURL, string postURL, string putURL, string delURL) : base(tablaNev, getURL, postURL, putURL, delURL)
         {
-            TablaNev = "user";
-            ApiURL = "https://localhost:7159/auth";
-            ObjURL = "";
         }
 
-        
-        public override Task<ObservableCollection<T>> GetDataFromApi<T>(string token)
-        {
-            return base.GetDataFromApi<T>(token);
-        }
-        
-
-        public async override Task<bool> InsertAData(object jsonBody, string token)
+        public async override Task<object> GetDataFromApi(string token)
         {
             try
             {
-                ObjURL = "https://localhost:7159/auth/register";
-                var sendjsonBody = jsonBody as UserJsonBody;
-                var client = new HttpClient();
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                HttpResponseMessage response = await client.PostAsJsonAsync(ObjURL, sendjsonBody);
-                string jsonString = await response.Content.ReadAsStringAsync();
-
-                using (JsonDocument doc = JsonDocument.Parse(jsonString))
+                using (HttpClient client = new HttpClient())
                 {
-                    if (doc.RootElement.TryGetProperty("message", out var messageElement))
-                    {
-                        string message = messageElement.GetString();
-                        MessageBox.Show(message);
-                    }
-                }
-                return response.IsSuccessStatusCode;
+                    var request = new HttpRequestMessage(HttpMethod.Get, GetURL);
+                    request.Headers.Add("Authorization", $"Bearer {token}");
+                    HttpResponseMessage response = await client.SendAsync(request);
+                    response.EnsureSuccessStatusCode();
 
+                    string jsonBody = await response.Content.ReadAsStringAsync();
+
+                    using (JsonDocument doc = JsonDocument.Parse(jsonBody))
+                    {
+                        if (doc.RootElement.TryGetProperty("value", out var messageElement))
+                        {
+                            return JsonSerializer.Deserialize<ObservableCollection<UserMezoi>>(messageElement.ToString(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                        }
+                    }
+
+                    return new ObservableCollection<UserMezoi>();
+
+
+
+                }
             }
-            catch (Exception ex)
+            catch (HttpRequestException e)
             {
-                MessageBox.Show(ex.Message);
-                return false;
+                MessageBox.Show(e.Message);
+                return new ObservableCollection<UserMezoi>();
             }
         }
 
-        public override async Task<bool> DeleteAData(string id, string token)
+        public override void LoadAddDataWindow(string token, Tabla tabla)
         {
-            try
-            {
-                ObjURL = $"https://localhost:7159/auth?id={id}";
-                var client = new HttpClient();
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                HttpResponseMessage response = await client.DeleteAsync(ObjURL);
-                string jsonString = await response.Content.ReadAsStringAsync();
-
-                using (JsonDocument doc = JsonDocument.Parse(jsonString))
-                {
-                    if (doc.RootElement.TryGetProperty("message", out var messageElement))
-                    {
-                        string message = messageElement.GetString();
-                        MessageBox.Show(message);
-                    }
-                }
-                return response.IsSuccessStatusCode;
-
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
+            throw new NotImplementedException();
         }
 
-        public override async Task<bool> UpdateAData(object jsonBody, string token)
+        public override void LoadUpdateDataWindow(string token, JsonBody userjsonBody, Tabla tabla)
         {
-            try
-            {
-                ObjURL = "https://localhost:7159/auth/Modositas";
-                var sendjsonBody = jsonBody as UserJsonBody;
-                var client = new HttpClient();
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                HttpResponseMessage response = await client.PutAsJsonAsync(ObjURL, sendjsonBody);
-                string jsonString = await response.Content.ReadAsStringAsync();
-
-                using (JsonDocument doc = JsonDocument.Parse(jsonString))
-                {
-                    if (doc.RootElement.TryGetProperty("message", out var messageElement))
-                    {
-                        string message = messageElement.GetString();
-                        MessageBox.Show(message);
-                    }
-                }
-                return response.IsSuccessStatusCode;
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-        }
-
-        public override void LoadUpdateWindow(object kivalasztottElem, string userToken, string mode)
-        {
-            AddOrUpdateUser addOrUpdateUser = new AddOrUpdateUser((kivalasztottElem as UserJsonBody), mode, userToken);
+            AddOrUpdateUser addOrUpdateUser = new AddOrUpdateUser(token, (userjsonBody as UserJsonBody), tabla);
             addOrUpdateUser.ShowDialog();
         }
 
-        public override void LoadAddWindow(string userToken, string mode)
-        {
-            AddOrUpdateUser addOrUpdateUser = new AddOrUpdateUser(mode, userToken);
-            addOrUpdateUser.ShowDialog();
-        }
     }
 }

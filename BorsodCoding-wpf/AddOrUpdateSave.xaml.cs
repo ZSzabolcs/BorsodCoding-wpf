@@ -1,4 +1,5 @@
-﻿using BorsodCoding_WPF_Admin.Mezok;
+﻿using BorsodCoding_WPF_Admin.JsonBodies;
+using BorsodCoding_WPF_Admin.Mezok;
 using BorsodCoding_WPF_Admin.Tablak;
 using System;
 using System.Collections.Generic;
@@ -24,16 +25,18 @@ namespace BorsodCoding_WPF_Admin
         string _mode = "";
         string _token = "";
         string _id = "";
+        Tabla _tabla = null;
         public AddOrUpdateSave()
         {
             InitializeComponent();
         }
-        public AddOrUpdateSave(SaveJsonBody save, string mode, string token)
+        public AddOrUpdateSave(string token, SaveJsonBody save, Tabla tabla, string mode = "modify")
         {
             InitializeComponent();
             _mode = mode;
             _token = token;
             _id = save.Id;
+            _tabla = tabla;
             cbxLanguage.ItemsSource = new string[2] { "hu", "en" };
             if (mode == "modify")
             {
@@ -45,11 +48,12 @@ namespace BorsodCoding_WPF_Admin
                 bSave.Content = "A rekord módosítása";
             }
         }
-        public AddOrUpdateSave(string mode, string token)
+        public AddOrUpdateSave(string token, Tabla tabla, string mode = "add")
         {
             InitializeComponent();
             _mode = mode;
             _token = token;
+            _tabla = tabla;
             cbxLanguage.ItemsSource = new string[2] { "hu", "en" };
         }
 
@@ -60,8 +64,8 @@ namespace BorsodCoding_WPF_Admin
 
                 if (_mode == "add")
                 {
-                    SaveTabla saveTabla = new SaveTabla();
-                    if (await saveTabla.InsertAData(new SaveJsonBody()
+
+                    if (await _tabla.InsertAData(new SaveJsonBody()
                     {
                         Name = tbxName.Text,
                         Points = int.Parse(tbxPoints.Text),
@@ -75,8 +79,7 @@ namespace BorsodCoding_WPF_Admin
 
                 if (_mode == "modify")
                 {
-                    SaveTabla saveTabla = new SaveTabla();
-                    if (await saveTabla.UpdateAData(new SaveJsonBody() { 
+                    if (await _tabla.UpdateAData(new SaveJsonBody() { 
                         Id = _id, 
                         Points = int.Parse(tbxPoints.Text),
                         Level = int.Parse(tbxLevel.Text),

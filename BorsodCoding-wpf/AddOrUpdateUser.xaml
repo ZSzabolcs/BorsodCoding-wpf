@@ -5,17 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BorsodCoding_WPF_Admin"
         mc:Ignorable="d"
-        Title="AddOrUpdateUser" Height="450" Width="600">
+        Title="AddOrUpdateUser" Height="450" Width="800">
     <Grid>
-        <StackPanel HorizontalAlignment="Center" Width="320">
-            <Label Content="Felhasználónév"/>
-            <TextBox x:Name="tbxUsername"></TextBox>
-            <Label Content="Jelszó"/>
-            <TextBox x:Name="tbxPassword"></TextBox>
-            <Label Content="Email"/>
-            <TextBox x:Name="tbxEmail"></TextBox>
-            <Button x:Name="bAction" Content="Új rekord hozzáadása" Margin="0 20" Click="bAction_Click"/>
-        </StackPanel>
-
+        
     </Grid>
 </Window>

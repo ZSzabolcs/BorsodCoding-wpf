@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BorsodCoding_WPF_Admin
+namespace BorsodCoding_WPF_Admin.JsonBodies
 {
-    public class SaveJsonBody
+    public class SaveJsonBody : JsonBody
     {
-        public SaveJsonBody() { }
+        public SaveJsonBody() : base() { }
 
         public string? Id { get; set; }
         public string? Name { get; set; }

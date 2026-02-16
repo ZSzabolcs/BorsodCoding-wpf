@@ -1,23 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="BorsodCoding_WPF_Admin.Mezok.Mezo">
-    <Position X="6.25" Y="1.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Mezok\Mezo.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="BorsodCoding_WPF_Admin.Mezok.SaveMezoi">
-    <Position X="8" Y="3.5" Width="1.5" />
+    <Position X="4.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAACAAAgAAAAAAAAAEAAAAAAAABAAAAACAAAAA=</HashCode>
       <FileName>Mezok\Mezo.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BorsodCoding_WPF_Admin.Mezok.UserMezoi">
-    <Position X="3.75" Y="3.25" Width="1.5" />
+    <Position X="0.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AACAAAAABCAAIEAIAAAAQAUBQAAAAAAIAQQABAAAAQA=</HashCode>
+      <FileName>Mezok\Mezo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BorsodCoding_WPF_Admin.Tablak.Tabla">
+    <Position X="11.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAWCACAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAEBAAAA=</HashCode>
+      <FileName>Tablak\Tabla.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BorsodCoding_WPF_Admin.Tablak.SaveTabla">
+    <Position X="8.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tablak\SaveTabla.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BorsodCoding_WPF_Admin.Tablak.UserTabla">
+    <Position X="14" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tablak\UserTabla.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BorsodCoding_WPF_Admin.Mezok.Mezo">
+    <Position X="3" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Mezok\Mezo.cs</FileName>
     </TypeIdentifier>
   </Class>

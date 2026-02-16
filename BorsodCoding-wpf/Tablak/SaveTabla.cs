@@ -12,125 +12,65 @@ using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using System.Windows;
 using static System.Net.WebRequestMethods;
+using BorsodCoding_WPF_Admin.Mezok;
+using BorsodCoding_WPF_Admin.JsonBodies;
 
 namespace BorsodCoding_WPF_Admin.Tablak
 {
-   public class SaveTabla : Tabla
-   {
-        public SaveTabla()
+
+    public class SaveTabla : Tabla
+    {
+        public SaveTabla(string tablaNev, string getURL, string postURL, string putURL, string delURL) : base(tablaNev, getURL, postURL, putURL, delURL)
         {
-            TablaNev = "save";
-            ApiURL = "https://localhost:7036/api/Save";
         }
-       
-        public override async Task<ObservableCollection<T>> GetDataFromApi<T>(string token)
-        {
-            return await base.GetDataFromApi<T>(token);
-        }
-       
-        public override async Task<bool> InsertAData(object jsonBody, string token)
+
+        public async override Task<object> GetDataFromApi(string token)
         {
             try
             {
-                var sendjsonBody = jsonBody as SaveJsonBody;
-                var client = new HttpClient();
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                HttpResponseMessage response = await client.PostAsJsonAsync(ApiURL, sendjsonBody);
-                string jsonString = await response.Content.ReadAsStringAsync();
-
-                using (JsonDocument doc = JsonDocument.Parse(jsonString))
+                using (HttpClient client = new HttpClient())
                 {
-                    if (doc.RootElement.TryGetProperty("message", out var messageElement))
+                    var request = new HttpRequestMessage(HttpMethod.Get, GetURL);
+                    request.Headers.Add("Authorization", $"Bearer {token}");
+                    HttpResponseMessage response = await client.SendAsync(request);
+                    response.EnsureSuccessStatusCode();
+
+                    string jsonBody = await response.Content.ReadAsStringAsync();
+
+                    using (JsonDocument doc = JsonDocument.Parse(jsonBody))
                     {
-                        string message = messageElement.GetString();
-                        MessageBox.Show(message);
+                        if (doc.RootElement.TryGetProperty("value", out var messageElement))
+                        {
+                            return JsonSerializer.Deserialize<ObservableCollection<SaveMezoi>>(messageElement.ToString(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                        }
                     }
+
+                    return new ObservableCollection<SaveMezoi>();
+
+
+
                 }
-                return response.IsSuccessStatusCode;
-                
-
             }
-            catch (Exception ex)
+            catch (HttpRequestException e)
             {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-
-        }
-
-        public override async Task<bool> DeleteAData(string id, string token)
-        {
-
-            try
-            {
-                ApiURL = $"https://localhost:7036/api/Save?id={id}";
-                var client = new HttpClient();
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                HttpResponseMessage response = await client.DeleteAsync(ApiURL);
-
-                string jsonString = await response.Content.ReadAsStringAsync();
-
-                using (JsonDocument doc = JsonDocument.Parse(jsonString))
-                {
-                    if (doc.RootElement.TryGetProperty("message", out var messageElement))
-                    {
-                        string message = messageElement.GetString();
-                        MessageBox.Show(message);
-                    }
-                }
-                return response.IsSuccessStatusCode;
-
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
+                MessageBox.Show(e.Message);
+                return new ObservableCollection<SaveMezoi>();
             }
         }
 
-        public override async Task<bool> UpdateAData(object jsonBody, string token)
+        public override void LoadAddDataWindow(string token, Tabla tabla)
         {
-
-            try
-            {
-                ApiURL = "https://localhost:7036/api/Save/FromWPF";
-                var sendJsonBody = jsonBody as SaveJsonBody;
-                var client = new HttpClient();
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                HttpResponseMessage response = await client.PutAsJsonAsync(ApiURL, sendJsonBody);
-                string jsonString = await response.Content.ReadAsStringAsync();
-
-                using (JsonDocument doc = JsonDocument.Parse(jsonString))
-                {
-                    if (doc.RootElement.TryGetProperty("message", out var messageElement))
-                    {
-                        string message = messageElement.GetString();
-                        MessageBox.Show(message);
-                    }
-                }
-                MessageBox.Show(response.IsSuccessStatusCode.ToString());
-                return response.IsSuccessStatusCode;
-
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-        }
-
-        public override void LoadUpdateWindow(object kivalasztottElem, string userToken, string mode)
-        {
-            AddOrUpdateSave addOrUpdateSave = new AddOrUpdateSave((kivalasztottElem as SaveJsonBody), mode, userToken);
+            AddOrUpdateSave addOrUpdateSave = new AddOrUpdateSave(token, tabla);
             addOrUpdateSave.ShowDialog();
         }
 
-        public override void LoadAddWindow(string userToken, string mode)
+
+        public override void LoadUpdateDataWindow(string token, JsonBody jsonBody, Tabla tabla)
         {
-            AddOrUpdateSave addOrUpdateSave = new AddOrUpdateSave(mode, userToken);
-            addOrUpdateSave.ShowDialog();
+            AddOrUpdateSave addOrUpdateUser = new AddOrUpdateSave(token, (jsonBody as SaveJsonBody), tabla);
+            addOrUpdateUser.ShowDialog();
         }
+
+
     }
 }

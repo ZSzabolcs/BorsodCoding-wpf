@@ -17,6 +17,7 @@ using System.Collections.ObjectModel;
 using System.Collections;
 using BorsodCoding_WPF_Admin.Tablak;
 using BorsodCoding_WPF_Admin.Mezok;
+using BorsodCoding_WPF_Admin.JsonBodies;
 
 namespace BorsodCoding_WPF_Admin
 {
@@ -35,8 +36,10 @@ namespace BorsodCoding_WPF_Admin
         {
             InitializeComponent();
             userToken = token;
-            tablaKollekcio.Add(new UserTabla().TablaNev, new UserTabla());
-            tablaKollekcio.Add(new SaveTabla().TablaNev, new SaveTabla());
+            var userTabla = new UserTabla("user", "https://localhost:7159/auth", "https://localhost:7159/auth/register", "https://localhost:7159/auth/Modositas", "https://localhost:7159/auth?id=");
+            var saveTabla = new SaveTabla("save", "https://localhost:7159/api/Save", "https://localhost:7159/api/Save", "https://localhost:7159/api/Save/FromWPF", "https://localhost:7159/api/Save?id=");
+            tablaKollekcio.Add(userTabla.TablaNev, userTabla);
+            tablaKollekcio.Add(saveTabla.TablaNev, saveTabla);
             string[] tablaNevek = new string[tablaKollekcio.Count];
             tablak.ItemsSource = tablaNevek;
             int i = 0;
@@ -52,17 +55,8 @@ namespace BorsodCoding_WPF_Admin
 
         private async void TablaBetoltes()
         {
-            object adatok = new object();
-            if (kivalasztottTabla == "user")
-            {
-                adatok = await tablaKollekcio[kivalasztottTabla].GetDataFromApi<UserMezoi>(userToken);
 
-            }
-            else if (kivalasztottTabla == "save")
-            {
-                adatok = await tablaKollekcio[kivalasztottTabla].GetDataFromApi<SaveMezoi>(userToken);
-
-            }
+            var adatok = await tablaKollekcio[kivalasztottTabla].GetDataFromApi(userToken);
             currentTableCollection = adatok;
             tabla.ItemsSource = adatok as IEnumerable;
             AlapAllapot();
@@ -75,10 +69,10 @@ namespace BorsodCoding_WPF_Admin
             {
                 kivalasztottTabla = tablak.SelectedValue.ToString();
                 kivalasztottElem = null;
+                kivalasztottId = null;
                 miModify.IsEnabled = false;
                 miDelete.IsEnabled = false;
                 TablaBetoltes();
-                AlapAllapot();
             }
 
         }
@@ -104,37 +98,38 @@ namespace BorsodCoding_WPF_Admin
             if (issuceded)
             {
                 TablaBetoltes();
-                AlapAllapot();
             }
         }
 
         private async void button_KivalasztottRekordModositas(object sender, RoutedEventArgs e)
         {
-            tablaKollekcio[kivalasztottTabla].LoadUpdateWindow(kivalasztottElem, userToken, "modify");
+            tablaKollekcio[kivalasztottTabla].LoadUpdateDataWindow(userToken, (kivalasztottElem as JsonBody), tablaKollekcio[kivalasztottTabla]);
             TablaBetoltes();
-            AlapAllapot();
+            
         }
 
         private async void button_UjRekord(object sender, RoutedEventArgs e)
         {
-            tablaKollekcio[kivalasztottTabla].LoadAddWindow(userToken, "add");
+            tablaKollekcio[kivalasztottTabla].LoadAddDataWindow(userToken, tablaKollekcio[kivalasztottTabla]);
             TablaBetoltes();
-            AlapAllapot();
+
+
         }
 
         private void tabla_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
             {
+
                 if (tabla.SelectedIndex > -1)
                 {
                     if (kivalasztottTabla == "user")
                     {
                         kivalasztottId = (currentTableCollection as ObservableCollection<UserMezoi>)[tabla.SelectedIndex].Id;
                         var rekord = (currentTableCollection as ObservableCollection<UserMezoi>)[tabla.SelectedIndex];
-                        object jsonBody = new UserJsonBody()
+                        UserJsonBody jsonBody = new UserJsonBody()
                         {
-                            UserName = rekord.UserName,
+                            Name = rekord.UserName,
                             Password = "",
                             Email = rekord.Email
 
@@ -160,6 +155,7 @@ namespace BorsodCoding_WPF_Admin
 
                     miModify.IsEnabled = true;
                     miDelete.IsEnabled = true;
+                    miMegse.IsEnabled = true;
 
                 }
             }
@@ -175,6 +171,9 @@ namespace BorsodCoding_WPF_Admin
         {
             miDelete.IsEnabled = false;
             miModify.IsEnabled = false;
+            miMegse.IsEnabled = false;
+            kivalasztottElem = null;
+            kivalasztottId = null;
         }
 
         private void btn_megse_Click(object sender, RoutedEventArgs e)

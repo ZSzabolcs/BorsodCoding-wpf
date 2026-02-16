@@ -1,10 +1,14 @@
-﻿using BorsodCoding_WPF_Admin.Mezok;
+﻿using BorsodCoding_WPF_Admin.JsonBodies;
+using BorsodCoding_WPF_Admin.Mezok;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -14,63 +18,114 @@ namespace BorsodCoding_WPF_Admin.Tablak
 {
     public abstract class Tabla
     {
-        protected string ApiURL { get; set; }
+        public Tabla(string tablaNev, string getURL, string postURL,  string putURL, string delURL)
+        {
+            TablaNev = tablaNev;
+            GetURL = getURL;
+            PostURL = postURL;
+            DelURL = delURL;
+            PutURL = putURL;
+        }
 
-        protected string ObjURL { get; set; }
+        protected string GetURL { get; set; }
 
         public string TablaNev { get; protected set; }
 
-        protected Tabla() { }
+        private string PostURL { get; set; }
 
+        private string DelURL { get; set; }
+
+        private string PutURL { get; set; }
+
+
+        public abstract void LoadUpdateDataWindow(string token, JsonBody jsonBody, Tabla tabla);
+
+        public abstract void LoadAddDataWindow(string token, Tabla tabla);
+
+        public abstract Task<object> GetDataFromApi(string token);
         
 
-        public virtual async Task<ObservableCollection<T>> GetDataFromApi<T>(string token) where T : Mezo, new()
+        public async  Task<bool> DeleteAData(string id, string token)
         {
-            
-           try
-           {
-                using (HttpClient client = new HttpClient())
-                {   
-                    var request = new HttpRequestMessage(HttpMethod.Get, ApiURL);
-                    request.Headers.Add("Authorization", $"Bearer {token}");
-                    HttpResponseMessage response = await client.SendAsync(request);
-                    response.EnsureSuccessStatusCode(); 
+            try
+            {
+                var client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                HttpResponseMessage response = await client.DeleteAsync(DelURL);
+                string jsonString = await response.Content.ReadAsStringAsync();
 
-                    string jsonBody = await response.Content.ReadAsStringAsync();
-
-                    using (JsonDocument doc = JsonDocument.Parse(jsonBody))
+                using (JsonDocument doc = JsonDocument.Parse(jsonString))
+                {
+                    if (doc.RootElement.TryGetProperty("message", out var messageElement))
                     {
-                        if (doc.RootElement.TryGetProperty("value", out var messageElement))
-                        {
-                            ObservableCollection<T>? data = JsonSerializer.Deserialize<ObservableCollection<T>>(messageElement.ToString(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-                            return data;
-                        }
+                        string message = messageElement.GetString();
+                        MessageBox.Show(message);
                     }
-
-                    return new ObservableCollection<T>();
-                    
-
-
                 }
-           }
-           catch (HttpRequestException e)
-           {
-                MessageBox.Show(e.Message);
-                return new ObservableCollection<T>(); 
-           }
-            
+                return response.IsSuccessStatusCode;
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
         }
 
-        
+        public async  Task<bool> InsertAData(JsonBody jsonBody, string token)
+        {
+            try
+            {
+                var client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                HttpResponseMessage response = await client.PostAsJsonAsync(PostURL, jsonBody);
+                string jsonString = await response.Content.ReadAsStringAsync();
 
-        public abstract Task<bool> DeleteAData(string id, string token);
+                using (JsonDocument doc = JsonDocument.Parse(jsonString))
+                {
+                    if (doc.RootElement.TryGetProperty("message", out var messageElement))
+                    {
+                        string message = messageElement.GetString();
+                        MessageBox.Show(message);
+                    }
+                }
+                return response.IsSuccessStatusCode;
 
-        public abstract Task<bool> InsertAData(object jsonBody, string token);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
 
-        public abstract Task<bool> UpdateAData(object jsonBody, string token);
+        public async Task<bool> UpdateAData(JsonBody jsonBody, string token)
+        {
+            try
+            {
+                var client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                HttpResponseMessage response = await client.PutAsJsonAsync(PutURL, jsonBody);
+                string jsonString = await response.Content.ReadAsStringAsync();
 
-        public abstract void LoadUpdateWindow(object kivalasztottElem, string userToken, string mode);
-        public abstract void LoadAddWindow(string userToken, string mode);
+                using (JsonDocument doc = JsonDocument.Parse(jsonString))
+                {
+                    if (doc.RootElement.TryGetProperty("message", out var messageElement))
+                    {
+                        string message = messageElement.GetString();
+                        MessageBox.Show(message);
+                    }
+                }
+                return response.IsSuccessStatusCode;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
 
     }
 }
