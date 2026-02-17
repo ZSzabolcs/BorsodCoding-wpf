@@ -17,7 +17,8 @@ using System.Collections.ObjectModel;
 using System.Collections;
 using BorsodCoding_WPF_Admin.Tablak;
 using BorsodCoding_WPF_Admin.Mezok;
-using BorsodCoding_WPF_Admin.JsonBodies;
+using BorsodCoding_WPF_Admin;
+using BorsodCoding_WPF_Admin.Dtos;
 
 namespace BorsodCoding_WPF_Admin
 {
@@ -36,8 +37,18 @@ namespace BorsodCoding_WPF_Admin
         {
             InitializeComponent();
             userToken = token;
-            var userTabla = new UserTabla("user", "https://localhost:7159/auth", "https://localhost:7159/auth/register", "https://localhost:7159/auth/Modositas", "https://localhost:7159/auth?id=");
-            var saveTabla = new SaveTabla("save", "https://localhost:7159/api/Save", "https://localhost:7159/api/Save", "https://localhost:7159/api/Save/FromWPF", "https://localhost:7159/api/Save?id=");
+            var userTabla = new UserTabla("user",
+                getURL: "https://localhost:7159/auth",
+                postURL: "https://localhost:7159/auth/register",
+                putURL: "https://localhost:7159/auth/Modositas",
+                delURL: "https://localhost:7159/auth?id="
+                );
+            var saveTabla = new SaveTabla("save", 
+                getURL: "https://localhost:7159/api/Save",
+                postURL: "https://localhost:7159/api/Save",
+                putURL: "https://localhost:7159/api/Save/FromWPF",
+                delURL: "https://localhost:7159/api/Save?id="
+                );
             tablaKollekcio.Add(userTabla.TablaNev, userTabla);
             tablaKollekcio.Add(saveTabla.TablaNev, saveTabla);
             string[] tablaNevek = new string[tablaKollekcio.Count];
@@ -51,6 +62,18 @@ namespace BorsodCoding_WPF_Admin
             kivalasztottTabla = tablaNevek[0];
             TablaBetoltes();
 
+        }
+
+        public static void ShowJsonProperty(string jsonString, string property)
+        {
+            using (JsonDocument doc = JsonDocument.Parse(jsonString))
+            {
+                if (doc.RootElement.TryGetProperty(property, out var messageElement))
+                {
+                    string message = messageElement.GetString();
+                    MessageBox.Show(message, "Infó", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
         }
 
         private async void TablaBetoltes()
@@ -94,8 +117,8 @@ namespace BorsodCoding_WPF_Admin
 
         private async void button_KivalasztottRekordTorlese(object sender, RoutedEventArgs e)
         {
-            var issuceded = await tablaKollekcio[kivalasztottTabla].DeleteAData(kivalasztottId, userToken);
-            if (issuceded)
+            var response = await tablaKollekcio[kivalasztottTabla].DeleteAData(kivalasztottId, userToken);
+            if ((response as HttpResponseMessage).IsSuccessStatusCode)
             {
                 TablaBetoltes();
             }
@@ -103,7 +126,7 @@ namespace BorsodCoding_WPF_Admin
 
         private async void button_KivalasztottRekordModositas(object sender, RoutedEventArgs e)
         {
-            tablaKollekcio[kivalasztottTabla].LoadUpdateDataWindow(userToken, (kivalasztottElem as JsonBody), tablaKollekcio[kivalasztottTabla]);
+            tablaKollekcio[kivalasztottTabla].LoadUpdateDataWindow(userToken, kivalasztottElem, tablaKollekcio[kivalasztottTabla]);
             TablaBetoltes();
             
         }
@@ -127,9 +150,9 @@ namespace BorsodCoding_WPF_Admin
                     {
                         kivalasztottId = (currentTableCollection as ObservableCollection<UserMezoi>)[tabla.SelectedIndex].Id;
                         var rekord = (currentTableCollection as ObservableCollection<UserMezoi>)[tabla.SelectedIndex];
-                        UserJsonBody jsonBody = new UserJsonBody()
+                        UserDto jsonBody = new UserDto()
                         {
-                            Name = rekord.UserName,
+                            UserName = rekord.UserName,
                             Password = "",
                             Email = rekord.Email
 
@@ -142,7 +165,7 @@ namespace BorsodCoding_WPF_Admin
                     {
                         kivalasztottId = (currentTableCollection as ObservableCollection<SaveMezoi>)[tabla.SelectedIndex].Id;
                         var rekord = (currentTableCollection as ObservableCollection<SaveMezoi>)[tabla.SelectedIndex];
-                        SaveJsonBody jsonBody = new SaveJsonBody()
+                        PutSaveDto jsonBody = new PutSaveDto()
                         {
                             Id = kivalasztottId,
                             Points = rekord.Points,

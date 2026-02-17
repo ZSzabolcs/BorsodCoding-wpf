@@ -1,5 +1,4 @@
-﻿using BorsodCoding_WPF_Admin.JsonBodies;
-using BorsodCoding_WPF_Admin.Tablak;
+﻿using BorsodCoding_WPF_Admin.Tablak;
 using BorsodCoding_WPF_Admin.Mezok;
 using MySql.Data.MySqlClient;
 using System;
@@ -15,6 +14,7 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using System.Windows;
+using BorsodCoding_WPF_Admin.Dtos;
 
 namespace BorsodCoding_WPF_Admin.Tablak
 {
@@ -60,12 +60,13 @@ namespace BorsodCoding_WPF_Admin.Tablak
 
         public override void LoadAddDataWindow(string token, Tabla tabla)
         {
-            throw new NotImplementedException();
+            AddOrUpdateUser addOrUpdateUser = new AddOrUpdateUser(token, tabla);
+            addOrUpdateUser.ShowDialog();
         }
 
-        public override void LoadUpdateDataWindow(string token, JsonBody userjsonBody, Tabla tabla)
+        public override void LoadUpdateDataWindow(string token, object userjsonBody, Tabla tabla)
         {
-            AddOrUpdateUser addOrUpdateUser = new AddOrUpdateUser(token, (userjsonBody as UserJsonBody), tabla);
+            AddOrUpdateUser addOrUpdateUser = new AddOrUpdateUser(token, (userjsonBody as UserDto), tabla);
             addOrUpdateUser.ShowDialog();
         }
 

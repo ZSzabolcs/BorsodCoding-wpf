@@ -1,15 +1,16 @@
-﻿using System;
+﻿using BorsodCoding_WPF_Admin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BorsodCoding_WPF_Admin.JsonBodies
+namespace BorsodCoding_WPF_Admin.Dtos
 {
-    public class UserJsonBody : JsonBody
+    public class UserDto
     {
-        public UserJsonBody() : base() { }
-        public string Name { get; set; }
+        public UserDto()  { }
+        public string UserName { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
     }

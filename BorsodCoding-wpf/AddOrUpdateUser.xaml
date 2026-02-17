@@ -7,6 +7,15 @@
         mc:Ignorable="d"
         Title="AddOrUpdateUser" Height="450" Width="800">
     <Grid>
-        
+        <StackPanel HorizontalAlignment="Center" Width="322">
+            <Label x:Name="lbUserName" Content="Felhasználónév"/>
+            <TextBox x:Name="tbxFelh"/>
+            <Label Content="Jelszó"/>
+            <TextBox x:Name="tbxPassw"/>
+            <Label Content="Email cím"/>
+            <TextBox x:Name="tbxEmail"/>
+            <Button x:Name="bUjVagyMod" Content="" Margin="0 15 0 0" Click="bUjVagyMod_Click"></Button>
+        </StackPanel>
+
     </Grid>
 </Window>

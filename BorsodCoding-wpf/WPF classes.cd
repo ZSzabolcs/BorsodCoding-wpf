@@ -17,21 +17,21 @@
   <Class Name="BorsodCoding_WPF_Admin.Tablak.Tabla">
     <Position X="11.5" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gAWCACAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAEBAAAA=</HashCode>
+      <HashCode>gAWCAQAAAAEAAAAAAAAAAAABAAAAEAABAAAAAEBABAA=</HashCode>
       <FileName>Tablak\Tabla.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BorsodCoding_WPF_Admin.Tablak.SaveTabla">
-    <Position X="8.25" Y="5" Width="1.5" />
+    <Position X="8.5" Y="6" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>gAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
       <FileName>Tablak\SaveTabla.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BorsodCoding_WPF_Admin.Tablak.UserTabla">
-    <Position X="14" Y="5" Width="1.5" />
+    <Position X="14.5" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>gAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
       <FileName>Tablak\UserTabla.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -42,5 +42,12 @@
       <FileName>Mezok\Mezo.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Interface Name="BorsodCoding_WPF_Admin.Interfaces.IOwnResponse" Collapsed="true">
+    <Position X="6.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IOwnResponse.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

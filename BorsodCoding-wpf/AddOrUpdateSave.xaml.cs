@@ -1,4 +1,4 @@
-﻿using BorsodCoding_WPF_Admin.JsonBodies;
+﻿using BorsodCoding_WPF_Admin;
 using BorsodCoding_WPF_Admin.Mezok;
 using BorsodCoding_WPF_Admin.Tablak;
 using System;
@@ -14,6 +14,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static Mysqlx.Notice.Warning.Types;
+using System.Net.Http;
+using BorsodCoding_WPF_Admin.Dtos;
 
 namespace BorsodCoding_WPF_Admin
 {
@@ -30,7 +33,7 @@ namespace BorsodCoding_WPF_Admin
         {
             InitializeComponent();
         }
-        public AddOrUpdateSave(string token, SaveJsonBody save, Tabla tabla, string mode = "modify")
+        public AddOrUpdateSave(string token, PutSaveDto save, Tabla tabla, string mode = "modify")
         {
             InitializeComponent();
             _mode = mode;
@@ -38,15 +41,14 @@ namespace BorsodCoding_WPF_Admin
             _id = save.Id;
             _tabla = tabla;
             cbxLanguage.ItemsSource = new string[2] { "hu", "en" };
-            if (mode == "modify")
-            {
-                lbName.Visibility = Visibility.Collapsed;
-                tbxName.Visibility = Visibility.Collapsed;
-                tbxPoints.Text = save.Points.ToString();
-                tbxLevel.Text = save.Level.ToString();
-                cbxLanguage.Text = save.Language;
-                bSave.Content = "A rekord módosítása";
-            }
+            
+            lbName.Visibility = Visibility.Collapsed;
+            tbxName.Visibility = Visibility.Collapsed;
+            tbxPoints.Text = save.Points.ToString();
+            tbxLevel.Text = save.Level.ToString();
+            cbxLanguage.Text = save.Language;
+            bSave.Content = "A rekord módosítása";
+            
         }
         public AddOrUpdateSave(string token, Tabla tabla, string mode = "add")
         {
@@ -64,28 +66,36 @@ namespace BorsodCoding_WPF_Admin
 
                 if (_mode == "add")
                 {
-
-                    if (await _tabla.InsertAData(new SaveJsonBody()
+                    var save = new InsertSaveDto()
                     {
                         Name = tbxName.Text,
                         Points = int.Parse(tbxPoints.Text),
                         Level = int.Parse(tbxLevel.Text),
                         Language = cbxLanguage.Text
-                    }, _token))
+                    };
+                    var response = await _tabla.InsertAData(save, _token);
+                    var jsonString = await (response as HttpResponseMessage).Content.ReadAsStringAsync();
+                    if ((response as HttpResponseMessage).IsSuccessStatusCode)
                     {
+
                         Close();
                     }
                 }
 
                 if (_mode == "modify")
                 {
-                    if (await _tabla.UpdateAData(new SaveJsonBody() { 
-                        Id = _id, 
+                    var save = new PutSaveDto()
+                    {
+                        Id = _id,
                         Points = int.Parse(tbxPoints.Text),
                         Level = int.Parse(tbxLevel.Text),
                         Language = cbxLanguage.Text
-                    }, _token))
+                    };
+                    var response = await _tabla.UpdateAData(save, _token);
+                    var jsonString = await (response as HttpResponseMessage).Content.ReadAsStringAsync();
+                    if ((response as HttpResponseMessage).IsSuccessStatusCode)
                     {
+
                         Close();
                     }
                 }
