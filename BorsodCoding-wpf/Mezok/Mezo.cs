@@ -23,6 +23,13 @@ namespace BorsodCoding_WPF_Admin.Mezok
         public DateTime ModDate { get; set; }
     }
 
+    public class VelemenyMezoi : Mezo
+    {
+        public VelemenyMezoi() { }
+        public string Ertekeles { get;  set; }
+        public string Megjegyzes { get;  set; }
+    }
+
     public class UserMezoi : Mezo
     {
         public UserMezoi() { }

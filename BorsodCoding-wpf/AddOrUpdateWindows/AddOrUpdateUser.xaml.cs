@@ -66,7 +66,6 @@ namespace BorsodCoding_WPF_Admin
                     Password = tbxPassw.Text,
                 }; 
                 var response = await _tabla.InsertAData(user, _token);
-                var jsonString = await (response as HttpResponseMessage).Content.ReadAsStringAsync();
                 if((response as HttpResponseMessage).IsSuccessStatusCode)
                 {
                     Close();
@@ -85,7 +84,6 @@ namespace BorsodCoding_WPF_Admin
                    Password = tbxPassw.Text,
                 };
                 var response = await _tabla.UpdateAData(user, _token);
-                var jsonString = await (response as HttpResponseMessage).Content.ReadAsStringAsync();
                 if ((response as HttpResponseMessage).IsSuccessStatusCode)
                 {
                     Close();

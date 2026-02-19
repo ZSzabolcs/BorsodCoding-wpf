@@ -2,10 +2,13 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
-    <Compile Update="AddOrUpdateSave.xaml.cs">
+    <Compile Update="AddOrUpdateWindows\AddOrUpdateSave.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="AddOrUpdateUser.xaml.cs">
+    <Compile Update="AddOrUpdateWindows\AddOrUpdateUser.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="AddOrUpdateWindows\AddOrUpdateVelemeny.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Database.xaml.cs">

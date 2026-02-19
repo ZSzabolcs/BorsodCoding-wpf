@@ -24,6 +24,24 @@ namespace BorsodCoding_WPF_Admin.Tablak
         {
         }
 
+        public override CurrentTableRecord GetCurrentTableRecord(object currentTableCollection, int index)
+        {
+            var collection = currentTableCollection as ObservableCollection<UserMezoi>;
+            var record = collection[index];
+            CurrentTableRecord currentTableRecord = new()
+            {
+                Id = record.Id,
+                JsonBody = new UserDto()
+                {
+                    UserName = record.UserName,
+                    Password = "",
+                    Email = record.Email
+                }
+            };
+
+            return currentTableRecord;
+        }
+
         public async override Task<object> GetDataFromApi(string token)
         {
             try
@@ -58,15 +76,15 @@ namespace BorsodCoding_WPF_Admin.Tablak
             }
         }
 
-        public override void LoadAddDataWindow(string token, Tabla tabla)
+        public override void LoadAddDataWindow(string token)
         {
-            AddOrUpdateUser addOrUpdateUser = new AddOrUpdateUser(token, tabla);
+            AddOrUpdateUser addOrUpdateUser = new AddOrUpdateUser(token, this);
             addOrUpdateUser.ShowDialog();
         }
 
-        public override void LoadUpdateDataWindow(string token, object userjsonBody, Tabla tabla)
+        public override void LoadUpdateDataWindow(string token, object userjsonBody)
         {
-            AddOrUpdateUser addOrUpdateUser = new AddOrUpdateUser(token, (userjsonBody as UserDto), tabla);
+            AddOrUpdateUser addOrUpdateUser = new AddOrUpdateUser(token, (userjsonBody as UserDto), this);
             addOrUpdateUser.ShowDialog();
         }
 

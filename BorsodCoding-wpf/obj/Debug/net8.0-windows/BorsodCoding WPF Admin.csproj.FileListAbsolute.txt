@@ -277,10 +277,6 @@ D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0
 D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.pdb
 D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.genruntimeconfig.cache
 D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\ref\BorsodCoding WPF Admin.dll
-D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\AddOrUpdateSave.g.cs
-D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\AddOrUpdateSave.baml
-D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\AddOrUpdateUser.g.cs
-D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\AddOrUpdateUser.baml
 C:\Users\Krisz\Desktop\valakjh\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.csproj.AssemblyReference.cache
 C:\Users\Krisz\Desktop\valakjh\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\AddOrUpdateSave.g.cs
 C:\Users\Krisz\Desktop\valakjh\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\AddOrUpdateUser.g.cs
@@ -323,3 +319,9 @@ C:\Users\Krisz\Desktop\valakjh\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.
 C:\Users\Krisz\Desktop\valakjh\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCo.CCC6AFEE.Up2Date
 C:\Users\Krisz\Desktop\valakjh\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\BorsodCoding WPF Admin.genruntimeconfig.cache
 C:\Users\Krisz\Desktop\valakjh\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\ref\BorsodCoding WPF Admin.dll
+D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\AddOrUpdateWindows\AddOrUpdateSave.g.cs
+D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\AddOrUpdateWindows\AddOrUpdateUser.g.cs
+D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\AddOrUpdateWindows\AddOrUpdateVelemeny.g.cs
+D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\AddOrUpdateWindows\AddOrUpdateSave.baml
+D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\AddOrUpdateWindows\AddOrUpdateUser.baml
+D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\obj\Debug\net8.0-windows\AddOrUpdateWindows\AddOrUpdateVelemeny.baml

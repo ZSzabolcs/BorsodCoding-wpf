@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 D:\Munka\Iskola\vegso_projekt\BorsodCoding-wpf\BorsodCoding-wpf\App.xaml
-489966627
+51021544982
 
-18591588404
+21-185532205
 2061407633126
-AddOrUpdateSave.xaml;AddOrUpdateUser.xaml;Database.xaml;MainWindow.xaml;
+AddOrUpdateWindows\AddOrUpdateSave.xaml;AddOrUpdateWindows\AddOrUpdateUser.xaml;AddOrUpdateWindows\AddOrUpdateVelemeny.xaml;Database.xaml;MainWindow.xaml;
 
 False
 

@@ -40,9 +40,11 @@ namespace BorsodCoding_WPF_Admin.Tablak
         private string PutURL { get; set; }
 
 
-        public abstract void LoadUpdateDataWindow(string token, object jsonBody, Tabla tabla);
+        public abstract CurrentTableRecord GetCurrentTableRecord(object currentTableCollection, int index);
 
-        public abstract void LoadAddDataWindow(string token, Tabla tabla);
+        public abstract void LoadUpdateDataWindow(string token, object jsonBody);
+
+        public abstract void LoadAddDataWindow(string token);
 
         public abstract Task<object> GetDataFromApi(string token);
         
@@ -89,7 +91,6 @@ namespace BorsodCoding_WPF_Admin.Tablak
                 var options = GetOwnJsonSerializerOptions();
                 HttpResponseMessage response = await client.PostAsJsonAsync(PostURL, jsonBody, options);
                 string jsonString = await response.Content.ReadAsStringAsync();
-
                 Database.ShowJsonProperty(jsonString, "message");
                 return response;
 
@@ -109,7 +110,7 @@ namespace BorsodCoding_WPF_Admin.Tablak
                 var options = GetOwnJsonSerializerOptions();
                 HttpResponseMessage response = await client.PutAsJsonAsync(PutURL, jsonBody, options);
                 string jsonString = await response.Content.ReadAsStringAsync();
-
+                
                 Database.ShowJsonProperty(jsonString, "message");
                 return response;
 

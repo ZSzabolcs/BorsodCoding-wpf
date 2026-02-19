@@ -49,8 +49,10 @@ namespace BorsodCoding_WPF_Admin
                 putURL: "https://localhost:7159/api/Save/FromWPF",
                 delURL: "https://localhost:7159/api/Save?id="
                 );
+            var velemenyTabla = new VelemenyTabla("vélemény");
             tablaKollekcio.Add(userTabla.TablaNev, userTabla);
             tablaKollekcio.Add(saveTabla.TablaNev, saveTabla);
+            tablaKollekcio.Add(velemenyTabla.TablaNev, velemenyTabla);
             string[] tablaNevek = new string[tablaKollekcio.Count];
             tablak.ItemsSource = tablaNevek;
             int i = 0;
@@ -63,7 +65,6 @@ namespace BorsodCoding_WPF_Admin
             TablaBetoltes();
 
         }
-
         public static void ShowJsonProperty(string jsonString, string property)
         {
             using (JsonDocument doc = JsonDocument.Parse(jsonString))
@@ -126,14 +127,14 @@ namespace BorsodCoding_WPF_Admin
 
         private async void button_KivalasztottRekordModositas(object sender, RoutedEventArgs e)
         {
-            tablaKollekcio[kivalasztottTabla].LoadUpdateDataWindow(userToken, kivalasztottElem, tablaKollekcio[kivalasztottTabla]);
+            tablaKollekcio[kivalasztottTabla].LoadUpdateDataWindow(userToken, kivalasztottElem);
             TablaBetoltes();
             
         }
 
         private async void button_UjRekord(object sender, RoutedEventArgs e)
         {
-            tablaKollekcio[kivalasztottTabla].LoadAddDataWindow(userToken, tablaKollekcio[kivalasztottTabla]);
+            tablaKollekcio[kivalasztottTabla].LoadAddDataWindow(userToken);
             TablaBetoltes();
 
 
@@ -146,35 +147,10 @@ namespace BorsodCoding_WPF_Admin
 
                 if (tabla.SelectedIndex > -1)
                 {
-                    if (kivalasztottTabla == "user")
-                    {
-                        kivalasztottId = (currentTableCollection as ObservableCollection<UserMezoi>)[tabla.SelectedIndex].Id;
-                        var rekord = (currentTableCollection as ObservableCollection<UserMezoi>)[tabla.SelectedIndex];
-                        UserDto jsonBody = new UserDto()
-                        {
-                            UserName = rekord.UserName,
-                            Password = "",
-                            Email = rekord.Email
-
-                        };
-                        kivalasztottElem = jsonBody;
-
-                    }
-
-                    if (kivalasztottTabla == "save")
-                    {
-                        kivalasztottId = (currentTableCollection as ObservableCollection<SaveMezoi>)[tabla.SelectedIndex].Id;
-                        var rekord = (currentTableCollection as ObservableCollection<SaveMezoi>)[tabla.SelectedIndex];
-                        PutSaveDto jsonBody = new PutSaveDto()
-                        {
-                            Id = kivalasztottId,
-                            Points = rekord.Points,
-                            Level = rekord.Level,
-                            Language = rekord.Language,
-                        };
-                       
-                        kivalasztottElem = jsonBody;
-                    }
+                    var currentRecord = tablaKollekcio[kivalasztottTabla].GetCurrentTableRecord(currentTableCollection, tabla.SelectedIndex);
+                    kivalasztottId = currentRecord.Id;
+                    kivalasztottElem = currentRecord.JsonBody;
+                    
 
                     miModify.IsEnabled = true;
                     miDelete.IsEnabled = true;
@@ -202,6 +178,14 @@ namespace BorsodCoding_WPF_Admin
         private void btn_megse_Click(object sender, RoutedEventArgs e)
         {
             AlapAllapot();
+        }
+
+        private void miLogOut_Click(object sender, RoutedEventArgs e)
+        {
+
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            Close();
         }
     }
 }

@@ -24,6 +24,26 @@ namespace BorsodCoding_WPF_Admin.Tablak
         {
         }
 
+        public override CurrentTableRecord GetCurrentTableRecord(object currentTableCollection, int index)
+        {
+            var collection = currentTableCollection as ObservableCollection<SaveMezoi>;
+            var record = collection[index];
+            CurrentTableRecord currentTableRecord = new()
+            {
+                Id = record.Id,
+                JsonBody = new PutSaveDto()
+                {
+                    Id = record.Id,
+                    Points = record.Points,
+                    Level = record.Level,
+                    Language = record.Language,
+                }
+            };
+
+            return currentTableRecord;
+
+        }
+
         public async override Task<object> GetDataFromApi(string token)
         {
             try
@@ -58,16 +78,16 @@ namespace BorsodCoding_WPF_Admin.Tablak
             }
         }
 
-        public override void LoadAddDataWindow(string token, Tabla tabla)
+        public override void LoadAddDataWindow(string token)
         {
-            AddOrUpdateSave addOrUpdateSave = new AddOrUpdateSave(token, tabla);
+            AddOrUpdateSave addOrUpdateSave = new AddOrUpdateSave(token, this);
             addOrUpdateSave.ShowDialog();
         }
 
 
-        public override void LoadUpdateDataWindow(string token, object jsonBody, Tabla tabla)
+        public override void LoadUpdateDataWindow(string token, object jsonBody)
         {
-            AddOrUpdateSave addOrUpdateUser = new AddOrUpdateSave(token, (jsonBody as PutSaveDto), tabla);
+            AddOrUpdateSave addOrUpdateUser = new AddOrUpdateSave(token, (jsonBody as PutSaveDto), this);
             addOrUpdateUser.ShowDialog();
         }
 

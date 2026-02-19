@@ -1,53 +1,61 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="BorsodCoding_WPF_Admin.Mezok.SaveMezoi">
-    <Position X="4.75" Y="3.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAACAAAgAAAAAAAAAEAAAAAAAABAAAAACAAAAA=</HashCode>
-      <FileName>Mezok\Mezo.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="BorsodCoding_WPF_Admin.Mezok.UserMezoi">
-    <Position X="0.5" Y="3.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AACAAAAABCAAIEAIAAAAQAUBQAAAAAAIAQQABAAAAQA=</HashCode>
-      <FileName>Mezok\Mezo.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="BorsodCoding_WPF_Admin.Tablak.Tabla">
-    <Position X="11.5" Y="1" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>gAWCAQAAAAEAAAAAAAAAAAABAAAAEAABAAAAAEBABAA=</HashCode>
-      <FileName>Tablak\Tabla.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="BorsodCoding_WPF_Admin.Tablak.SaveTabla">
-    <Position X="8.5" Y="6" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>gAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
-      <FileName>Tablak\SaveTabla.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="BorsodCoding_WPF_Admin.Tablak.UserTabla">
-    <Position X="14.5" Y="6.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>gAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
-      <FileName>Tablak\UserTabla.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="BorsodCoding_WPF_Admin.Mezok.Mezo">
-    <Position X="3" Y="1.5" Width="1.5" />
+    <Position X="3" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Mezok\Mezo.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="BorsodCoding_WPF_Admin.Interfaces.IOwnResponse" Collapsed="true">
-    <Position X="6.25" Y="0.75" Width="1.5" />
+  <Class Name="BorsodCoding_WPF_Admin.Mezok.SaveMezoi">
+    <Position X="3" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Interfaces\IOwnResponse.cs</FileName>
+      <HashCode>AAAAAAAACAAAgAAAAAAAAAEAAAAAAAABAAAAACAAAAA=</HashCode>
+      <FileName>Mezok\Mezo.cs</FileName>
     </TypeIdentifier>
-  </Interface>
+  </Class>
+  <Class Name="BorsodCoding_WPF_Admin.Mezok.VelemenyMezoi">
+    <Position X="0.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Mezok\Mezo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BorsodCoding_WPF_Admin.Mezok.UserMezoi">
+    <Position X="5.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAABCAAIEAIAAAAQAUBQAAAAAAIAQQABAAAAQA=</HashCode>
+      <FileName>Mezok\Mezo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BorsodCoding_WPF_Admin.Tablak.VelemenyTabla">
+    <Position X="13.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAA=</HashCode>
+      <FileName>Tablak\VelemenyTabla.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BorsodCoding_WPF_Admin.Tablak.SaveTabla">
+    <Position X="10.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAA=</HashCode>
+      <FileName>Tablak\SaveTabla.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BorsodCoding_WPF_Admin.Tablak.Tabla">
+    <Position X="13.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAWCAQAAAAEAAAAAAAAAAAABAAAAEAABAAAAAEBADAA=</HashCode>
+      <FileName>Tablak\Tabla.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BorsodCoding_WPF_Admin.Tablak.UserTabla">
+    <Position X="17" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAA=</HashCode>
+      <FileName>Tablak\UserTabla.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
