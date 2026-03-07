@@ -1,1 +1,7 @@
-.vs/
+.vs
+BorsodCoding WPF AdminTests/obj/
+BorsodCoding WPF AdminTests/bin/
+BorsodCoding-wpf/obj/
+BorsodCoding-wpf/bin/
+obj
+bin
