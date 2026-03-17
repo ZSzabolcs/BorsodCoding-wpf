@@ -34,7 +34,7 @@ namespace BorsodCoding_WPF_Admin.Mezok
     {
         public UserMezoi() { }
 
-        public DateTime? BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }
 
         public string? UserName { get; set; }
 
@@ -64,6 +64,6 @@ namespace BorsodCoding_WPF_Admin.Mezok
 
         public int? AccessFailedCount { get; set; }
 
-        public DateTime? ModDate { get; set; }
+        public DateTime ModDate { get; set; }
     }
 }

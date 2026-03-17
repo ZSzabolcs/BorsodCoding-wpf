@@ -11,6 +11,9 @@
     <Compile Update="AddOrUpdateWindows\AddOrUpdateVelemeny.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="AddOrUpdateWindows\AddWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Database.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

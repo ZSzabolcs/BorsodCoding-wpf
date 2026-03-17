@@ -36,22 +36,21 @@
     </TypeIdentifier>
   </Class>
   <Class Name="BorsodCoding_WPF_Admin.Tablak.SaveTabla">
-    <Position X="10.75" Y="5.25" Width="1.5" />
+    <Position X="10.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAA=</HashCode>
       <FileName>Tablak\SaveTabla.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BorsodCoding_WPF_Admin.Tablak.Tabla">
-    <Position X="13.75" Y="1" Width="1.5" />
+    <Position X="13.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gAWCAQAAAAEAAAAAAAAAAAABAAAAEAABAAAAAEBADAA=</HashCode>
+      <HashCode>gAWCAQAAAAEAAAAAAAAAQAABAAIAEAABAAAAAEBADAA=</HashCode>
       <FileName>Tablak\Tabla.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="BorsodCoding_WPF_Admin.Tablak.UserTabla">
-    <Position X="17" Y="5.25" Width="1.5" />
+    <Position X="17" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAA=</HashCode>
       <FileName>Tablak\UserTabla.cs</FileName>

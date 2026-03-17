@@ -20,13 +20,15 @@ namespace BorsodCoding_WPF_Admin.Tablak
 {
     public abstract class Tabla
     {
-        public Tabla(string tablaNev, string getURL, string postURL,  string putURL, string delURL)
+        protected readonly object mezo;
+        public Tabla(string tablaNev, string getURL, string postURL,  string putURL, string delURL, object mezo)
         {
             TablaNev = tablaNev;
             GetURL = getURL;
             PostURL = postURL;
             DelURL = delURL;
             PutURL = putURL;
+            this.mezo = mezo;
         }
 
         protected string GetURL { get; set; }
@@ -47,7 +49,27 @@ namespace BorsodCoding_WPF_Admin.Tablak
         public abstract void LoadAddDataWindow(string token);
 
         public abstract Task<object> GetDataFromApi(string token);
-        
+
+        public static ObservableCollection<Mezok> GetErrorsWhenLoadTable<Mezok>(Exception exception)
+        {
+            if (exception is HttpRequestException)
+            {
+                MessageBox.Show($"Kapcsolati hiba: {exception.Message}");
+                return new ObservableCollection<Mezok>();
+            }
+            if (exception is JsonException)
+            {
+                MessageBox.Show($"JSON hiba: {exception.Message}");
+                return new ObservableCollection<Mezok>();
+            }
+
+            MessageBox.Show($"Hiba: {exception.Message}");
+            return new ObservableCollection<Mezok>();
+        }
+
+
+
+
         private HttpClient GetOwnClient(string token)
         {
             HttpClient httpClient = new HttpClient();
@@ -63,13 +85,20 @@ namespace BorsodCoding_WPF_Admin.Tablak
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             };
         }
+        /// <summary>
+        /// Töröl egy kiválasztott rekordot a szerveren.
+        /// </summary>
+        /// <param name="id">Kiválasztott rekord Id-ja</param>
+        /// <param name="token">Token a kéréshez</param>
+        /// <returns>Ha kérés teljesült HttpResponseMessage objektumként tér vissza. Hiba esetén false.</returns>
 
         public async  Task<object> DeleteAData(string id, string token)
         {
+            HttpResponseMessage response;
             try
             {
                 var client = GetOwnClient(token);
-                HttpResponseMessage response = await client.DeleteAsync(DelURL + id);
+                response = await client.DeleteAsync(DelURL + id);
                 string jsonString = await response.Content.ReadAsStringAsync();
                 Database.ShowJsonProperty(jsonString, "message");
                 return response;
@@ -82,6 +111,12 @@ namespace BorsodCoding_WPF_Admin.Tablak
                 return false;
             }
         }
+        /// <summary>
+        /// Hozzáad egy új rekordot a jelenlegi Tábla objektum
+        /// </summary>
+        /// <param name="jsonBody"></param>
+        /// <param name="token">Token a kéréshez</param>
+        /// <returns></returns>
 
         public async  Task<object> InsertAData(object jsonBody, string token)
         {

@@ -14,7 +14,14 @@ namespace BorsodCoding_WPF_Admin.Tablak
 {
     public class VelemenyTabla : Tabla
     {
-        public VelemenyTabla(string tablaNev, string getURL = "https://localhost:7159/api/Velemeny", string postURL = "https://localhost:7159/api/Velemeny?userName=", string putURL = "https://localhost:7159/api/Velemeny/FromWPF", string delURL = "https://localhost:7159/api/Velemeny/FromWPF?id=") : base(tablaNev, getURL, postURL, putURL, delURL)
+        public VelemenyTabla(
+            string tablaNev,
+            object mezo, 
+            string getURL = "https://localhost:7159/api/Velemeny", 
+            string postURL = "https://localhost:7159/api/Velemeny?userName=", 
+            string putURL = "https://localhost:7159/api/Velemeny/FromWPF", 
+            string delURL = "https://localhost:7159/api/Velemeny/FromWPF?id="
+            ) : base(tablaNev, getURL, postURL, putURL, delURL, mezo)
         {
         }
 

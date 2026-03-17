@@ -41,15 +41,17 @@ namespace BorsodCoding_WPF_Admin
                 getURL: "https://localhost:7159/auth",
                 postURL: "https://localhost:7159/auth/register",
                 putURL: "https://localhost:7159/auth/Modositas",
-                delURL: "https://localhost:7159/auth?id="
+                delURL: "https://localhost:7159/auth?id=",
+                new UserMezoi()
                 );
             var saveTabla = new SaveTabla("save", 
                 getURL: "https://localhost:7159/api/Save",
                 postURL: "https://localhost:7159/api/Save",
                 putURL: "https://localhost:7159/api/Save/FromWPF",
-                delURL: "https://localhost:7159/api/Save?id="
+                delURL: "https://localhost:7159/api/Save?id=",
+                new SaveMezoi()
                 );
-            var velemenyTabla = new VelemenyTabla("vélemény");
+            var velemenyTabla = new VelemenyTabla("vélemény", new VelemenyMezoi());
             tablaKollekcio.Add(userTabla.TablaNev, userTabla);
             tablaKollekcio.Add(saveTabla.TablaNev, saveTabla);
             tablaKollekcio.Add(velemenyTabla.TablaNev, velemenyTabla);

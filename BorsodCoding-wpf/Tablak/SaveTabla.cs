@@ -20,7 +20,7 @@ namespace BorsodCoding_WPF_Admin.Tablak
 
     public class SaveTabla : Tabla
     {
-        public SaveTabla(string tablaNev, string getURL, string postURL, string putURL, string delURL) : base(tablaNev, getURL, postURL, putURL, delURL)
+        public SaveTabla(string tablaNev, string getURL, string postURL, string putURL, string delURL, object mezo) : base(tablaNev, getURL, postURL, putURL, delURL, mezo)
         {
         }
 
@@ -71,10 +71,9 @@ namespace BorsodCoding_WPF_Admin.Tablak
 
                 }
             }
-            catch (HttpRequestException e)
+            catch (Exception ex)
             {
-                MessageBox.Show(e.Message);
-                return new ObservableCollection<SaveMezoi>();
+                return Tabla.GetErrorsWhenLoadTable<SaveMezoi>(ex);
             }
         }
 

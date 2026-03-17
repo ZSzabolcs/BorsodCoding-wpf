@@ -15,12 +15,15 @@ using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using System.Windows;
 using BorsodCoding_WPF_Admin.Dtos;
+using BorsodCoding_WPF_Admin.AddOrUpdateWindows;
+using Google.Protobuf;
 
 namespace BorsodCoding_WPF_Admin.Tablak
 {
     public class UserTabla : Tabla
     {
-        public UserTabla(string tablaNev, string getURL, string postURL, string putURL, string delURL) : base(tablaNev, getURL, postURL, putURL, delURL)
+        
+        public UserTabla(string tablaNev, string getURL, string postURL, string putURL, string delURL, object mezo) : base(tablaNev, getURL, postURL, putURL, delURL, mezo)
         {
         }
 
@@ -69,17 +72,16 @@ namespace BorsodCoding_WPF_Admin.Tablak
 
                 }
             }
-            catch (HttpRequestException e)
+            catch(Exception ex)
             {
-                MessageBox.Show(e.Message);
-                return new ObservableCollection<UserMezoi>();
+                return Tabla.GetErrorsWhenLoadTable<UserMezoi>(ex);
             }
         }
 
         public override void LoadAddDataWindow(string token)
         {
-            AddOrUpdateUser addOrUpdateUser = new AddOrUpdateUser(token, this);
-            addOrUpdateUser.ShowDialog();
+            AddWindow addWindow = new AddWindow(token, new InsertUserDto());
+            addWindow.ShowDialog();
         }
 
         public override void LoadUpdateDataWindow(string token, object userjsonBody)
