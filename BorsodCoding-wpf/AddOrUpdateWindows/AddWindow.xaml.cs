@@ -1,7 +1,10 @@
-﻿using System;
+﻿using BorsodCoding_WPF_Admin.Tablak;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -33,35 +36,41 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
             objectForm = objectFormat;
         }
 
-        private void UjRekord(object sender, RoutedEventArgs e)
+        private async void NewRecord(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i < objectForm.GetType().GetProperties().Length; i++)
+
+            string oszlop = "";
+            foreach (var item in stpInputs.Children)
             {
-                string oszlop = objectForm.GetType().GetProperties()[i].Name;
-                int j = (i == 0) ? i + 1 : i + 2;
-                if (stpInputs.Children[j] is TextBox)
+                if (item is Label)
                 {
-                    var textbox = stpInputs.Children[j] as TextBox;
+                    Label label = item as Label;
+                    oszlop = label.Content.ToString();
+                }
+
+                if (item is TextBox)
+                {
+                    var textbox = item as TextBox;
                     object content;
+                    content = textbox.Text;
                     int szam;
-                    if(int.TryParse(textbox.Text, out szam))
+                    if (int.TryParse(textbox.Text, out szam))
                     {
                         content = szam;
                     }
-                    content = textbox.Text;
                     objectForm.GetType().GetProperty(oszlop).SetValue(objectForm, content);
                 }
 
-                if (stpInputs.Children[j] is CheckBox)
+                if (item is CheckBox)
                 {
-                    var checkbox = stpInputs.Children[j] as CheckBox;
+                    var checkbox = item as CheckBox;
                     var ertek = checkbox.IsChecked ?? false;
                     objectForm.GetType().GetProperty(oszlop).SetValue(objectForm, ertek);
                 }
 
-                if (stpInputs.Children[j] is DatePicker)
+                if (item is DatePicker)
                 {
-                    var datepicker = stpInputs.Children[j] as DatePicker;
+                    var datepicker = item as DatePicker;
                     var ertek = datepicker.SelectedDate;
                     objectForm.GetType().GetProperty(oszlop).SetValue(objectForm, ertek);
                 }
@@ -69,7 +78,18 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
 
             MessageBox.Show(objectForm.ToString());
 
+            var resp = await Tabla.InsertAData(objectForm, token);
+
+            if (resp is HttpResponseMessage)
+            {
+                string jsonBody = await (resp as HttpResponseMessage).Content.ReadAsStringAsync();
+                if ((resp as HttpResponseMessage).IsSuccessStatusCode)
+                {
+                    Close();
+                }
+            }
         }
+
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -113,7 +133,7 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
             Button button = new Button();
             button.Margin = new Thickness(0, 15, 0, 0);
             button.Content = "Új rekord hozzáadása";
-            button.Click += UjRekord;
+            button.Click += NewRecord;
             stpInputs.Children.Add(button);
         }
     }

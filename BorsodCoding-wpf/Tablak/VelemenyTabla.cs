@@ -18,7 +18,7 @@ namespace BorsodCoding_WPF_Admin.Tablak
             string tablaNev,
             object mezo, 
             string getURL = "https://localhost:7159/api/Velemeny", 
-            string postURL = "https://localhost:7159/api/Velemeny?userName=", 
+            string postURL = "https://localhost:7159/api/Velemeny", 
             string putURL = "https://localhost:7159/api/Velemeny/FromWPF", 
             string delURL = "https://localhost:7159/api/Velemeny/FromWPF?id="
             ) : base(tablaNev, getURL, postURL, putURL, delURL, mezo)
@@ -70,10 +70,9 @@ namespace BorsodCoding_WPF_Admin.Tablak
 
                 }
             }
-            catch (HttpRequestException e)
+            catch (Exception ex)
             {
-                MessageBox.Show(e.Message);
-                return new ObservableCollection<UserMezoi>();
+                return GetErrorsWhenLoadTable<VelemenyMezoi>(ex);
             }
         }
 

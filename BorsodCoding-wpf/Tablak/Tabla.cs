@@ -35,11 +35,11 @@ namespace BorsodCoding_WPF_Admin.Tablak
 
         public string TablaNev { get; protected set; }
 
-        private string PostURL { get; set; }
+        private static string PostURL { get; set; }
 
         private string DelURL { get; set; }
 
-        private string PutURL { get; set; }
+        private static string PutURL { get; set; }
 
 
         public abstract CurrentTableRecord GetCurrentTableRecord(object currentTableCollection, int index);
@@ -67,17 +67,31 @@ namespace BorsodCoding_WPF_Admin.Tablak
             return new ObservableCollection<Mezok>();
         }
 
+        public static void GetErrorsInRequests(Exception exception)
+        {
+            if (exception is JsonException)
+            {
+                MessageBox.Show($"JSON szerkezeti hiba: {exception.Message}");
+            }
+            else if (exception is ArgumentNullException)
+            {
+                MessageBox.Show($"JSON hiba: {exception.Message}");
+            }
+            else
+            {
+                MessageBox.Show($"Hiba: {exception.Message}");
+            }
+        }
 
 
-
-        private HttpClient GetOwnClient(string token)
+        private static HttpClient GetOwnClient(string token)
         {
             HttpClient httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             return httpClient;
         }
 
-        private JsonSerializerOptions GetOwnJsonSerializerOptions()
+        public static JsonSerializerOptions GetOwnJsonSerializerOptions()
         {
             return new JsonSerializerOptions()
             {
@@ -107,7 +121,7 @@ namespace BorsodCoding_WPF_Admin.Tablak
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                GetErrorsInRequests(ex);
                 return false;
             }
         }
@@ -118,7 +132,7 @@ namespace BorsodCoding_WPF_Admin.Tablak
         /// <param name="token">Token a kéréshez</param>
         /// <returns></returns>
 
-        public async  Task<object> InsertAData(object jsonBody, string token)
+        public static async  Task<object> InsertAData(object jsonBody, string token)
         {
             try
             {
@@ -128,16 +142,18 @@ namespace BorsodCoding_WPF_Admin.Tablak
                 string jsonString = await response.Content.ReadAsStringAsync();
                 Database.ShowJsonProperty(jsonString, "message");
                 return response;
-
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                GetErrorsInRequests(ex);
                 return false;
             }
+
+
+
         }
 
-        public async Task<object> UpdateAData(object jsonBody, string token)
+        public static async Task<object> UpdateAData(object jsonBody, string token)
         {
             try
             {
@@ -145,14 +161,13 @@ namespace BorsodCoding_WPF_Admin.Tablak
                 var options = GetOwnJsonSerializerOptions();
                 HttpResponseMessage response = await client.PutAsJsonAsync(PutURL, jsonBody, options);
                 string jsonString = await response.Content.ReadAsStringAsync();
-                
                 Database.ShowJsonProperty(jsonString, "message");
                 return response;
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                GetErrorsInRequests(ex);
                 return false;
             }
         }

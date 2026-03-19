@@ -65,7 +65,7 @@ namespace BorsodCoding_WPF_Admin
                     Email = tbxEmail.Text,
                     Password = tbxPassw.Text,
                 }; 
-                var response = await _tabla.InsertAData(user, _token);
+                var response = await Tabla.InsertAData(user, _token);
                 if((response as HttpResponseMessage).IsSuccessStatusCode)
                 {
                     Close();
@@ -83,7 +83,7 @@ namespace BorsodCoding_WPF_Admin
                    Email = tbxEmail.Text,
                    Password = tbxPassw.Text,
                 };
-                var response = await _tabla.UpdateAData(user, _token);
+                var response = await Tabla.UpdateAData(user, _token);
                 if ((response as HttpResponseMessage).IsSuccessStatusCode)
                 {
                     Close();

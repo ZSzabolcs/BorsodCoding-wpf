@@ -14,7 +14,7 @@ namespace BorsodCoding_WPF_Admin.Dtos
 
         public override string ToString()
         {
-            return $"Felhasználónév: {UserName}";
+            return $"Felhasználónév: {UserName} Jelszó: {Password} Email: {Email}";
         }
     }
 }

@@ -68,7 +68,7 @@ namespace BorsodCoding_WPF_Admin
                     Megjegyzes = tbxMegjegyzes.Text
                 };
 
-                var response = await _tabla.InsertAData(velemenyDto, _token);
+                var response = await Tabla.InsertAData(velemenyDto, _token);
                 if ((response as HttpResponseMessage).IsSuccessStatusCode)
                 {
                     Close();
@@ -85,7 +85,7 @@ namespace BorsodCoding_WPF_Admin
                     Megjegyzes = tbxMegjegyzes.Text
                 };
 
-                var response = await _tabla.UpdateAData(velemenyDto, _token);
+                var response = await Tabla.UpdateAData(velemenyDto, _token);
                 if ((response as HttpResponseMessage).IsSuccessStatusCode)
                 {
                     Close();

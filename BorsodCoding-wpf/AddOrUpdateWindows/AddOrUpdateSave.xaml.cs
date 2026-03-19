@@ -73,7 +73,7 @@ namespace BorsodCoding_WPF_Admin
                         Level = int.Parse(tbxLevel.Text),
                         Language = cbxLanguage.Text
                     };
-                    var response = await _tabla.InsertAData(save, _token);
+                    var response = await Tabla.InsertAData(save, _token);
                     var jsonString = await (response as HttpResponseMessage).Content.ReadAsStringAsync();
                     if ((response as HttpResponseMessage).IsSuccessStatusCode)
                     {
@@ -91,7 +91,7 @@ namespace BorsodCoding_WPF_Admin
                         Level = int.Parse(tbxLevel.Text),
                         Language = cbxLanguage.Text
                     };
-                    var response = await _tabla.UpdateAData(save, _token);
+                    var response = await Tabla.UpdateAData(save, _token);
                     var jsonString = await (response as HttpResponseMessage).Content.ReadAsStringAsync();
                     if ((response as HttpResponseMessage).IsSuccessStatusCode)
                     {

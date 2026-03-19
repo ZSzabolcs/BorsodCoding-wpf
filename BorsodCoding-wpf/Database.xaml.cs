@@ -19,6 +19,7 @@ using BorsodCoding_WPF_Admin.Tablak;
 using BorsodCoding_WPF_Admin.Mezok;
 using BorsodCoding_WPF_Admin;
 using BorsodCoding_WPF_Admin.Dtos;
+using System.Diagnostics.Eventing.Reader;
 
 namespace BorsodCoding_WPF_Admin
 {
@@ -67,17 +68,28 @@ namespace BorsodCoding_WPF_Admin
             TablaBetoltes();
 
         }
-        public static void ShowJsonProperty(string jsonString, string property)
+        public static bool ShowJsonProperty(string jsonString, string property)
         {
-            using (JsonDocument doc = JsonDocument.Parse(jsonString))
+
+            if (jsonString.StartsWith('{'))
             {
-                if (doc.RootElement.TryGetProperty(property, out var messageElement))
+                JsonDocument jsonDocument = JsonDocument.Parse(jsonString);
+                if (jsonDocument.RootElement.TryGetProperty(property, out var messageElement))
                 {
                     string message = messageElement.GetString();
                     MessageBox.Show(message, "Infó", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return true;
                 }
             }
+
+            MessageBox.Show(jsonString, "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+            return false;
+
+
+           
         }
+            
+
 
         private async void TablaBetoltes()
         {
