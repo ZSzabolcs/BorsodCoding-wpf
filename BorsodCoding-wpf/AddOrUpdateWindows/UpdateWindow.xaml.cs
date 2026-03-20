@@ -25,11 +25,13 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
     {
         private object objectForm;
         private string token;
-        public UpdateWindow(string token, object objectForm)
+        private readonly Tabla actualTabla;
+        public UpdateWindow(string token, object objectForm, Tabla actualTabla)
         {
             InitializeComponent();
             this.objectForm = objectForm;
             this.token = token;
+            this.actualTabla = actualTabla;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -41,12 +43,13 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
                 Type type = Nullable.GetUnderlyingType(item.PropertyType) ?? item.PropertyType;
                 Label label = new Label();
                 label.Content = item.Name;
-                UIElement input = new UIElement();
+                object input = new UIElement();
 
                 if (type == typeof(string) || type == typeof(int))
                 {
-                    (input as TextBox).Name = $"tbx{item.Name}";
-                    (input as TextBox).Text = objectForm.GetType().GetProperty(item.Name).GetValue(objectForm) as string;
+                    var textbox = input as TextBox;
+                    textbox.Name = $"tbx{item.Name}";
+                    textbox.Text = objectForm.GetType().GetProperty(item.Name).GetValue(objectForm) as string;
                 }
 
                 if (type == typeof(DateTime))
@@ -64,7 +67,7 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
                 }
 
                 stpInputs.Children.Add(label);
-                stpInputs.Children.Add(input);
+                stpInputs.Children.Add(input as UIElement);
 
             }
             Button button = new Button();
@@ -113,7 +116,7 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
                 }
             }
 
-            var resp = await Tabla.UpdateAData(objectForm, token);
+            var resp = await actualTabla.UpdateAData(objectForm, token);
             string jsonBody = await (resp as HttpResponseMessage).Content.ReadAsStringAsync();
             if ((resp as HttpResponseMessage).IsSuccessStatusCode)
             {

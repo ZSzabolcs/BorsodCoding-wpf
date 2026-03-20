@@ -20,7 +20,7 @@ namespace BorsodCoding_WPF_Admin.Tablak
 {
     public abstract class Tabla
     {
-        protected readonly object mezo;
+        public readonly object mezo;
         public Tabla(string tablaNev, string getURL, string postURL,  string putURL, string delURL, object mezo)
         {
             TablaNev = tablaNev;
@@ -31,22 +31,22 @@ namespace BorsodCoding_WPF_Admin.Tablak
             this.mezo = mezo;
         }
 
-        protected static string GetURL { get; set; }
+        protected string GetURL { get; set; }
 
         public string TablaNev { get; protected set; }
 
-        public static string PostURL { get; set; }
+        public string PostURL { get; set; }
 
-        private static string DelURL { get; set; }
+        private string DelURL { get; set; }
 
-        public static  string PutURL { get; set; }
+        public  string PutURL { get; set; }
 
 
-        public abstract CurrentTableRecord GetCurrentTableRecord(object currentTableCollection, int index);
+        public abstract CurrentTableRecord GetPutJson(object currentTableCollection, int index);
 
-        public abstract void LoadUpdateDataWindow(string token, object jsonBody);
+        public abstract void LoadUpdateDataWindow(string token, object jsonBody, Tabla tabla);
 
-        public abstract void LoadAddDataWindow(string token);
+        public abstract void LoadAddDataWindow(string token, Tabla tabla);
 
         public abstract Task<object> GetDataFromApi(string token);
 
@@ -132,7 +132,7 @@ namespace BorsodCoding_WPF_Admin.Tablak
         /// <param name="token">Token a kéréshez</param>
         /// <returns></returns>
 
-        public static async  Task<object> InsertAData(object jsonBody, string token)
+        public  async  Task<object> InsertAData(object jsonBody, string token)
         {
             try
             {
@@ -153,7 +153,7 @@ namespace BorsodCoding_WPF_Admin.Tablak
 
         }
 
-        public static async Task<object> UpdateAData(object jsonBody, string token)
+        public async Task<object> UpdateAData(object jsonBody, string token)
         {
             try
             {

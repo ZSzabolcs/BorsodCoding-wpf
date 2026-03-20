@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BorsodCoding_WPF_Admin.Dtos
 {
-    internal class AddVelemenyDto
+    internal class InsertVelemenyDto
     {
         public string UserName { get; set; }
         public string Ertekeles { get; set; }

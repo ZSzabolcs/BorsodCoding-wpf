@@ -26,7 +26,7 @@ namespace BorsodCoding_WPF_Admin.Tablak
         {
         }
 
-        public override CurrentTableRecord GetCurrentTableRecord(object currentTableCollection, int index)
+        public override CurrentTableRecord GetPutJson(object currentTableCollection, int index)
         {
             var collection = currentTableCollection as ObservableCollection<VelemenyMezoi>;
             var record = collection[index];
@@ -77,15 +77,15 @@ namespace BorsodCoding_WPF_Admin.Tablak
             }
         }
 
-        public override void LoadAddDataWindow(string token)
+
+        public override void LoadAddDataWindow(string token, Tabla tabla)
         {
-            AddWindow addWindow = new AddWindow(token, new AddVelemenyDto());
-            addWindow.Show();
+            throw new NotImplementedException();
         }
 
-        public override void LoadUpdateDataWindow(string token, object jsonBody)
+        public override void LoadUpdateDataWindow(string token, object jsonBody, Tabla tabla)
         {
-            UpdateWindow updateWindow = new UpdateWindow(token, jsonBody);
+            UpdateWindow updateWindow = new UpdateWindow(token, jsonBody, tabla);
             updateWindow.Show();
         }
     }

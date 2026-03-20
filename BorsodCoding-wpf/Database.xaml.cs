@@ -20,6 +20,7 @@ using BorsodCoding_WPF_Admin.Mezok;
 using BorsodCoding_WPF_Admin;
 using BorsodCoding_WPF_Admin.Dtos;
 using System.Diagnostics.Eventing.Reader;
+using BorsodCoding_WPF_Admin.AddOrUpdateWindows;
 
 namespace BorsodCoding_WPF_Admin
 {
@@ -33,7 +34,6 @@ namespace BorsodCoding_WPF_Admin
         string kivalasztottId = "";
         string kivalasztottTabla = "";
         string userToken = "";
-        object kivalasztottElem = new object();
         public Database(string token)
         {
             InitializeComponent();
@@ -43,21 +43,21 @@ namespace BorsodCoding_WPF_Admin
                 postURL: "https://localhost:7159/auth/register",
                 putURL: "https://localhost:7159/auth/Modositas",
                 delURL: "https://localhost:7159/auth?id=",
-                new UserMezoi()
+                new InsertUserDto()
                 );
             var saveTabla = new SaveTabla("save", 
                 getURL: "https://localhost:7159/api/Save",
                 postURL: "https://localhost:7159/api/Save",
                 putURL: "https://localhost:7159/api/Save/FromWPF",
                 delURL: "https://localhost:7159/api/Save?id=",
-                new SaveMezoi()
+                new InsertSaveDto()
                 );
             var velemenyTabla = new VelemenyTabla("vélemény",
                 getURL: "https://localhost:7159/api/Velemeny",
                 postURL: "https://localhost:7159/api/Velemeny",
                 putURL: "https://localhost:7159/api/Velemeny/FromWPF",
                 delURL: "https://localhost:7159/api/Velemeny/FromWPF?id=",
-                new VelemenyMezoi());
+                new InsertVelemenyDto());
             tablaKollekcio.Add(userTabla.TablaNev, userTabla);
             tablaKollekcio.Add(saveTabla.TablaNev, saveTabla);
             tablaKollekcio.Add(velemenyTabla.TablaNev, velemenyTabla);
@@ -111,7 +111,6 @@ namespace BorsodCoding_WPF_Admin
             if (tablak.SelectedValue.ToString() != kivalasztottTabla)
             {
                 kivalasztottTabla = tablak.SelectedValue.ToString();
-                kivalasztottElem = null;
                 kivalasztottId = null;
                 miModify.IsEnabled = false;
                 miDelete.IsEnabled = false;
@@ -146,15 +145,17 @@ namespace BorsodCoding_WPF_Admin
 
         private async void button_KivalasztottRekordModositas(object sender, RoutedEventArgs e)
         {
-            var row = tablaKollekcio[kivalasztottTabla].GetCurrentTableRecord(tabla.ItemsSource, tabla.SelectedIndex);
-            tablaKollekcio[kivalasztottTabla].LoadUpdateDataWindow(userToken, row);
+            var row = tablaKollekcio[kivalasztottTabla].GetPutJson(tabla.ItemsSource, tabla.SelectedIndex);
+            UpdateWindow updateWindow = new UpdateWindow(userToken, row, tablaKollekcio[kivalasztottTabla]);
+            updateWindow.Show();
             TablaBetoltes();
             
         }
 
         private async void button_UjRekord(object sender, RoutedEventArgs e)
         {
-            tablaKollekcio[kivalasztottTabla].LoadAddDataWindow(userToken);
+            AddWindow addWindow = new AddWindow(userToken, tablaKollekcio[kivalasztottTabla]);
+            addWindow.Show();
             TablaBetoltes();
 
 
@@ -167,9 +168,8 @@ namespace BorsodCoding_WPF_Admin
 
                 if (tabla.SelectedIndex > -1)
                 {
-                    var currentRecord = tablaKollekcio[kivalasztottTabla].GetCurrentTableRecord(currentTableCollection, tabla.SelectedIndex);
+                    var currentRecord = tablaKollekcio[kivalasztottTabla].GetPutJson(currentTableCollection, tabla.SelectedIndex);
                     kivalasztottId = currentRecord.Id;
-                    kivalasztottElem = currentRecord.JsonBody;
                     
 
                     miModify.IsEnabled = true;
@@ -191,7 +191,6 @@ namespace BorsodCoding_WPF_Admin
             miDelete.IsEnabled = false;
             miModify.IsEnabled = false;
             miMegse.IsEnabled = false;
-            kivalasztottElem = null;
             kivalasztottId = null;
         }
 

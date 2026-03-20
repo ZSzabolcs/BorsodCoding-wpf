@@ -24,16 +24,14 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
     {
         private readonly string token;
         private object objectForm;
-        public AddWindow()
-        {
-            InitializeComponent();
-        }
+        private readonly Tabla actualTabla;
 
-        public AddWindow(string token, object objectFormat)
+        public AddWindow(string token, Tabla tabla)
         {
             InitializeComponent();
             this.token = token;
-            objectForm = objectFormat;
+            objectForm = tabla.mezo;
+            actualTabla = tabla;
         }
 
         private async void NewRecord(object sender, RoutedEventArgs e)
@@ -78,7 +76,7 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
 
             MessageBox.Show(objectForm.ToString());
 
-            var resp = await Tabla.InsertAData(objectForm, token);
+            var resp = await actualTabla.InsertAData(objectForm, token);
 
             if (resp is HttpResponseMessage)
             {
