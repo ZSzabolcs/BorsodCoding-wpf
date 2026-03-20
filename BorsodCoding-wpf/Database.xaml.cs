@@ -146,7 +146,8 @@ namespace BorsodCoding_WPF_Admin
 
         private async void button_KivalasztottRekordModositas(object sender, RoutedEventArgs e)
         {
-            tablaKollekcio[kivalasztottTabla].LoadUpdateDataWindow(userToken, kivalasztottElem);
+            var row = tablaKollekcio[kivalasztottTabla].GetCurrentTableRecord(tabla.ItemsSource, tabla.SelectedIndex);
+            tablaKollekcio[kivalasztottTabla].LoadUpdateDataWindow(userToken, row);
             TablaBetoltes();
             
         }
