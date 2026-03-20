@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BorsodCoding_WPF_Admin"
         mc:Ignorable="d"
-        Title="Borsod Coding Admin App" Height="450" Width="800">
+        Title="Borsod Coding Admin App" Height="450" Width="800"
+        Loaded="Window_Loaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.5*"/>
@@ -32,9 +33,9 @@
                       x:Name="miLogOut"
                       Click="miLogOut_Click"/>
         </Menu>
-        <ListBox x:Name="tablak" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,61,0,0" Grid.Column="0" SelectionChanged="tablak_SelectionChanged"/>
+        <ListBox x:Name="lbxTablak" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,61,0,0" Grid.Column="0" SelectionChanged="tablak_SelectionChanged"/>
         <Label Content="Táblák"  HorizontalAlignment="Left" Margin="0,22,0,0" VerticalAlignment="Top" FontSize="18" Height="34" Grid.Column="0" Width="60"/>
-        <DataGrid x:Name="tabla" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="True" Grid.Column="1" AutoGeneratingColumn="tabla_OszlopBeallitas" SelectionChanged="tabla_SelectionChanged"/>
+        <DataGrid x:Name="dtgTabla" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="True" Grid.Column="1" AutoGeneratingColumn="tabla_OszlopBeallitas" SelectionChanged="tabla_SelectionChanged"/>
 
     </Grid>
 </Window>

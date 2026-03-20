@@ -26,22 +26,18 @@ namespace BorsodCoding_WPF_Admin.Tablak
         {
         }
 
-        public override CurrentTableRecord GetPutJson(object currentTableCollection, int index)
+        public override object GetPutJson(object currentTableCollection, int index)
         {
             var collection = currentTableCollection as ObservableCollection<VelemenyMezoi>;
             var record = collection[index];
-            CurrentTableRecord currentTableRecord = new()
+            var jsonBody = new VelemenyMezoi()
             {
                 Id = record.Id,
-                JsonBody = new VelemenyMezoi()
-                {
-                    Id = record.Id,
-                    Ertekeles = record.Ertekeles,
-                    Megjegyzes = record.Megjegyzes,
-                }
+                Ertekeles = record.Ertekeles,
+                Megjegyzes = record.Megjegyzes,
             };
 
-            return currentTableRecord;
+            return jsonBody;
         }
 
         public async override Task<object> GetDataFromApi(string token)
@@ -77,16 +73,10 @@ namespace BorsodCoding_WPF_Admin.Tablak
             }
         }
 
-
-        public override void LoadAddDataWindow(string token, Tabla tabla)
+        public override string GetSelectedItemId(object currentTableCollection, int index)
         {
-            throw new NotImplementedException();
-        }
-
-        public override void LoadUpdateDataWindow(string token, object jsonBody, Tabla tabla)
-        {
-            UpdateWindow updateWindow = new UpdateWindow(token, jsonBody, tabla);
-            updateWindow.Show();
+            var collection = currentTableCollection as ObservableCollection<VelemenyMezoi>;
+            return collection[index].Id;
         }
     }
 }

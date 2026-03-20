@@ -80,7 +80,6 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
 
             if (resp is HttpResponseMessage)
             {
-                string jsonBody = await (resp as HttpResponseMessage).Content.ReadAsStringAsync();
                 if ((resp as HttpResponseMessage).IsSuccessStatusCode)
                 {
                     Close();

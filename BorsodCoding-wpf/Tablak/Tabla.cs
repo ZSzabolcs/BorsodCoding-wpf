@@ -42,11 +42,9 @@ namespace BorsodCoding_WPF_Admin.Tablak
         public  string PutURL { get; set; }
 
 
-        public abstract CurrentTableRecord GetPutJson(object currentTableCollection, int index);
+        public abstract object GetPutJson(object currentTableCollection, int index);
 
-        public abstract void LoadUpdateDataWindow(string token, object jsonBody, Tabla tabla);
-
-        public abstract void LoadAddDataWindow(string token, Tabla tabla);
+        public abstract string GetSelectedItemId(object currentTableCollection, int index);
 
         public abstract Task<object> GetDataFromApi(string token);
 
@@ -126,7 +124,7 @@ namespace BorsodCoding_WPF_Admin.Tablak
             }
         }
         /// <summary>
-        /// Hozzáad egy új rekordot a jelenlegi Tábla objektum
+        /// Hozzáad egy új rekordot a szerverének
         /// </summary>
         /// <param name="jsonBody"></param>
         /// <param name="token">Token a kéréshez</param>

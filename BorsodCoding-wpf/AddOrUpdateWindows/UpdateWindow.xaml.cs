@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
@@ -43,31 +44,36 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
                 Type type = Nullable.GetUnderlyingType(item.PropertyType) ?? item.PropertyType;
                 Label label = new Label();
                 label.Content = item.Name;
-                object input = new UIElement();
+                UIElement input = new UIElement();
+
+                if (item.Name == "Id")
+                {
+                    continue;
+                }
 
                 if (type == typeof(string) || type == typeof(int))
                 {
-                    var textbox = input as TextBox;
-                    textbox.Name = $"tbx{item.Name}";
-                    textbox.Text = objectForm.GetType().GetProperty(item.Name).GetValue(objectForm) as string;
+                    input = new TextBox();
+                    (input as TextBox).Name = $"tbx{item.Name}";
+                    (input as TextBox).Text = objectForm.GetType().GetProperty(item.Name).GetValue(objectForm).ToString();
                 }
 
                 if (type == typeof(DateTime))
                 {
-                    var datepicker = input as DatePicker;
-                    datepicker.Name = $"dp{item.Name}";
-                    datepicker.SelectedDate = DateTime.Parse(objectForm.GetType().GetProperty(item.Name).GetValue(objectForm) as string);
+                    input = new DatePicker();
+                    (input as DatePicker).Name = $"dp{item.Name}";
+                    (input as DatePicker).SelectedDate = DateTime.Parse(objectForm.GetType().GetProperty(item.Name).GetValue(objectForm).ToString());
                 }
 
                 if (type == typeof(bool))
                 {
-                    var checkbox = input as CheckBox;
-                    checkbox.Name = $"cbx{item.Name}";
-                    checkbox.IsChecked = (bool)objectForm.GetType().GetProperty(item.Name).GetValue(objectForm);
+                    input = new CheckBox();
+                    (input as CheckBox).Name = $"cbx{item.Name}";
+                    (input as CheckBox).IsChecked = (bool)objectForm.GetType().GetProperty(item.Name).GetValue(objectForm);
                 }
 
                 stpInputs.Children.Add(label);
-                stpInputs.Children.Add(input as UIElement);
+                stpInputs.Children.Add(input);
 
             }
             Button button = new Button();
@@ -84,20 +90,33 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
             {
                 if (item is Label)
                 {
-                    Label label = new Label();
+                    Label label = item as Label;
                     oszlop = label.Content.ToString();
+                }
+
+                if (item is TextBox && oszlop == "Password")
+                {
+                    var textbox = item as TextBox;
+                    if (textbox.Text == "")
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        objectForm.GetType().GetProperty(oszlop).SetValue(objectForm, textbox.Text);
+                    }
+
                 }
 
                 if (item is TextBox)
                 {
                     var textbox = item as TextBox;
-                    object content;
+                    object content = textbox.Text; 
                     int szam;
                     if (int.TryParse(textbox.Text, out szam))
                     {
                         content = szam;
                     }
-                    content = textbox.Text;
                     objectForm.GetType().GetProperty(oszlop).SetValue(objectForm, content);
                 }
 
@@ -117,13 +136,10 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
             }
 
             var resp = await actualTabla.UpdateAData(objectForm, token);
-            string jsonBody = await (resp as HttpResponseMessage).Content.ReadAsStringAsync();
             if ((resp as HttpResponseMessage).IsSuccessStatusCode)
             {
-                Database.ShowJsonProperty(jsonBody, "message");
                 Close();
             }
-            MessageBox.Show(jsonBody);
         }
     }
 }

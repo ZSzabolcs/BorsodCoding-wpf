@@ -33,47 +33,20 @@ namespace BorsodCoding_WPF_Admin
         object currentTableCollection = new ObservableCollection<Mezo>();
         string kivalasztottId = "";
         string kivalasztottTabla = "";
-        string userToken = "";
+        readonly string  userToken = "";
         public Database(string token)
         {
             InitializeComponent();
             userToken = token;
-            var userTabla = new UserTabla("user",
-                getURL: "https://localhost:7159/auth",
-                postURL: "https://localhost:7159/auth/register",
-                putURL: "https://localhost:7159/auth/Modositas",
-                delURL: "https://localhost:7159/auth?id=",
-                new InsertUserDto()
-                );
-            var saveTabla = new SaveTabla("save", 
-                getURL: "https://localhost:7159/api/Save",
-                postURL: "https://localhost:7159/api/Save",
-                putURL: "https://localhost:7159/api/Save/FromWPF",
-                delURL: "https://localhost:7159/api/Save?id=",
-                new InsertSaveDto()
-                );
-            var velemenyTabla = new VelemenyTabla("vélemény",
-                getURL: "https://localhost:7159/api/Velemeny",
-                postURL: "https://localhost:7159/api/Velemeny",
-                putURL: "https://localhost:7159/api/Velemeny/FromWPF",
-                delURL: "https://localhost:7159/api/Velemeny/FromWPF?id=",
-                new InsertVelemenyDto());
-            tablaKollekcio.Add(userTabla.TablaNev, userTabla);
-            tablaKollekcio.Add(saveTabla.TablaNev, saveTabla);
-            tablaKollekcio.Add(velemenyTabla.TablaNev, velemenyTabla);
-            string[] tablaNevek = new string[tablaKollekcio.Count];
-            tablak.ItemsSource = tablaNevek;
-            int i = 0;
-            foreach (var tabla in tablaKollekcio.Keys)
-            {
-                tablaNevek[i] = tabla.ToString();
-                i++;
-            }
-            kivalasztottTabla = tablaNevek[0];
-            TablaBetoltes();
 
         }
-        public static bool ShowJsonProperty(string jsonString, string property)
+
+        /// <summary>
+        /// MessageBox-ban kiírja a megtalált JSON mező értékét. Ha nem találja, akkor alapértelmezetten a teljes JSON szöveget kiírja.
+        /// </summary>
+        /// <param name="jsonString">JSON szöveg</param>
+        /// <param name="property">JSON-ben keresendő mező</param>
+        public static void ShowJsonProperty(string jsonString, string property)
         {
 
             if (jsonString.StartsWith('{'))
@@ -83,13 +56,12 @@ namespace BorsodCoding_WPF_Admin
                 {
                     string message = messageElement.GetString();
                     MessageBox.Show(message, "Infó", MessageBoxButton.OK, MessageBoxImage.Information);
-                    return true;
                 }
             }
-
-            MessageBox.Show(jsonString, "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
-            return false;
-
+            else
+            {
+                MessageBox.Show(jsonString, "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
            
         }
@@ -101,16 +73,17 @@ namespace BorsodCoding_WPF_Admin
 
             var adatok = await tablaKollekcio[kivalasztottTabla].GetDataFromApi(userToken);
             currentTableCollection = adatok;
-            tabla.ItemsSource = adatok as IEnumerable;
+            dtgTabla.ItemsSource = adatok as IEnumerable;
+            dtgTabla.Items.Refresh();
             AlapAllapot();
 
         }
 
         private void tablak_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (tablak.SelectedValue.ToString() != kivalasztottTabla)
+            if (lbxTablak.SelectedValue.ToString() != kivalasztottTabla)
             {
-                kivalasztottTabla = tablak.SelectedValue.ToString();
+                kivalasztottTabla = lbxTablak.SelectedValue.ToString();
                 kivalasztottId = null;
                 miModify.IsEnabled = false;
                 miDelete.IsEnabled = false;
@@ -137,17 +110,14 @@ namespace BorsodCoding_WPF_Admin
         private async void button_KivalasztottRekordTorlese(object sender, RoutedEventArgs e)
         {
             var response = await tablaKollekcio[kivalasztottTabla].DeleteAData(kivalasztottId, userToken);
-            if ((response as HttpResponseMessage).IsSuccessStatusCode)
-            {
-                TablaBetoltes();
-            }
+            
         }
 
         private async void button_KivalasztottRekordModositas(object sender, RoutedEventArgs e)
         {
-            var row = tablaKollekcio[kivalasztottTabla].GetPutJson(tabla.ItemsSource, tabla.SelectedIndex);
-            UpdateWindow updateWindow = new UpdateWindow(userToken, row, tablaKollekcio[kivalasztottTabla]);
-            updateWindow.Show();
+            var jsonBody = tablaKollekcio[kivalasztottTabla].GetPutJson(dtgTabla.ItemsSource, dtgTabla.SelectedIndex);
+            UpdateWindow updateWindow = new UpdateWindow(userToken, jsonBody, tablaKollekcio[kivalasztottTabla]);
+            updateWindow.ShowDialog();
             TablaBetoltes();
             
         }
@@ -155,7 +125,7 @@ namespace BorsodCoding_WPF_Admin
         private async void button_UjRekord(object sender, RoutedEventArgs e)
         {
             AddWindow addWindow = new AddWindow(userToken, tablaKollekcio[kivalasztottTabla]);
-            addWindow.Show();
+            addWindow.ShowDialog();
             TablaBetoltes();
 
 
@@ -166,10 +136,10 @@ namespace BorsodCoding_WPF_Admin
             try
             {
 
-                if (tabla.SelectedIndex > -1)
+                if (dtgTabla.SelectedIndex > -1)
                 {
-                    var currentRecord = tablaKollekcio[kivalasztottTabla].GetPutJson(currentTableCollection, tabla.SelectedIndex);
-                    kivalasztottId = currentRecord.Id;
+                    string id = tablaKollekcio[kivalasztottTabla].GetSelectedItemId(currentTableCollection, dtgTabla.SelectedIndex);
+                    kivalasztottId = id;
                     
 
                     miModify.IsEnabled = true;
@@ -205,6 +175,43 @@ namespace BorsodCoding_WPF_Admin
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             Close();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            var userTabla = new UserTabla("user",
+               getURL: "https://localhost:7159/auth",
+               postURL: "https://localhost:7159/auth/register",
+               putURL: "https://localhost:7159/auth/Modositas",
+               delURL: "https://localhost:7159/auth?id=",
+               new InsertUserDto()
+               );
+            var saveTabla = new SaveTabla("save",
+                getURL: "https://localhost:7159/api/Save",
+                postURL: "https://localhost:7159/api/Save",
+                putURL: "https://localhost:7159/api/Save/FromWPF",
+                delURL: "https://localhost:7159/api/Save?id=",
+                new InsertSaveDto()
+                );
+            var velemenyTabla = new VelemenyTabla("vélemény",
+                getURL: "https://localhost:7159/api/Velemeny",
+                postURL: "https://localhost:7159/api/Velemeny",
+                putURL: "https://localhost:7159/api/Velemeny/FromWPF",
+                delURL: "https://localhost:7159/api/Velemeny/FromWPF?id=",
+                new InsertVelemenyDto());
+            tablaKollekcio.Add(userTabla.TablaNev, userTabla);
+            tablaKollekcio.Add(saveTabla.TablaNev, saveTabla);
+            tablaKollekcio.Add(velemenyTabla.TablaNev, velemenyTabla);
+            string[] tablaNevek = new string[tablaKollekcio.Count];
+            lbxTablak.ItemsSource = tablaNevek;
+            int i = 0;
+            foreach (var dtgTabla in tablaKollekcio.Keys)
+            {
+                tablaNevek[i] = dtgTabla.ToString();
+                i++;
+            }
+            kivalasztottTabla = tablaNevek[0];
+            TablaBetoltes();
         }
     }
 }
