@@ -1,4 +1,5 @@
-﻿using BorsodCoding_WPF_Admin.Dtos;
+﻿using BorsodCoding_WPF_Admin.AddOrUpdateWindows;
+using BorsodCoding_WPF_Admin.Dtos;
 using BorsodCoding_WPF_Admin.Mezok;
 using System;
 using System.Collections.Generic;
@@ -16,11 +17,11 @@ namespace BorsodCoding_WPF_Admin.Tablak
     {
         public VelemenyTabla(
             string tablaNev,
-            object mezo, 
-            string getURL = "https://localhost:7159/api/Velemeny", 
-            string postURL = "https://localhost:7159/api/Velemeny", 
-            string putURL = "https://localhost:7159/api/Velemeny/FromWPF", 
-            string delURL = "https://localhost:7159/api/Velemeny/FromWPF?id="
+            string getURL,
+            string postURL, 
+            string putURL, 
+            string delURL,            
+            object mezo
             ) : base(tablaNev, getURL, postURL, putURL, delURL, mezo)
         {
         }
@@ -78,14 +79,14 @@ namespace BorsodCoding_WPF_Admin.Tablak
 
         public override void LoadAddDataWindow(string token)
         {
-            AddOrUpdateVelemeny addOrUpdateVelemeny = new AddOrUpdateVelemeny(token, this);
-            addOrUpdateVelemeny.ShowDialog();
+            AddWindow addWindow = new AddWindow(token, new AddVelemenyDto());
+            addWindow.Show();
         }
 
         public override void LoadUpdateDataWindow(string token, object jsonBody)
         {
-            AddOrUpdateVelemeny addOrUpdateVelemeny = new AddOrUpdateVelemeny(token, (jsonBody as VelemenyMezoi), this);
-            addOrUpdateVelemeny.ShowDialog();
+            UpdateWindow updateWindow = new UpdateWindow(token, jsonBody);
+            updateWindow.Show();
         }
     }
 }

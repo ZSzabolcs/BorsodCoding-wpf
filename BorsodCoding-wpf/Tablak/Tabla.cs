@@ -31,15 +31,15 @@ namespace BorsodCoding_WPF_Admin.Tablak
             this.mezo = mezo;
         }
 
-        protected string GetURL { get; set; }
+        protected static string GetURL { get; set; }
 
         public string TablaNev { get; protected set; }
 
-        private static string PostURL { get; set; }
+        public static string PostURL { get; set; }
 
-        private string DelURL { get; set; }
+        private static string DelURL { get; set; }
 
-        private static string PutURL { get; set; }
+        public static  string PutURL { get; set; }
 
 
         public abstract CurrentTableRecord GetCurrentTableRecord(object currentTableCollection, int index);

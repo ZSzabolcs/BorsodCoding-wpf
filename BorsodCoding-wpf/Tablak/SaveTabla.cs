@@ -14,6 +14,7 @@ using System.Windows;
 using static System.Net.WebRequestMethods;
 using BorsodCoding_WPF_Admin.Mezok;
 using BorsodCoding_WPF_Admin.Dtos;
+using BorsodCoding_WPF_Admin.AddOrUpdateWindows;
 
 namespace BorsodCoding_WPF_Admin.Tablak
 {
@@ -79,15 +80,15 @@ namespace BorsodCoding_WPF_Admin.Tablak
 
         public override void LoadAddDataWindow(string token)
         {
-            AddOrUpdateSave addOrUpdateSave = new AddOrUpdateSave(token, this);
-            addOrUpdateSave.ShowDialog();
+            AddWindow addOrUpdateSave = new AddWindow(token, new InsertSaveDto());
+            addOrUpdateSave.Show();
         }
 
 
         public override void LoadUpdateDataWindow(string token, object jsonBody)
         {
-            AddOrUpdateSave addOrUpdateUser = new AddOrUpdateSave(token, (jsonBody as PutSaveDto), this);
-            addOrUpdateUser.ShowDialog();
+            UpdateWindow updateWindow = new UpdateWindow(token, jsonBody);
+            updateWindow.Show();
         }
 
 

@@ -81,13 +81,13 @@ namespace BorsodCoding_WPF_Admin.Tablak
         public override void LoadAddDataWindow(string token)
         {
             AddWindow addWindow = new AddWindow(token, new InsertUserDto());
-            addWindow.ShowDialog();
+            addWindow.Show();
         }
 
         public override void LoadUpdateDataWindow(string token, object userjsonBody)
         {
-            AddOrUpdateUser addOrUpdateUser = new AddOrUpdateUser(token, (userjsonBody as UserDto), this);
-            addOrUpdateUser.ShowDialog();
+            UpdateWindow updateWindow = new UpdateWindow(token, userjsonBody);
+            updateWindow.Show();
         }
 
     }

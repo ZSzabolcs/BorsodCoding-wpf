@@ -52,7 +52,12 @@ namespace BorsodCoding_WPF_Admin
                 delURL: "https://localhost:7159/api/Save?id=",
                 new SaveMezoi()
                 );
-            var velemenyTabla = new VelemenyTabla("vélemény", new VelemenyMezoi());
+            var velemenyTabla = new VelemenyTabla("vélemény",
+                getURL: "https://localhost:7159/api/Velemeny",
+                postURL: "https://localhost:7159/api/Velemeny",
+                putURL: "https://localhost:7159/api/Velemeny/FromWPF",
+                delURL: "https://localhost:7159/api/Velemeny/FromWPF?id=",
+                new VelemenyMezoi());
             tablaKollekcio.Add(userTabla.TablaNev, userTabla);
             tablaKollekcio.Add(saveTabla.TablaNev, saveTabla);
             tablaKollekcio.Add(velemenyTabla.TablaNev, velemenyTabla);

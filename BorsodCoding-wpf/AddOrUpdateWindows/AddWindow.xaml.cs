@@ -54,7 +54,7 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
                     object content;
                     content = textbox.Text;
                     int szam;
-                    if (int.TryParse(textbox.Text, out szam))
+                    if (int.TryParse(textbox.Text, out szam) && objectForm.GetType().GetProperty(oszlop).PropertyType == typeof(int))
                     {
                         content = szam;
                     }
