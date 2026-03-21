@@ -54,8 +54,19 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
                 if (type == typeof(string) || type == typeof(int))
                 {
                     input = new TextBox();
-                    (input as TextBox).Name = $"tbx{item.Name}";
-                    (input as TextBox).Text = objectForm.GetType().GetProperty(item.Name).GetValue(objectForm).ToString();
+                    if (item.Name == "Password")
+                    {
+                        input = new TextBox();
+                        (input as TextBox).Name = $"tbx{item.Name}";
+
+                    }
+                    else
+                    {
+                        (input as TextBox).Name = $"tbx{item.Name}";
+                        var ertek = objectForm.GetType().GetProperty(item.Name).GetValue(objectForm) ?? "";
+                        (input as TextBox).Text = ertek.ToString();
+                    }
+
                 }
 
                 if (type == typeof(DateTime))
@@ -97,13 +108,13 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
                 if (item is TextBox && oszlop == "Password")
                 {
                     var textbox = item as TextBox;
-                    if (textbox.Text == "")
+                    if (textbox.Text != "")
                     {
-                        continue;
+                        objectForm.GetType().GetProperty(oszlop).SetValue(objectForm, textbox.Text);
                     }
                     else
                     {
-                        objectForm.GetType().GetProperty(oszlop).SetValue(objectForm, textbox.Text);
+                        objectForm.GetType().GetProperty(oszlop).SetValue(objectForm, "");
                     }
 
                 }
@@ -134,7 +145,7 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
                     objectForm.GetType().GetProperty(oszlop).SetValue(objectForm, ertek);
                 }
             }
-
+            MessageBox.Show(objectForm.ToString());
             var resp = await actualTabla.UpdateAData(objectForm, token);
             if ((resp as HttpResponseMessage).IsSuccessStatusCode)
             {

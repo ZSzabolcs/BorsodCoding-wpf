@@ -34,7 +34,7 @@ namespace BorsodCoding_WPF_Admin.Tablak
             var jsonBody = new InsertUserDto()
             {
                 UserName = record.UserName,
-                Password = "",
+                Password = null,
                 Email = record.Email
             };
 
