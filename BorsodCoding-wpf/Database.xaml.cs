@@ -110,7 +110,7 @@ namespace BorsodCoding_WPF_Admin
         private async void button_KivalasztottRekordTorlese(object sender, RoutedEventArgs e)
         {
             var response = await tablaKollekcio[kivalasztottTabla].DeleteAData(kivalasztottId, userToken);
-            
+            TablaBetoltes();
         }
 
         private async void button_KivalasztottRekordModositas(object sender, RoutedEventArgs e)
