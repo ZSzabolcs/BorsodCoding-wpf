@@ -46,7 +46,7 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
                 label.Content = item.Name;
                 UIElement input = new UIElement();
 
-                if (item.Name == "Id")
+                if (item.Name == "Id" || item.Name == "UserName")
                 {
                     continue;
                 }
@@ -54,18 +54,10 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
                 if (type == typeof(string) || type == typeof(int))
                 {
                     input = new TextBox();
-                    if (item.Name == "Password")
-                    {
-                        input = new TextBox();
-                        (input as TextBox).Name = $"tbx{item.Name}";
+                    (input as TextBox).Name = $"tbx{item.Name}";
+                    var ertek = objectForm.GetType().GetProperty(item.Name).GetValue(objectForm) ?? "";
+                    (input as TextBox).Text = ertek.ToString();
 
-                    }
-                    else
-                    {
-                        (input as TextBox).Name = $"tbx{item.Name}";
-                        var ertek = objectForm.GetType().GetProperty(item.Name).GetValue(objectForm) ?? "";
-                        (input as TextBox).Text = ertek.ToString();
-                    }
 
                 }
 
@@ -122,12 +114,21 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
                 if (item is TextBox)
                 {
                     var textbox = item as TextBox;
-                    object content = textbox.Text; 
+                    object content = null;
                     int szam;
-                    if (int.TryParse(textbox.Text, out szam))
+                    Type type = Nullable.GetUnderlyingType(objectForm.GetType().GetProperty(oszlop).PropertyType) ?? objectForm.GetType().GetProperty(oszlop).PropertyType;
+                    if (type == typeof(string))
                     {
-                        content = szam;
+                        content = textbox.Text;
+
                     }
+                    else if (type == typeof(int) && int.TryParse(textbox.Text, out szam))
+                    {
+
+                        content = szam;
+
+                    }
+
                     objectForm.GetType().GetProperty(oszlop).SetValue(objectForm, content);
                 }
 
@@ -145,6 +146,7 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
                     objectForm.GetType().GetProperty(oszlop).SetValue(objectForm, ertek);
                 }
             }
+
             MessageBox.Show(objectForm.ToString());
             var resp = await actualTabla.UpdateAData(objectForm, token);
             if ((resp as HttpResponseMessage).IsSuccessStatusCode)

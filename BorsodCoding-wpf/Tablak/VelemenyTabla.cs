@@ -30,7 +30,7 @@ namespace BorsodCoding_WPF_Admin.Tablak
         {
             var collection = currentTableCollection as ObservableCollection<VelemenyMezoi>;
             var record = collection[index];
-            var jsonBody = new VelemenyMezoi()
+            var jsonBody = new PutVelemeny()
             {
                 Id = record.Id,
                 Ertekeles = record.Ertekeles,

@@ -74,8 +74,6 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
                 }
             }
 
-            MessageBox.Show(objectForm.ToString());
-
             var resp = await actualTabla.InsertAData(objectForm, token);
 
             if (resp is HttpResponseMessage)
