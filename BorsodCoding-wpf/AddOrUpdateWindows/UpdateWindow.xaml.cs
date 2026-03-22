@@ -97,20 +97,6 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
                     oszlop = label.Content.ToString();
                 }
 
-                if (item is TextBox && oszlop == "Password")
-                {
-                    var textbox = item as TextBox;
-                    if (textbox.Text != "")
-                    {
-                        objectForm.GetType().GetProperty(oszlop).SetValue(objectForm, textbox.Text);
-                    }
-                    else
-                    {
-                        objectForm.GetType().GetProperty(oszlop).SetValue(objectForm, "");
-                    }
-
-                }
-
                 if (item is TextBox)
                 {
                     var textbox = item as TextBox;
@@ -119,7 +105,14 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
                     Type type = Nullable.GetUnderlyingType(objectForm.GetType().GetProperty(oszlop).PropertyType) ?? objectForm.GetType().GetProperty(oszlop).PropertyType;
                     if (type == typeof(string))
                     {
-                        content = textbox.Text;
+                        if (textbox.Text != "")
+                        {
+                            content = textbox.Text;
+                        }
+                        else
+                        {
+                            content = "";
+                        }
 
                     }
                     else if (type == typeof(int) && int.TryParse(textbox.Text, out szam))
