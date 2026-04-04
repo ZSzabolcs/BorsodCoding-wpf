@@ -33,7 +33,7 @@ namespace BorsodCoding_WPF_Admin
 
 
 
-                if (Address.Text == "localhost" && DatabaseName.Text == "for_the_potato")
+                if (Address.Text == "localhost" && DatabaseName.Text == "for_the_potato" && GetPassword(Passw) == "String123!" && UserName.Text  == "krisz")
                 {
                     var client = new HttpClient();
                     var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7159/auth/login");

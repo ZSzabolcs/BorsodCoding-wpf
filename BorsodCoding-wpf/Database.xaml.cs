@@ -46,16 +46,26 @@ namespace BorsodCoding_WPF_Admin
         /// </summary>
         /// <param name="jsonString">JSON szöveg</param>
         /// <param name="property">JSON-ben keresendő mező</param>
-        public static void ShowJsonProperty(string jsonString, string property)
+        public static void ShowJsonProperty(string jsonString, string property, bool isSuccesfull)
         {
-
-            if (jsonString.StartsWith('{'))
+            bool isJsoon = jsonString.StartsWith('{');
+            if (isJsoon && isSuccesfull)
             {
                 JsonDocument jsonDocument = JsonDocument.Parse(jsonString);
                 if (jsonDocument.RootElement.TryGetProperty(property, out var messageElement))
                 {
                     string message = messageElement.GetString();
                     MessageBox.Show(message, "Infó", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            else if (isJsoon && !isSuccesfull)
+            {
+            
+                JsonDocument jsonDocument = JsonDocument.Parse(jsonString);
+                if (jsonDocument.RootElement.TryGetProperty(property, out var messageElement))
+                {
+                    string message = messageElement.GetString();
+                    MessageBox.Show(message, "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else

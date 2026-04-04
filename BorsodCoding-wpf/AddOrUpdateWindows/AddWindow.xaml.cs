@@ -61,7 +61,8 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
                         }
                         else
                         {
-                            content = "";
+                            vanHiba = true;
+                            hibaOszlopNev = oszlopNev;
                         }
 
                     }
