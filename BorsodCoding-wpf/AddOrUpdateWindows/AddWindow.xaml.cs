@@ -97,6 +97,7 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
                     {
                         Close();
                     }
+
                 }
             }
         }

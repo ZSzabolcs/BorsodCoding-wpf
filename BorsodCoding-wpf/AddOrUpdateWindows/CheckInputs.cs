@@ -37,6 +37,10 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
                         {
                             content = textbox.Text;
                         }
+                        else
+                        {
+                            content = "";
+                        }
 
                     }
                     else if (type == typeof(int) && int.TryParse(textbox.Text, out szam))

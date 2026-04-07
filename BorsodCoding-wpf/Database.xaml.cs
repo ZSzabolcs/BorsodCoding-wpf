@@ -67,6 +67,10 @@ namespace BorsodCoding_WPF_Admin
                     string message = messageElement.GetString();
                     MessageBox.Show(message, "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+                else
+                {
+                    MessageBox.Show(jsonString, "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
             else
             {
