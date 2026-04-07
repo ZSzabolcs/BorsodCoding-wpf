@@ -112,7 +112,7 @@ namespace BorsodCoding_WPF_Admin.Tablak
                 var client = GetOwnClient(token);
                 response = await client.DeleteAsync(DelURL + id);
                 string jsonString = await response.Content.ReadAsStringAsync();
-                Database.ShowJsonProperty(jsonString, "message", response.IsSuccessStatusCode);
+                Database.ShowJsonPropertyValue(jsonString, "message", response.IsSuccessStatusCode);
                 return response;
 
 
@@ -138,7 +138,7 @@ namespace BorsodCoding_WPF_Admin.Tablak
                 var options = GetOwnJsonSerializerOptions();
                 HttpResponseMessage response = await client.PostAsJsonAsync(PostURL, jsonBody, options);
                 string jsonString = await response.Content.ReadAsStringAsync();
-                Database.ShowJsonProperty(jsonString, "message", response.IsSuccessStatusCode);
+                Database.ShowJsonPropertyValue(jsonString, "message", response.IsSuccessStatusCode);
                 return response;
             }
             catch (Exception ex)
@@ -159,7 +159,7 @@ namespace BorsodCoding_WPF_Admin.Tablak
                 var options = GetOwnJsonSerializerOptions();
                 HttpResponseMessage response = await client.PutAsJsonAsync(PutURL, jsonBody, options);
                 string jsonString = await response.Content.ReadAsStringAsync();
-                Database.ShowJsonProperty(jsonString, "message", response.IsSuccessStatusCode);
+                Database.ShowJsonPropertyValue(jsonString, "message", response.IsSuccessStatusCode);
                 return response;
 
             }

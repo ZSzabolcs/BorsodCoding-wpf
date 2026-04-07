@@ -88,76 +88,20 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
 
         private async void ModifyRecord(object sender, RoutedEventArgs e)
         {
-            string oszlopNev = "";
-            string hibaOszlopNev = "";
-            bool vanHiba = false;
-            foreach (var item in stpInputs.Children)
+            var state = CheckInputs.IsThereError(stpInputs, ref objectForm);
+            if (state.vanEHiba)
             {
-                
-                if (item is Label)
-                {
-                    Label label = item as Label;
-                    oszlopNev = label.Content.ToString();
-                }
-
-                if (item is TextBox)
-                {
-                    var textbox = item as TextBox;
-                    object content = null;
-                    int szam;
-                    Type type = Nullable.GetUnderlyingType(objectForm.GetType().GetProperty(oszlopNev).PropertyType) ?? objectForm.GetType().GetProperty(oszlopNev).PropertyType;
-                    if (type == typeof(string))
-                    {
-                        if (textbox.Text != "")
-                        {
-                            content = textbox.Text;
-                        }
-                        else
-                        {
-                            content = "";
-                        }
-
-                    }
-                    else if (type == typeof(int) && int.TryParse(textbox.Text, out szam))
-                    {
-
-                        content = szam;
-
-                    }
-                    else
-                    {
-                        vanHiba = true;
-                        hibaOszlopNev = oszlopNev;
-                    }
-
-                        objectForm.GetType().GetProperty(oszlopNev).SetValue(objectForm, content);
-                }
-
-                if (item is CheckBox)
-                {
-                    var checkbox = item as CheckBox;
-                    var ertek = checkbox.IsChecked ?? false;
-                    objectForm.GetType().GetProperty(oszlopNev).SetValue(objectForm, ertek);
-                }
-
-                if (item is DatePicker)
-                {
-                    var datepicker = item as DatePicker;
-                    var ertek = datepicker.SelectedDate;
-                    objectForm.GetType().GetProperty(oszlopNev).SetValue(objectForm, ertek);
-                }
-            }
-
-            if (vanHiba)
-            {
-                MessageBox.Show($"Hiba a {hibaOszlopNev} bemenetnél! Rosszul adott meg egy adatot!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Hiba a {state.hibaOszlopNev} bemenetnél! Rosszul adott meg egy adatot!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
                 var resp = await actualTabla.UpdateAData(objectForm, token);
-                if ((resp as HttpResponseMessage).IsSuccessStatusCode)
+                if (resp is HttpResponseMessage)
                 {
-                    Close();
+                    if ((resp as HttpResponseMessage).IsSuccessStatusCode)
+                    {
+                        Close();
+                    }
                 }
             }
         }

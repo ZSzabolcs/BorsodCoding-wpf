@@ -33,91 +33,10 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
             objectForm = tabla.mezo;
             actualTabla = tabla;
         }
-
-        private async void NewRecord(object sender, RoutedEventArgs e)
-        {
-            string hibaOszlopNev = "";
-            string oszlopNev = "";
-            bool vanHiba = false;
-            foreach (var item in stpInputs.Children)
-            {
-                if (item is Label)
-                {
-                    Label label = item as Label;
-                    oszlopNev = label.Content.ToString();
-                }
-
-                if (item is TextBox)
-                {
-                    var textbox = item as TextBox;
-                    object content = null;
-                    int szam;
-                    Type type = Nullable.GetUnderlyingType(objectForm.GetType().GetProperty(oszlopNev).PropertyType) ?? objectForm.GetType().GetProperty(oszlopNev).PropertyType;
-                    if (type == typeof(string))
-                    {
-                        if (textbox.Text != "")
-                        {
-                            content = textbox.Text;
-                        }
-                        else
-                        {
-                            vanHiba = true;
-                            hibaOszlopNev = oszlopNev;
-                        }
-
-                    }
-                    else if (type == typeof(int) && int.TryParse(textbox.Text, out szam))
-                    {
-
-                        content = szam;
-
-                    }
-                    else
-                    {
-                        vanHiba = true;
-                        hibaOszlopNev = oszlopNev;
-                    }
-
-                    objectForm.GetType().GetProperty(oszlopNev).SetValue(objectForm, content);
-                }
-
-                if (item is CheckBox)
-                {
-                    var checkbox = item as CheckBox;
-                    var ertek = checkbox.IsChecked ?? false;
-                    objectForm.GetType().GetProperty(oszlopNev).SetValue(objectForm, ertek);
-                }
-
-                if (item is DatePicker)
-                {
-                    var datepicker = item as DatePicker;
-                    var ertek = datepicker.SelectedDate;
-                    objectForm.GetType().GetProperty(oszlopNev).SetValue(objectForm, ertek);
-                }
-            }
-            if (vanHiba)
-            {
-                MessageBox.Show($"Hiba a {hibaOszlopNev} bemenetnél! Rosszul adott meg egy adatot!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else
-            {
-                var resp = await actualTabla.InsertAData(objectForm, token);
-
-                if (resp is HttpResponseMessage)
-                {
-                    if ((resp as HttpResponseMessage).IsSuccessStatusCode)
-                    {
-                        Close();
-                    }
-                }
-            }
-        }
-
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             var oszlopok = objectForm.GetType().GetProperties();
-            
+
             foreach (var item in oszlopok)
             {
                 Type type = Nullable.GetUnderlyingType(item.PropertyType) ?? item.PropertyType;
@@ -159,5 +78,28 @@ namespace BorsodCoding_WPF_Admin.AddOrUpdateWindows
             button.Click += NewRecord;
             stpInputs.Children.Add(button);
         }
+
+
+        private async void NewRecord(object sender, RoutedEventArgs e)
+        {
+            var state = CheckInputs.IsThereError(stpInputs, ref objectForm);
+            if (state.vanEHiba)
+            {
+                MessageBox.Show($"Hiba a {state.hibaOszlopNev} bemenetnél! Rosszul adott meg egy adatot!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                var resp = await actualTabla.InsertAData(objectForm, token);
+
+                if (resp is HttpResponseMessage)
+                {
+                    if ((resp as HttpResponseMessage).IsSuccessStatusCode)
+                    {
+                        Close();
+                    }
+                }
+            }
+        }
+
     }
 }
