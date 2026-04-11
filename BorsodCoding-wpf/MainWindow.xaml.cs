@@ -31,8 +31,6 @@ namespace BorsodCoding_WPF_Admin
             try
             {
 
-
-
                 if (Address.Text == "localhost" && DatabaseName.Text == "for_the_potato" && GetPassword(Passw) == "String123!" && UserName.Text  == "krisz")
                 {
                     var client = new HttpClient();
@@ -81,29 +79,22 @@ namespace BorsodCoding_WPF_Admin
         
         public static string GetPassword(PasswordBox passwordBox)
         {
-            // A jelszó a SecureString típusban érkezik
             SecureString securePassword = passwordBox.SecurePassword;
 
-            // Kezdetben null értékű string
             string plainPassword = null;
 
-            // Memóriacím (pointer) a jelszóhoz
             IntPtr unmanagedString = IntPtr.Zero;
 
             try
             {
-                // 1. A SecureString tartalmát nem menedzselt memóriába (IntPtr) másoljuk
                 unmanagedString = Marshal.SecureStringToGlobalAllocUnicode(securePassword);
 
-                // 2. A nem menedzselt memóriából stringet hozunk létre
                 plainPassword = Marshal.PtrToStringUni(unmanagedString);
 
-                // Ekkor a plainPassword tartalmazza a jelszót
                 return plainPassword;
             }
             finally
             {
-                // 3. A memóriát felszabadítjuk, HIBÁTLANUL TÖRÖLNI KELL A MEMÓRIÁBÓL
                 if (unmanagedString != IntPtr.Zero)
                 {
                     Marshal.ZeroFreeGlobalAllocUnicode(unmanagedString);
