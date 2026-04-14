@@ -1,6 +1,6 @@
 [Setup]
 #define MyAppName "Borsod Coding WPF Admin Setup"
-#define MyAppExeName "Borsod Coding WPF Admin.exe"
+#define MyAppExeName "BorsodCoding WPF Admin.exe"
 
 AppId=Borsod Coding WPF Admin Setupper
 AppName={#MyAppName}
@@ -24,8 +24,8 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "D
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "Additional icons:"; Flags: unchecked;
 
 [Icons]
-Name: "{group}\BorsodCoding_WPF_Admin"; Filename: "{app}\{#MyAppExeName}"; WorkingDir: "{app}"; IconFilename: "{app}\{#MyAppExeName}"; IconIndex: 0
-Name: "{commondesktop}\BorsodCoding_WPF_Admin"; Filename: "{app}\{#MyAppExeName}"; WorkingDir: "{app}"; IconFilename: "{app}\{#MyAppExeName}"; IconIndex: 0; Tasks: desktopicon
+Name: "{group}\{#MyAppExeName}"; Filename: "{app}\{#MyAppExeName}"; WorkingDir: "{app}"; IconFilename: "{app}\{#MyAppExeName}"; IconIndex: 0
+Name: "{commondesktop}\{#MyAppExeName}"; Filename: "{app}\{#MyAppExeName}"; WorkingDir: "{app}"; IconFilename: "{app}\{#MyAppExeName}"; IconIndex: 0; Tasks: desktopicon
 
 [CustomMessages]
 CreateDesktopIcon=Create a &desktop icon

@@ -28,6 +28,8 @@ namespace BorsodCoding_WPF_Admin.Mezok
         public VelemenyMezoi() { }
         public string Ertekeles { get;  set; }
         public string Megjegyzes { get;  set; }
+        public DateTime RegDate { get; set; }
+        public DateTime ModDate { get; set; }
     }
 
     public class UserMezoi : Mezo
